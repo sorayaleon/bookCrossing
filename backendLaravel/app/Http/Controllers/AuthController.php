@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+// use Illuminate\Foundation\Auth\User;
+use App\Http\Requests\registroRequest;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -14,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','registro']]);
     }
 
     /**
@@ -27,10 +30,16 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'El email o la contraseña no existe'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    public function registro(registroRequest $request){
+        
+        User::create($request->all());
+        return $this->login($request);
     }
 
     /**
