@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TokenService } from '../../Services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -22,7 +24,9 @@ export class RegistroComponent implements OnInit {
 
 
   constructor(
-    private http:HttpClient
+    private http:HttpClient,
+    private Token: TokenService,
+    private router: Router
   ) { 
     this.url = Global.url;
   }
@@ -32,10 +36,15 @@ export class RegistroComponent implements OnInit {
 
   onSubmit(){
     return this.http.post(this.url +'registro', this.form).subscribe(
-      data => console.log(data),
+      data => this.handleResponse(data),
       error => this.handleError(error)
     );
   }
+
+  handleResponse(data){
+    this.Token.handle(data.access_token);
+    this.router.navigateByUrl('/home');
+    }
 
   handleError(error){
     this.error = error.error.errors;
