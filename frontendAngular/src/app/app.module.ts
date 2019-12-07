@@ -18,7 +18,10 @@ import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SesionIniciadaService } from './Services/sesion-iniciada.service';
 import { AntesInicioSesionService } from './Services/antes-inicio-sesion.service';
-
+import {MatIconModule} from '@angular/material/icon';
+import { CreateEstablecimientoComponent } from './components/establecimiento/create-establecimiento/create-establecimiento.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { AntesInicioSesionService } from './Services/antes-inicio-sesion.service
     RequestResetComponent,
     ResponseResetComponent,
     HomeComponent,
+    CreateEstablecimientoComponent,
     MatConfirmDialogComponent,
+    FilterPipe,
    
     
   ],
@@ -43,7 +48,8 @@ import { AntesInicioSesionService } from './Services/antes-inicio-sesion.service
     BrowserAnimationsModule,
     MatDialogModule,
     ReactiveFormsModule,
-    
+    MatIconModule,
+    NgxPaginationModule,
 
   ],
   providers: [
@@ -53,6 +59,6 @@ import { AntesInicioSesionService } from './Services/antes-inicio-sesion.service
     SesionIniciadaService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [MatConfirmDialogComponent, ]
+  entryComponents: [MatConfirmDialogComponent ]
 })
 export class AppModule { }

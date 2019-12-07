@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('establecimientos', 'EstablecimientosController@store');
+Route::get('establecimientos/{id}', 'EstablecimientosController@show');
+Route::delete('establecimientos', 'EstablecimientosController@destroy');
+Route::put('establecimientos', 'EstablecimientosController@update');

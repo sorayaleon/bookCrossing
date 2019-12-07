@@ -1,13 +1,6 @@
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-usuario-tab" data-toggle="tab" href="#nav-usuario" role="tab" aria-controls="nav-usuario" aria-selected="true">Usuario</a>
-      <a class="nav-item nav-link" id="nav-establecimiento-tab" data-toggle="tab" href="#nav-establecimiento" role="tab" aria-controls="nav-establecimiento" aria-selected="false">Establecimiento</a>
-      
-    </div>
-  </nav>
 
-  <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-usuario" role="tabpanel" aria-labelledby="nav-usuario-tab">
+
+  
 <div class="mt4 col-8 offset-2">
     <div class="card">
       <div class="card-header">Regístrate</div>
@@ -21,7 +14,7 @@
               <div class="col-sm-10">
                 <input type="text" name="dni" class="form-control" id="inputDni3" placeholder="DNI" formControlName="dni"  [(ngModel)]="form.dni" required>
                 <div class="alert alert-danger" [hidden]="!error">
-                  <span *ngIf="formularioRegistro.get('dni').errors && formularioRegistro.get('dni').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span>
+                  <span *ngIf="formularioRegistro.get('dni').errors && formularioRegistro.get('dni').dirty"></span>
               </div>
               </div>
             </div>
@@ -31,7 +24,7 @@
               <div class="col-sm-10">
                 <input type="text" name="nombre" class="form-control" id="inputNombre3" placeholder="Nombre" formControlName="nombre" [(ngModel)]="form.nombre" required>
                 <div class="alert alert-danger" [hidden]="!error">
-                  <span *ngIf="formularioRegistro.get('nombre').errors && formularioRegistro.get('nombre').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span>
+                  <span *ngIf="formularioRegistro.get('nombre').errors && formularioRegistro.get('nombre').dirty"></span>
                 </div>
               </div>
             </div>
@@ -41,7 +34,7 @@
               <div class="col-sm-10">
                 <input type="text" name="apellidos" class="form-control" id="inputApellidos3" placeholder="Apellidos" formControlName="apellidos" [(ngModel)]="form.apellidos" required>
                 <div class="alert alert-danger" [hidden]="!error">
-                  <span *ngIf="formularioRegistro.get('apellidos').errors && formularioRegistro.get('apellidos').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span>
+                  <span *ngIf="formularioRegistro.get('apellidos').errors && formularioRegistro.get('apellidos').dirty"></span>
                 </div>
               </div>
             </div>
@@ -51,7 +44,7 @@
                 <div class="col-sm-10">
                   <input type="text" name="alias" class="form-control" id="inputAlias3" placeholder="Alias" formControlName="alias" [(ngModel)]="form.alias" required>
                   <div class="alert alert-danger" [hidden]="!error">
-                    <span *ngIf="formularioRegistro.get('alias').errors && formularioRegistro.get('alias').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span>
+                    <span *ngIf="formularioRegistro.get('alias').errors && formularioRegistro.get('alias').dirty"></span>
                   </div>
                 </div>
               </div>
@@ -61,7 +54,7 @@
                   <div class="col-sm-10">
                     <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" formControlName="email" [(ngModel)]="form.email" required>
                     <div class="alert alert-danger" [hidden]="!error">
-                      <span *ngIf="formularioRegistro.controls['password'].errors?.maxlength">La longitud no puede ser mayor de 30 caracteres</span>
+                      <span *ngIf="formularioRegistro.controls['email'].errors?.maxlength"></span>
                     </div>
                   </div>
                 </div>
@@ -99,10 +92,6 @@
       </div> 
     </div> 
   </div>
-    </div>
-
-    <div class="tab-pane fade" id="nav-establecimiento" role="tabpanel" aria-labelledby="nav-establecimiento-tab">
-
-    </div>
     
-  </div>
+
+    

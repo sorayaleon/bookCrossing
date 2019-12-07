@@ -7,6 +7,7 @@ import { ResponseResetComponent } from './components/password/response-reset/res
 import { HomeComponent } from './components/home/home.component';
 import { AntesInicioSesionService } from './Services/antes-inicio-sesion.service';
 import { SesionIniciadaService } from './Services/sesion-iniciada.service';
+import { CreateEstablecimientoComponent } from './components/establecimiento/create-establecimiento/create-establecimiento.component';
 
 const routes: Routes = [
 
@@ -15,6 +16,11 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [SesionIniciadaService]},
   {path: 'requestPass', component: RequestResetComponent, canActivate: [AntesInicioSesionService]},
   {path: 'responsePass', component: ResponseResetComponent, canActivate: [SesionIniciadaService]},
+  {path: 'createEstablecimiento', component: CreateEstablecimientoComponent},
+  // {path: 'gestionLibros', component: GestionLibrosComponent},
+  // {path: 'fichaLibros/:id', component: FichaLibrosComponent},
+  // {path: 'updateLibro/:id', component: UpdateLibroComponent},
+  // {path: 'refresh', component: RefreshComponent},
 ];
 
 @NgModule({

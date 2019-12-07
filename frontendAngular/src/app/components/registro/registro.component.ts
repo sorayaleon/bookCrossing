@@ -21,21 +21,31 @@ export class RegistroComponent implements OnInit {
     alias: null,
     email: null,
     password: null,
-    foto: null,
+    // foto: null,
     passwordRep: null
   };
+
+
+
   public error: [];
   public url:string;
   public formularioRegistro: FormGroup;
   public usuario: Usuario;
+  
+
+  // public formularioEstablecimiento: FormGroup;
+
+
   constructor(
     private http:HttpClient,
     private Token: TokenService,
     private router: Router,
     public fb: FormBuilder,
+    public fbe: FormBuilder
   ) { 
     this.url = Global.url;
     this.usuario = new Usuario(0,  '', '', '',  '', '', '', '',  '');
+    // this.local = new Establecimiento(0,'','','','',0, 0, '','',0,0,'','',);
     // this.createForm();
 
     this.formularioRegistro = this.fb.group({
@@ -49,7 +59,7 @@ export class RegistroComponent implements OnInit {
       passwordRep:['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
     }, {validator: this.passwordMatchValidator});
   }
-
+ 
   ngOnInit() {
   }
 
@@ -58,7 +68,9 @@ export class RegistroComponent implements OnInit {
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
+
   }
+
 
   handleResponse(data){
     this.Token.handle(data.access_token);
@@ -69,9 +81,31 @@ export class RegistroComponent implements OnInit {
     this.error = error.error.errors;
   }
 
+
   passwordMatchValidator(formularioRegistro) {
     return formularioRegistro.get('password').value === formularioRegistro.get('passwordRep').value
        ? null : {'mismatch': true};
+ }
+
+ dniValidate(formularioRegistro){
+  var validChars = 'TRWAGMYFPDXBNJZSQVHLCKET';
+  var nifRexp = /^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+  var nieRexp = /^[XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKET]$/i;
+  var str = formularioRegistro.get('dni').toString().toUpperCase();
+
+  if (!nifRexp.test(str) && !nieRexp.test(str)) return false;
+
+  var nie = str
+    .replace(/^[X]/, '0')
+    .replace(/^[Y]/, '1')
+    .replace(/^[Z]/, '2');
+
+  var letter = str.substr(-1);
+  var charIndex = parseInt(nie.substr(0, 8)) % 23;
+
+  if (validChars.charAt(charIndex) === letter) return true;
+
+  return false;
  }
 
 //  createForm(){
