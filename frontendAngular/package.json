@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
     "@ng-bootstrap/ng-bootstrap": "^5.1.4",
+    "angular-material-icons": "^0.7.1",
+    "angular-paginator": "^3.0.0",
     "bootstrap": "^4.4.1",
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",

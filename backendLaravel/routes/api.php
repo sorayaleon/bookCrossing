@@ -31,5 +31,10 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
-    Route::post('establecimientos', 'EstablecimientosController@store');
+    
 });
+
+Route::resource('establecimientos', 'EstablecimientosController');
+Route::resource('libros', 'LibrosController');
+Route::resource('usuarios', 'UsersController');
+Route::put('estados', 'EstablecimientosController@updateEstado');

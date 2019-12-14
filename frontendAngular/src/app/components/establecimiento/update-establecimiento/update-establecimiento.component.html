@@ -1,0 +1,50 @@
+<div class="mt4 col-8 offset-2">
+    <div class="card">
+      <div class="card-header">Actualiza los datos de tu establecimiento</div>
+      <div class="card-body">
+          <form #registroForm="ngForm" [formGroup]="formularioEstablecimiento" (ngSubmit)="onSubmit()">
+            <!-- <div class="alert alert-danger" [hidden]="!error">
+              {{error}}
+            </div> -->
+
+              <div class="form-group row">
+                <label for="tfno" class="col-sm-2 col-form-label">Teléfono</label>
+                <div class="col-sm-10">
+                  <input type="number" name="tfno" class="form-control" id="tfno" placeholder="Teléfono" formControlName="tfno" [(ngModel)]="establecimiento.tfno" required>
+                  <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                    <!-- <span *ngIf="formularioRegistro.get('alias').errors && formularioRegistro.get('alias').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="horarioAp" class="col-sm-2 col-form-label">Hora Apertura</label>
+                <div class="col-sm-10">
+                  <input type="time" name="horarioAp" class="form-control" id="horarioAp" formControlName="horarioAp" [(ngModel)]="establecimiento.horarioAp" required>
+                  <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                    <!-- <span *ngIf="formularioRegistro.controls['password'].errors?.maxlength && formularioRegistro.controls['password'].errors?.minlength">La contraseña debe tener una longitud entre 5 y 20 caracteres</span> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="horarioC" class="col-sm-2 col-form-label">Hora Cierre</label>
+                <div class="col-sm-10">
+                  <input type="time" name="horarioC" class="form-control" id="horarioC" formControlName="horarioC" [(ngModel)]="establecimiento.horarioC" required>
+                  <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                    <!-- <span *ngIf="formularioRegistro.controls['password'].errors?.maxlength && formularioRegistro.controls['password'].errors?.minlength">La contraseña debe tener una longitud entre 5 y 20 caracteres</span> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-10 offset-2">
+                  <button type="submit" class="btn btn-primary" [disabled]="!registroForm.valid">Actualizar</button>
+                
+                </div>
+              </div>
+            </form>
+      </div> 
+    </div> 
+  </div>
+   

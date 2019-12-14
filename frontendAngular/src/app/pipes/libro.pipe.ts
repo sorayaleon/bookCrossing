@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filter'
+  name: 'libro'
 })
-export class FilterPipe implements PipeTransform {
-
+export class LibroPipe implements PipeTransform {
+ 
   transform(value: any, arg: any): any {
     if(arg === '' || arg.length < 3) return value;
     const resultLibros = [];

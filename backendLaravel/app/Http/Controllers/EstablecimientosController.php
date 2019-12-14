@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
 use App\Establecimiento;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+
 class EstablecimientosController extends Controller
 {
     /**
@@ -13,9 +15,9 @@ class EstablecimientosController extends Controller
      */
     public function index()
     {
-         $establecimientos = Establecimiento::all();
-         $respuesta = Response::json($establecimientos,200);
-         return $respuesta;
+        $establecimientos = Establecimiento::all();
+        $respuesta = Response::json($establecimientos, 200);
+        return $respuesta;
     }
 
     /**
@@ -44,12 +46,12 @@ class EstablecimientosController extends Controller
         $establecimiento->nombreEst = $data[0]["nombreEst"];
         $establecimiento->direccion = $data[0]["direccion"];
         $establecimiento->cp = $data[0]["cp"];
-        $establecimiento->tfno = $data[0]["tfno"];        
-        $establecimiento->horarioAp = $data[0]["horarioAp"]; 
-        $establecimiento->horarioC = $data[0]["horarioC"];  
-        $establecimiento->latitud = $data[0]["latitud"];    
-        $establecimiento->longitud = $data[0]["longitud"];       
-       
+        $establecimiento->tfno = $data[0]["tfno"];
+        $establecimiento->horarioAp = $data[0]["horarioAp"];
+        $establecimiento->horarioC = $data[0]["horarioC"];
+        $establecimiento->latitud = $data[0]["latitud"];
+        $establecimiento->longitud = $data[0]["longitud"];
+
         $establecimiento->save();
         // echo json_encode($libro);
         return json_encode("success");
@@ -88,27 +90,41 @@ class EstablecimientosController extends Controller
      */
     public function update(Request $request)
     {
-        try{
-            $data = json_decode($request->getContent(), true);            
+        try {
+            $data = json_decode($request->getContent(), true);
 
-            $establecimiento = Establecimiento::find($data[1]);
-            $establecimiento->nombreResp = $data[1]["nombreResp"];
-            $establecimiento->email = $data[1]["email"];
-            $establecimiento->nombreEst = $data[1]["nombreEst"];
-            $establecimiento->direccion = $data[1]["direccion"];
-            $establecimiento->cp = $data[1]["cp"];
-            $establecimiento->tfno = $data[1]["tfno"];        
-            $establecimiento->horarioAp = $data[1]["horarioAp"]; 
-            $establecimiento->horarioC = $data[1]["horarioC"];  
-            $establecimiento->latitud = $data[1]["latitud"];    
-            $establecimiento->longitud = $data[1]["longitud"];
+            $establecimiento = Establecimiento::find($data[0]);
+            // $establecimiento->nombreResp = $data[1]["nombreResp"];
+            // $establecimiento->email = $data[1]["email"];
+            // $establecimiento->nombreEst = $data[1]["nombreEst"];
+            // $establecimiento->direccion = $data[1]["direccion"];
+            // $establecimiento->cp = $data[1]["cp"];
+            $establecimiento->tfno = $data[1]["tfno"];
+            $establecimiento->horarioAp = $data[1]["horarioAp"];
+            $establecimiento->horarioC = $data[1]["horarioC"];
+            // $establecimiento->estado = $data[1]["estado"];
+            // $establecimiento->latitud = $data[1]["latitud"];
+            // $establecimiento->longitud = $data[1]["longitud"];
             $establecimiento->save();
-            
+
+            // $establecimiento = Establecimiento::find($data[0]);
+            // $establecimiento->nombreResp = $data[0]["nombreResp"];
+            // $establecimiento->email = $data[0]["email"];
+            // $establecimiento->nombreEst = $data[0]["nombreEst"];
+            // $establecimiento->direccion = $data[0]["direccion"];
+            // $establecimiento->cp = $data[0]["cp"];
+            // $establecimiento->tfno = $data[0]["tfno"];
+            // $establecimiento->horarioAp = $data[0]["horarioAp"];
+            // $establecimiento->horarioC = $data[0]["horarioC"];
+            // $establecimiento->latitud = $data[0]["latitud"];
+            // $establecimiento->longitud = $data[0]["longitud"];
+            // $establecimiento->save();
+
             return json_encode("success");
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return $e;
         }
-        
+
     }
 
     /**
@@ -121,5 +137,24 @@ class EstablecimientosController extends Controller
     {
         $establecimiento = Establecimiento::find($id);
         $establecimiento->delete();
+    }
+/**
+     * Update the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEstado(Request $request)
+    {
+        try {
+            $data = json_decode($request->getContent(), true);
+            $establecimiento = Establecimiento::find($data[0]);
+            $establecimiento->estado = $data[1];
+            $establecimiento->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }

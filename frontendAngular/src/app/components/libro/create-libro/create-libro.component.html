@@ -1,0 +1,76 @@
+<div class="container" >
+        <!--TITULO-->
+        <div class="text-center">
+            <h2>{{title}}</h2> <br/>
+        </div>
+    
+        <!--INICIO DEL FORMULARIO-->
+    
+        <form #libroForm="ngForm" [formGroup]="formularioLibro" (ngSubmit)="onSubmit(); formularioLibro.reset()">
+            <div class="form-row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="isbn">ISBN</label>
+                        <input type="number" class="form-control" name="isbn" formControlName="isbn" [(ngModel)]="libro.isbn">
+                        <span *ngIf="formularioLibro.get('isbn').errors && formularioLibro.get('isbn').dirty">Formato incorrecto</span>
+                    </div>    
+                    <div class="form-group col-md-6">
+                        <label for="categoria">CATEGORIA</label>
+                        <select class="custom-select mr-sm-2" name="categoria" formControlName="categoria" [(ngModel)]="libro.categoria">
+                            <option *ngFor = "let categoria of categoriaList" [value]="categoria">{{categoria}}</option>
+                        </select>
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="titulo">TITULO</label>
+                    <input type="text" class="form-control" name="titulo" formControlName="titulo" [(ngModel)]="libro.titulo">
+                    <span *ngIf="formularioLibro.get('titulo').errors && formularioLibro.get('titulo').dirty">Formato incorrecto</span> 
+                </div>
+    
+                <div class="form-group">
+                    <label for="autor">AUTOR</label>
+                    <input type="text" class="form-control" name="autor" formControlName="autor" [(ngModel)]="libro.autor">
+                    <span *ngIf="formularioLibro.get('autor').errors && formularioLibro.get('autor').dirty">Formato incorrecto</span>
+                </div>
+            
+                <div class="form-group">
+                    <label for="descripcion">DESCRIPCION</label>
+                    <textarea class="form-control" name="descripcion" formControlName="descripcion" [(ngModel)]="libro.descripcion"></textarea>
+                    <span *ngIf="formularioLibro.get('descripcion').errors && formularioLibro.get('descripcion').dirty">Formato incorrecto</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="establecimientoInicial">ESTABLECIMIENTO INICIAL</label>
+                    <input type="text" class="form-control" name="establecimientoInicial" formControlName="establecimientoInicial" [(ngModel)]="libro.establecimientoInicial">
+                    <span *ngIf="formularioLibro.get('establecimientoInicial').errors && formularioLibro.get('establecimientoInicial').dirty">Formato incorrecto</span> 
+                </div>
+            </div>
+    
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <br/> <br/> <br/>
+                <div class="text-center">
+                    <img src="{{'http://127.0.0.1:8000/recursos/book.png'}}" width="165px" height="auto">
+                    <h6>Sube la portada del libro</h6>
+                    <br/>
+                </div>
+                <!-- <div class="form-group"> -->
+                    <label for="portada"></label>
+                    <input type="file" id="portada" name="portada" placeholder="Subir imagen" (change)="fileChangeEvent($event)">
+                <!-- </div> -->
+            </div>
+                </div>
+            <br/><br/>
+            <div class="form-group">
+                <div class="text-center">
+                    <input type="submit"  class="btn btn-primary btn-lg" value="Crear" [disabled]="formularioLibro.invalid"> &nbsp;  
+                    <button type="button" class="btn btn-secondary btn-lg" [routerLink]="['/gestionLibros']">Volver</button>
+                </div>
+            </div>
+            
+        </form>
+        <!--FIN DEL FORMULARIO-->
+    </div>
+    
+    

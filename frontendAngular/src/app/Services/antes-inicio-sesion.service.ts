@@ -15,4 +15,5 @@ export class AntesInicioSesionService implements CanActivate{
   constructor(
     private token: TokenService
   ) { }
+
 }

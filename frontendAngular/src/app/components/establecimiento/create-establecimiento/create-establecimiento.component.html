@@ -1,100 +1,81 @@
 <div class="mt4 col-8 offset-2">
     <div class="card">
-      <div class="card-header">¿Quieres colaborar con nosotros? Regístra tu establecimiento</div>
+      <div class="card-header">Regístra tu establecimiento</div>
       <div class="card-body">
-
-          <form #establecimientoForm="ngForm" [formGroup]="formularioEstablecimiento" (ngSubmit)="onSubmit(); formularioEstablecimiento.reset()">
-          
-              <div class="form-group row">
-                  <label for="inputNombreEst3" class="col-sm-2 col-form-label">Nombre</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="nombreEst" class="form-control" id="inputNombreEst3" placeholder="Nombre del establecimiento" formControlName="nombreEst" [(ngModel)]="establecimiento.nombreEst" required>
-                    <!-- <div class="alert alert-danger" [hidden]="!error">
-                      
-                    </div> -->
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="inputNombreResp3" class="col-sm-2 col-form-label">Nombre del propietario</label>
-                    <div class="col-sm-10">
-                      <input type="text" name="nombreResp" class="form-control" id="inputNombreResp3" placeholder="Nombre del responsable del establecimiento" formControlName="nombreResp" [(ngModel)]="establecimiento.nombreResp" required>
-                      <!-- <div class="alert alert-danger" [hidden]="!error">
-                        
-                      </div> -->
-                    </div>
-                  </div>
-
-                  <div class="form-group row">
-                      <label for="inputDireccionp3" class="col-sm-2 col-form-label">Dirección</label>
-                      <div class="col-sm-10">
-                        <input type="text" name="direccion" class="form-control" id="inputDireccionp3" placeholder="Dirección del establecimiento" formControlName="direccion" [(ngModel)]="establecimiento.direccion" required>
-                        <!-- <div class="alert alert-danger" [hidden]="!error">
-                          
-                        </div> -->
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="inputCP3" class="col-sm-2 col-form-label">Código Postal</label>
-                        <div class="col-sm-10">
-                          <input type="number" name="cp" class="form-control" id="inputCP3" formControlName="cp" [(ngModel)]="establecimiento.cp" required>
-                          <!-- <div class="alert alert-danger" [hidden]="!error">
-                            
-                          </div> -->
-                        </div>
-                      </div>
-
-                      <div class="form-group row">
-                        <label for="inputTfno3" class="col-sm-2 col-form-label">Teléfono</label>
-                        <div class="col-sm-10">
-                          <input type="number" name="tfno" class="form-control" id="inputTfno3" formControlName="tfno" [(ngModel)]="establecimiento.tfno" required>
-                          <!-- <div class="alert alert-danger" [hidden]="!error">
-                            
-                          </div> -->
-                        </div>
-                      </div>
-
-                    <div class="form-group row">
-                        <label for="inputHorarioAp3" class="col-sm-2 col-form-label">Horario de apertura</label>
-                        <div class="col-sm-10">
-                          <input type="time" name="horarioAp" class="form-control" id="inputHorarioAp3" placeholder="Horario de apertura del establecimiento" formControlName="horarioAp" [(ngModel)]="establecimiento.horarioAp" required>
-                          <!-- <div class="alert alert-danger" [hidden]="!error">
-                            
-                          </div> -->
-                        </div>
-                      </div>
-
-                      <div class="form-group row">
-                          <label for="inputHorarioC3" class="col-sm-2 col-form-label">Horario de cierre</label>
-                          <div class="col-sm-10">
-                            <input type="time" name="horarioC" class="form-control" id="inputHorarioC3" placeholder="Horario de cierre del establecimiento" formControlName="horarioC" [(ngModel)]="establecimiento.horarioC" required>
-                            <!-- <div class="alert alert-danger" [hidden]="!error">
-                              
-                            </div> -->
-                          </div>
-                        </div>
-
-          
+          <form #registroForm="ngForm" [formGroup]="formularioEstablecimiento" (ngSubmit)="onSubmit(); formularioEstablecimiento.reset()">
+            <!-- <div class="alert alert-danger" [hidden]="!error">
+              {{error}}
+            </div> -->
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+              <label for="nombreEst" class="col-sm-2 col-form-label">Nombre</label>
               <div class="col-sm-10">
-                <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" formControlName="email" [(ngModel)]="establecimiento.email" required>
-                <!-- <div class="alert alert-danger" [hidden]="!error">
-                  
-                </div> -->
+                <input type="text" name="nombreEst" class="form-control" id="nombreEst" placeholder="Nombre del establecimiento" formControlName="nombreEst"  [(ngModel)]="establecimiento.nombreEst" required>
+                <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                  <!-- <span *ngIf="formularioRegistro.get('dni').errors && formularioRegistro.get('dni').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span> -->
+              <!-- </div> -->
               </div>
             </div>
 
-          <div class="form-group row">
-              <div class="col-sm-10 offset-2">
-                <button type="submit" class="btn btn-primary" >Registrarse</button>
-              
+            <div class="form-group row">
+              <label for="direccion" class="col-sm-2 col-form-label">Dirección</label>
+              <div class="col-sm-10">
+                <input type="text" name="direccion" class="form-control" id="direccion" placeholder="Dirección" formControlName="direccion" [(ngModel)]="establecimiento.direccion" required>
+                <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                  <!-- <span *ngIf="formularioRegistro.get('apellidos').errors && formularioRegistro.get('apellidos').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span> -->
+                <!-- </div> -->
               </div>
             </div>
-        
-          </form>
 
-      </div>
-    </div>
-</div>
+              <div class="form-group row">
+                <label for="cp" class="col-sm-2 col-form-label">Código Postal</label>
+                <div class="col-sm-10">
+                  <input type="text" name="cp" class="form-control" id="cp" placeholder="Código Postal" formControlName="cp" [(ngModel)]="establecimiento.cp" required>
+                  <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                    <!-- <span *ngIf="formularioRegistro.get('alias').errors && formularioRegistro.get('alias').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="tfno" class="col-sm-2 col-form-label">Teléfono</label>
+                <div class="col-sm-10">
+                  <input type="text" name="tfno" class="form-control" id="tfno" placeholder="Teléfono" formControlName="tfno" [(ngModel)]="establecimiento.tfno" required>
+                  <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                    <!-- <span *ngIf="formularioRegistro.get('alias').errors && formularioRegistro.get('alias').dirty">Campo requerido. La longitud no puede ser mayor de 15 caracteres</span> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="horarioAp" class="col-sm-2 col-form-label">Hora Apertura</label>
+                <div class="col-sm-10">
+                  <input type="time" name="horarioAp" class="form-control" id="horarioAp" formControlName="horarioAp" [(ngModel)]="establecimiento.horarioAp" required>
+                  <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                    <!-- <span *ngIf="formularioRegistro.controls['password'].errors?.maxlength && formularioRegistro.controls['password'].errors?.minlength">La contraseña debe tener una longitud entre 5 y 20 caracteres</span> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="horarioC" class="col-sm-2 col-form-label">Hora Cierre</label>
+                <div class="col-sm-10">
+                  <input type="time" name="horarioC" class="form-control" id="horarioC" formControlName="horarioC" [(ngModel)]="establecimiento.horarioC" required>
+                  <!-- <div class="alert alert-danger" [hidden]="!error"> -->
+                    <!-- <span *ngIf="formularioRegistro.controls['password'].errors?.maxlength && formularioRegistro.controls['password'].errors?.minlength">La contraseña debe tener una longitud entre 5 y 20 caracteres</span> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-sm-10 offset-2">
+                  <button type="submit" class="btn btn-primary" [disabled]="!registroForm.valid">Registrarse</button>&nbsp;
+                  <button type="button" class="btn btn-primary" [routerLink]="['/gestionEstablecimientos']">Volver</button>
+                </div>
+              </div>
+            </form>
+      </div> 
+    </div> 
+  </div>
+   
+    
+ 

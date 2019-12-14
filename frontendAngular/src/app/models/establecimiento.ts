@@ -12,5 +12,6 @@ export class Establecimiento{
         public latitud: number,
         public longitud: number,
         public estado: string,
+       
         ){}
 }

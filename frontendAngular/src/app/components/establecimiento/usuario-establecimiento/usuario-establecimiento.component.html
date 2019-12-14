@@ -1,0 +1,37 @@
+<div class="mt4 col-8 offset-2">
+    <div class="card">
+      <div class="card-header">Ficha establecimiento</div>
+      <div class="card-body">
+<div class="container" *ngIf="establecimiento">
+
+        <h2>Nombre:</h2><br/>
+        <h4>{{establecimiento.nombreEst}}</h4>
+        <br/>
+        <h2>Dirección:</h2><br/>
+        <h4>{{establecimiento.direccion}}</h4>
+       
+        <br/>
+        <h2>Código Postal:</h2><br/>
+        <p>{{establecimiento.cp}}</p>
+    
+        <br/>
+        <h2>Teléfono:</h2><br/>
+        <h2>{{establecimiento.tfno}}</h2>
+        <br/>
+        <h2>Hora de apertura:</h2><br/>
+        <h2>{{establecimiento.horarioAp}}</h2>
+   
+        <br/>
+        <h2>Hora de cierre:</h2><br/>
+        <h2>{{establecimiento.horarioC}}</h2>
+    
+
+<div class="form-group">
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/home']">Volver</button>&nbsp;  
+    </div>
+</div>
+    </div> 
+    </div> 
+  </div>
+</div>

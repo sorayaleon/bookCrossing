@@ -1,0 +1,37 @@
+<div class="container" *ngIf="libro">
+    
+        <!--TITULO-->
+        <div class="text-center">
+            <h1>{{libro.titulo}}</h1>
+            <br/><br/>
+        </div>
+        <div class="form-row">
+        <!--PORTADA-->
+        <div class="col-md-4 col-sm-6 col-xs-12" >     
+            <img src="{{'http://127.0.0.1:8000/descargas/'+libro.portada}}" width="auto" height="450">  
+        
+            <!--AUTOR-->
+            <div class="form-group">
+                <h2>{{libro.autor}}</h2>
+            </div>
+            <!--CATEGORIA-->
+            <div class="form-group">
+                <h4>{{libro.categoria}}</h4>
+            </div>
+        </div>
+    
+        <div class="col-md-8 col-sm-6 col-xs-12">
+            <!--DESCRIPCION-->
+            <br/>
+            <p>{{libro.descripcion}}</p>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="text-center">
+            <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionLibros']">Volver</button>&nbsp;  
+            <button type="button" class="btn btn-secondary btn-lg" (click)="deleteLibro(libro.id)">Eliminar</button>
+        </div>
+    </div>
+        
+    </div>

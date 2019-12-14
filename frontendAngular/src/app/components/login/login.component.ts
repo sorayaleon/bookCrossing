@@ -19,12 +19,13 @@ export class LoginComponent implements OnInit {
 
   public error = null;
   public url:string;
-
+ 
   constructor(
     private http: HttpClient,
     private Token: TokenService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+  
   ) {
     this.url = Global.url;
    }
@@ -33,8 +34,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    
     return this.http.post(this.url+'login', this.form).subscribe(
-      data => this.handleResponse(data),
+      data =>{ this.handleResponse(data),
+        sessionStorage.setItem("id", data['id']), sessionStorage.setItem("tipo", data['tipo']);
+        console.log(data);
+      },
       error => this.handleError(error)
     );
   }
@@ -42,10 +47,11 @@ export class LoginComponent implements OnInit {
 handleResponse(data){
   this.Token.handle(data.access_token);
   this.auth.changeAuthStatus(true);
-  this.router.navigateByUrl('/home');
+  this.router.navigate(['/home']).then(()=>{window.location.reload()} );
 }
 
   handleError(error){
     this.error = error.error.error;
   }
+
 }

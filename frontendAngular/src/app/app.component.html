@@ -1,5 +1,15 @@
-<app-navbar></app-navbar>
-
+<ng-container *ngIf="!loggedIn">
+  <app-navbar></app-navbar>
+</ng-container>
+<ng-container *ngIf="loggedIn && tipo=='admin'">
+  <app-navbar-admin></app-navbar-admin>
+</ng-container>
+<ng-container *ngIf="loggedIn && tipo=='responsable'">
+  <app-navbar-responsable></app-navbar-responsable>
+</ng-container>
+<ng-container *ngIf="loggedIn && tipo=='normal'">
+  <app-navbar-usuario></app-navbar-usuario>
+</ng-container>
 <div class="container">
   <router-outlet></router-outlet>
 </div>

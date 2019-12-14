@@ -25,7 +25,7 @@ class CreateEstablecimientosTable extends Migration
             $table->time('horarioC');
             $table->float('latitud');
             $table->float('longitud');
-            $table->enum('estado', ['activo','inactivo'])->default('activo');
+            $table->enum('estado', ['activo','inactivo'])->default('inactivo');
             $table->timestamps();
         });
     }

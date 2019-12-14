@@ -12,7 +12,7 @@ export class TokenService {
 
   constructor() { }
 
-  handle(token){
+handle(token){
     this.set(token);
   }
 
@@ -52,4 +52,6 @@ export class TokenService {
   loggedIn(){
     return this.isValid();
   }
+  
 }
+

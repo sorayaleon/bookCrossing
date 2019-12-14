@@ -21,9 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('apellidos');
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('tipo', ['admin','responsable', 'normal'])->default('normal');
             // $table->string('foto');
-            $table->enum('tipo', ['normal', 'responsable', 'admin'])->default('normal');
-            $table->enum('estado', ['activo','inactivo'])->default('activo');
             $table->rememberToken();
             $table->timestamps();
         });
