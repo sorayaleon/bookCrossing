@@ -90,7 +90,9 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()->alias,
             'id' => auth()->user()->id,
-            'tipo' => auth()->user()->tipo
+            'tipo' => auth()->user()->tipo, 
+            'dni' => auth()->user()->dni, 
+            'email' => auth()->user()->email
         ]);
         
     }

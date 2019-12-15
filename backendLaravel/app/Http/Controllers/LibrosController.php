@@ -136,4 +136,18 @@ class LibrosController extends Controller
             
             
     }
+
+    public function updateEstadoLibro(Request $request)
+    {
+        try {
+           
+            $data = json_decode($request->getContent(), true);
+            $libro = Libro::find($data[0]);
+            $libro->estado = $data[1];
+            $libro->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

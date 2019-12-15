@@ -37,11 +37,15 @@ export class LibroService {
       let headers = new HttpHeaders().set('Content-type','application/json'); 
       return this._http.delete(this.url+'libros/'+id, {headers: headers});
   }
-  
+  //Actualiza libro
   updateLibro(id, libro, portada): Observable<any>{
       let params = JSON.stringify([id,libro, portada]);
       let headers = new HttpHeaders().set('Content-type','application/json'); 
       return this._http.put(this.url+'libros/'+id, params, {headers: headers});
   }
-  
+  updateEstadoLibro(id, estado): Observable<any>{
+    let params = JSON.stringify([id,estado]);
+    let headers = new HttpHeaders().set('Content-type','application/json'); 
+    return this._http.put(this.url+'estado', params, {headers: headers})
+  }
 }

@@ -7,6 +7,7 @@ export class Libro{
         public descripcion: string,
         public portada: string,
         public categoria: string,
-        public establecimientoInicial: string
+        public establecimientoInicial: string, 
+        public estado: string
         ){}
 }

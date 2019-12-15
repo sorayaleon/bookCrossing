@@ -1,1 +1,36 @@
-<p>devolucion-prestamo works!</p>
+<!-- <div class="container">
+    <div>
+       
+       <div class="text-center">
+        <h2>{{title}}</h2><br/>
+      </div>
+        
+<div *ngIf="reservas">
+    <h3>Tabla establecimientos</h3>
+          <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">CP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prestamo of reservas">
+                <ng-container *ngIf= "prestamo.tipo == 'prestamo'">
+                <td>{{prestamo.titulo}}</td>
+                <td>{{prestamo.fechaDevolucion}}</td>
+                <td>{{prestamo.dni}}</td>
+                
+                <td><a class="btn btn-danger btn-sm" (click)="deleteEstablecimiento(prestamo.id)"><i class="material-icons">delete</i></a></td>
+                
+              </ng-container>
+              </tr>
+            </tbody>
+        </table>  
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
+      </div>  
+        <br><br>
+    </div>
+</div> -->
+

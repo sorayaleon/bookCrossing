@@ -37,7 +37,9 @@ export class LoginComponent implements OnInit {
     
     return this.http.post(this.url+'login', this.form).subscribe(
       data =>{ this.handleResponse(data),
-        sessionStorage.setItem("id", data['id']), sessionStorage.setItem("tipo", data['tipo']);
+        sessionStorage.setItem("id", data['id']), 
+        sessionStorage.setItem("tipo", data['tipo']), 
+        sessionStorage.setItem("dni", data['dni']);
         console.log(data);
       },
       error => this.handleError(error)

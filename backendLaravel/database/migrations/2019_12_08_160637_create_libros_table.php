@@ -22,7 +22,7 @@ class CreateLibrosTable extends Migration
             $table->string('portada');
             $table->string('categoria');
             $table->string('establecimientoInicial');
-            $table->enum('estado', ['activo','inactivo'])->default('activo');
+            $table->enum('estado', ['activo','inactivo','solicitado', 'prestado'])->default('activo');
             $table->timestamps();
         });
     }

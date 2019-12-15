@@ -27,7 +27,7 @@ export class CreateLibroComponent implements OnInit {
     private _router: Router
   ) {
     this.title = "Crear Libro";
-    this.libro = new Libro(0, 0 ,'', '', '', '', '', '');
+    this.libro = new Libro(0, 0 ,'', '', '', '', '', '', '');
     this.createForm();
 
     this.formularioLibro = this.fb.group({
