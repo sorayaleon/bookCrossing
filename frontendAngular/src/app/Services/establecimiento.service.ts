@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Establecimiento } from '../models/establecimiento';
 import { Global } from './global.service';
+import { Usuario } from '../models/usuario';
 
 
 @Injectable({
@@ -18,8 +19,8 @@ export class EstablecimientoService {
       this.url = Global.url;
     }
 
-    saveEstablecimiento(establecimiento: Establecimiento): Observable<any>{
-      let ficha = [establecimiento];
+    saveEstablecimiento(establecimiento: Establecimiento, email, dni): Observable<any>{
+      let ficha = [establecimiento, email, dni];
       let params = JSON.stringify(ficha);
       let headers = new HttpHeaders().set('Content-type','application/json');
     

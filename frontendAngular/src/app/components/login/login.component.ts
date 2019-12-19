@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("tipo", data['tipo']), 
         sessionStorage.setItem("dni", data['dni']),
         sessionStorage.setItem("alias", data['alias']);
+        sessionStorage.setItem("email", data['email']);
         console.log(data);
       },
       error => this.handleError(error)

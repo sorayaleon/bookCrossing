@@ -3,27 +3,35 @@ import { Establecimiento } from '../../../models/establecimiento';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UsuarioService } from '../../../Services/usuario.service';
+import { Usuario } from '../../../models/usuario';
 
 @Component({
   selector: 'app-solicitud-establecimiento',
   templateUrl: './solicitud-establecimiento.component.html',
   styleUrls: ['./solicitud-establecimiento.component.css'],
-  providers: [EstablecimientoService]
+  providers: [EstablecimientoService, UsuarioService]
 })
 export class SolicitudEstablecimientoComponent implements OnInit {
-
+  public idUsu;
+  public email;
+  public dni;
   public title: string;
   public establecimiento: Establecimiento;
   public status: string;
   public saveEstablecimiento;
   public formularioEstablecimiento: FormGroup;
-
+  public usuario: Usuario;
+  
   constructor(
     private _establecimientoService: EstablecimientoService,
     public fb: FormBuilder,
     private toastr: ToastrService,
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _usuarioService: UsuarioService,
+    
   ) { 
     this.title = "Registra tu establecimiento";
     this.establecimiento = new Establecimiento(0, '', '', '', '', 0, 0, '', '', 0, 0, '')
@@ -39,11 +47,32 @@ export class SolicitudEstablecimientoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._route.params.subscribe(params=> {
+      this.idUsu = sessionStorage.getItem("id");
+      this.email = sessionStorage.getItem("email");
+      this.dni = sessionStorage.getItem("dni");
+      console.log(this.idUsu);
+      console.log(this.email);
+      console.log(this.dni);
+      this.getFichaUsuario(this.idUsu, this.email, this.dni);
+    })
+  }
+
+  getFichaUsuario(id, email, dni){
+    this._usuarioService.getUsuario(id).subscribe(
+      response => {
+        this.usuario = response;
+      }, error => {
+        console.log(<any>error);
+      }
+    );
   }
 
   onSubmit(form){
     console.log(this.formularioEstablecimiento.value);
-    this._establecimientoService.saveEstablecimiento(this.establecimiento).subscribe(
+    this.establecimiento.email = this.usuario.email;
+    this.establecimiento.nombreResp = this.usuario.dni;
+    this._establecimientoService.saveEstablecimiento(this.establecimiento, this.establecimiento.email, this.establecimiento.nombreResp).subscribe(
       response => {
         this.status='success';
         this.saveEstablecimiento = response.libro;
