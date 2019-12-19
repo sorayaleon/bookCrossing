@@ -42,8 +42,9 @@ export class VistaUsuarioComponent implements OnInit {
   ) {
     this.url = Global.url;
     this.fecha = new Date('Y-m-d H:i:s');
-    this.reserva = new Reserva(0, '', '', '', 0, '',
+    this.reserva = new Reserva(0, '', '', '', 0, 0, '',
     '', '', '', '', 0);
+    console.log(this.fecha);
    }
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class VistaUsuarioComponent implements OnInit {
       this.dniUsu = sessionStorage.getItem("dni");
       let id = params.id;
       this.getFichaLibro(id);
-      this.getFichaEstablecimiento(id);
+      
     console.log(this.dniUsu);
     console.log(this.idUsu);
     })
@@ -62,33 +63,35 @@ export class VistaUsuarioComponent implements OnInit {
     this._libroService.getLibro(id).subscribe(
       response => {
         this.libro = response;
+        // this.getFichaEstablecimiento(this.libro.establecimientoInicial);
       }, error => {
         console.log(<any>error);
       }
     );
   }
   
-  getFichaEstablecimiento(id){
-    this._establecimientoService.getEstablecimiento(id).subscribe(
-      response => {
-        this.establecimiento = response;
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
+  // getFichaEstablecimiento(nombreE){
+  //   this._establecimientoService.getEstablecimientoNombre(nombreE).subscribe(
+  //     response => {
+  //       this.establecimiento = response;
+  //     }, error => {
+  //       console.log(<any>error);
+  //     }
+  //   );
+  // }
 
-  solicitar(idL, idE, estado){
+  solicitar(idL, estado){
+    console.log(idL);
     this.getFichaLibro(idL);
-    this.getFichaEstablecimiento(idE);
-   
-    this.reserva = new Reserva(0, 'prestamo', this.dniUsu, this.libro.titulo, this.libro.isbn, this.fecha,
-    this.fecha, this.fecha, this.establecimiento.nombreEst, '', 0);
+    // this.getFichaEstablecimiento(idE);
+    console.log(this.fecha);
+    this.reserva = new Reserva(0, 'solicitud', this.dniUsu, this.libro.titulo, this.libro.isbn, this.libro.id, this.fecha,
+    null, null, this.libro.establecimientoInicial, '', 0);
     console.log(this.libro.estado);
     console.log(this.libro);
     console.log(this.establecimiento);
     console.log(this.reserva);
-    estado = 'inactivo';
+    estado = 'solicitado';
 
     this._libroService.updateEstadoLibro(idL, estado).subscribe(
       response => {

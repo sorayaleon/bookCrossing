@@ -25,6 +25,9 @@
       <a class="nav-link  mr-sm-2" routerLink="/login" *ngIf="!loggedIn">Iniciar Sesión</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link  mr-sm-2" *ngIf="loggedIn">Hola {{alias}}</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link  mr-sm-2" href="#" (click)="logout($event)" *ngIf="loggedIn">Cerrar Sesión</a>
     </li>
   </ul>

@@ -4,6 +4,7 @@ import { Libro } from '../../../models/libro';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { EstablecimientoService } from '../../../Services/establecimiento.service';
 
 @Component({
   selector: 'app-create-libro',
@@ -19,21 +20,23 @@ export class CreateLibroComponent implements OnInit {
   public saveLibro;
   public formularioLibro: FormGroup;//Creo el objeto de tipo FormGroup
   public categoriaList: string[];
-
+  public establecimiento: any;
+  
   constructor(
+    private _establecimientoService: EstablecimientoService,
     private _libroService: LibroService,
     public fb: FormBuilder, //Objeto para la validación de los campos
     private toastr: ToastrService,
     private _router: Router
   ) {
     this.title = "Crear Libro";
-    this.libro = new Libro(0, 0 ,'', '', '', '', '', '', '');
+    this.libro = new Libro(0, 0 , 0 ,'', '', '', '', '', '', '');
     this.createForm();
 
     this.formularioLibro = this.fb.group({
       portada: ['', [Validators.required]],
       isbn: ['',[Validators.required]],
-      titulo: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
+      titulo: ['',[Validators.required, Validators.maxLength(50)]],
       autor: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
       descripcion:['',[Validators.required, Validators.maxLength(1000)]],
       categoria: ['', Validators.required],
@@ -42,7 +45,19 @@ export class CreateLibroComponent implements OnInit {
    }
 
   ngOnInit() {
+    this._establecimientoService.getEstablecimientos().subscribe(
+      result => {
+       this.establecimiento = result;
+       console.log(this.establecimiento);
+      
+       console.log(<any>result);
+     },
+     error => {
+       console.log(<any>error);
+     }
+  );
     this.categoriaList = ['Arte','Autoayuda', 'Aventuras', 'Bélico', 'Ciencia Ficción', 'Ciencias Exactas', 'Ciencias Naturales', 'Ciencias Sociales', 'Comunicación', 'Drama', 'Fantasía', 'Filosofía', 'Histórico', 'Humor', 'Idiomas', 'Infantil', 'Suspense', 'Terror', 'Policiaco'];
+    
   }
 
   onSubmit(form){

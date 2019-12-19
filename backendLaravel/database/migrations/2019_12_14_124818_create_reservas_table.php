@@ -15,11 +15,12 @@ class CreateReservasTable extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('tipo', ['prestamo','devolucion'])->default('prestamo');
+            $table->enum('tipo', ['solicitud','prestamo','devolucion'])->default('solicitud');
             $table->string('dni');
             $table->string('titulo');
             $table->integer('isbn');
-            $table->dateTime('fechaSolicitud');
+            $table->integer('idL');
+            $table->timestamp('fechaSolicitud');
             $table->dateTime('fechaPrestamo');
             $table->dateTime('fechaDevolucion');
             $table->string('nombreEst');

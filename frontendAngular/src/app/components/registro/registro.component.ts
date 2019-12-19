@@ -78,10 +78,10 @@ export class RegistroComponent implements OnInit {
  }
 
  showSuccess(){
-  this.toastr.success('El libro ha sido insertado con éxito.', 'Correcto', {timeOut: 3000});
+  this.toastr.success('El usuario se ha creado con éxito.', 'Correcto', {timeOut: 3000});
 }
 
 showError(){
-  this.toastr.error('El libro no se ha insertado.', 'Error', {timeOut: 3000})
+  this.toastr.error('No se ha podido crear el usuario.', 'Error', {timeOut: 3000})
 }
 }

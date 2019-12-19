@@ -15,13 +15,14 @@ class CreateLibrosTable extends Migration
     {
         Schema::create('libros', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('isbn')->unique();
+            $table->integer('codigo')->unique();
+            $table->integer('isbn');
             $table->string('titulo');
             $table->string('autor');
             $table->string('descripcion');
             $table->string('portada');
             $table->string('categoria');
-            $table->string('establecimientoInicial');
+            $table->string('establecimiento');
             $table->enum('estado', ['activo','inactivo','solicitado', 'prestado'])->default('activo');
             $table->timestamps();
         });

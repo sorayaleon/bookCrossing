@@ -16,6 +16,7 @@ export class NavbarAdminComponent implements OnInit {
   public url: string;
   public idUsu;
   public tipo;
+  public alias;
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -27,8 +28,10 @@ export class NavbarAdminComponent implements OnInit {
   ngOnInit() {
     this.idUsu = sessionStorage.getItem("id");
     this.tipo = sessionStorage.getItem("tipo");
+    this.alias = sessionStorage.getItem("alias");
     console.log(this.idUsu);
     console.log(this.tipo);
+    console.log(this.alias);
     this.auth.authStatus.subscribe(value => this.loggedIn = value);
   }
 
@@ -36,7 +39,7 @@ export class NavbarAdminComponent implements OnInit {
     event.preventDefault();
     this.Token.remove();
     this.auth.changeAuthStatus(false);
-    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigateByUrl('/login');
   }
 

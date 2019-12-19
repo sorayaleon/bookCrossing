@@ -10,21 +10,60 @@ use App\Mail\ResetPasswordMail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+
 class resetPasswordController extends Controller
 {
-    public function sendEmail(Request $request){
-        if($this.validateEmail($request->email)){
-            return $this->failedRespnse();
+    public function sendEmail(Request $request)
+    {
+        if (!$this->validateEmail($request->email)) {
+            return $this->failedResponse();
         }
+        $this->send($request->email);
+        return $this->successResponse();
+
+    }
+
+    public function send($email){
+        $token = $this->createToken($email);
+        Mail::to($email)->send(new ResetPasswordMail($token));
+    }
+
+    public function createToken($email)
+    {
+        $oldToken = DB::table('password_resets')->where('email', $email)->first();
+        if ($oldToken) {
+            return $oldToken->token;
+        }
+        $token = str_random(60);
+        $this->saveToken($token, $email);
+        return $token;
+    }
+
+    public function saveToken($token, $email)
+    {
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
     }
     
-    public function validateEmail($email){
+    public function validateEmail($email)
+    {
         return !!User::where('email', $email)->first();
     }
 
-    public function failedResponse(){
+    public function failedResponse()
+    {
         return response()->json([
-            'error' => 'Este email no está registrado en la aplicación'
+            'error' => 'El email no se encuentra registrado en la aplicación.'
         ], Response::HTTP_NOT_FOUND);
+    }
+
+    public function successResponse()
+    {
+        return response()->json([
+            'data' => 'Su cuenta se ha restablecido correctamente, por favor revise su email.'
+        ], Response::HTTP_OK);
     }
 }

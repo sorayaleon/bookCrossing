@@ -6,26 +6,25 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-establecimiento',
-  templateUrl: './create-establecimiento.component.html',
-  styleUrls: ['./create-establecimiento.component.css'],
+  selector: 'app-solicitud-establecimiento',
+  templateUrl: './solicitud-establecimiento.component.html',
+  styleUrls: ['./solicitud-establecimiento.component.css'],
   providers: [EstablecimientoService]
 })
-export class CreateEstablecimientoComponent implements OnInit {
+export class SolicitudEstablecimientoComponent implements OnInit {
 
   public title: string;
   public establecimiento: Establecimiento;
   public status: string;
   public saveEstablecimiento;
   public formularioEstablecimiento: FormGroup;
-  
+
   constructor(
     private _establecimientoService: EstablecimientoService,
     public fb: FormBuilder,
     private toastr: ToastrService,
     private _router: Router
-
-  ) {
+  ) { 
     this.title = "Registra tu establecimiento";
     this.establecimiento = new Establecimiento(0, '', '', '', '', 0, 0, '', '', 0, 0, '')
    
@@ -40,8 +39,6 @@ export class CreateEstablecimientoComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-   
   }
 
   onSubmit(form){
@@ -51,7 +48,7 @@ export class CreateEstablecimientoComponent implements OnInit {
         this.status='success';
         this.saveEstablecimiento = response.libro;
         this.showSuccess();
-        this._router.navigate(['/gestionEstablecimientos']);
+        this._router.navigate(['/home']);
       }, error => {
         this.status = 'failed';
         console.log(<any>error);

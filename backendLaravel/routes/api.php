@@ -31,7 +31,7 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
-    
+    Route::post('resetPassword', 'ChangePasswordController@process');
 });
 
 Route::resource('establecimientos', 'EstablecimientosController');
@@ -40,3 +40,5 @@ Route::resource('usuarios', 'UsersController');
 Route::put('estados', 'EstablecimientosController@updateEstado');
 Route::resource('reservas', 'ReservaController');
 Route::put('estado', 'LibrosController@updateEstadoLibro');
+Route::put('cambio', 'UsersController@updateTipoUsuario');
+Route::put('reserva', 'ReservaController@updateTipoReserva');

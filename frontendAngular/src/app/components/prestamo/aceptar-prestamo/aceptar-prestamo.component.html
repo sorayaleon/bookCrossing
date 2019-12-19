@@ -1,0 +1,35 @@
+<div class="container">
+    <form class="form-inline my-2 my-lg-0 ">
+        <input class="form-control mr-sm-2" type="search" name="filterLibro" placeholder="Search" aria-label="Search" [(ngModel)]="filterSolicitud">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    <div>
+    <br/>
+    <div *ngIf= "numInac == 0">No hay solicitudes pendientes</div>
+<div *ngIf= "numInac != 0">
+    <h3>Establecimientos pendientes de confirmación</h3>
+          <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Título</th>
+                <th scope="col">ISBN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let peticion of solicitud  | paginate: {itemsPerPage: 7, currentPage: pageActual} ">
+                <!-- | solicitud:filterSolicitud -->
+                <ng-container *ngIf= "peticion.tipo == 'solicitud'">
+                <td>{{peticion.dni}}</td>
+                <td>{{peticion.titulo}}</td>
+                <td>{{peticion.isbn}}</td>
+                <td><a class="btn btn-success btn-sm" (click)="confirmSolicitud(peticion.id, peticion.estado, peticion.tipo)"><i class="material-icons">done_outline</i></a></td>
+                </ng-container>
+              </tr>
+            </tbody>
+        </table>  
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
+      </div>  
+        <br><br>
+    </div>
+</div>

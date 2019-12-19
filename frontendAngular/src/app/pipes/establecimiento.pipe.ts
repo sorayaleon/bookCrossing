@@ -9,7 +9,7 @@ export class EstablecimientoPipe implements PipeTransform {
     if(arg === '' || arg.length < 3) return value;
     const resultEstablecimientos = [];
     for(const establecimiento of value){
-      if(establecimiento.cp.indexOf() > -1 || establecimiento.nombre.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+      if(establecimiento.nombreEst.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultEstablecimientos.push(establecimiento);
       }
     }

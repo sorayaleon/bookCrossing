@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('tipo', ['admin','responsable', 'normal'])->default('normal');
-            // $table->string('foto');
+            $table->enum('estado', ['activo','inactivo', 'pendiente'])->default('pendiente');
             $table->rememberToken();
             $table->timestamps();
         });

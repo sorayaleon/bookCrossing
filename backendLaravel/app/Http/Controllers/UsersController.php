@@ -128,4 +128,16 @@ class UsersController extends Controller
         $usuario->delete();
     }
 
+    public function updateTipoUsuario(Request $request)
+    {
+        try {
+            $data = json_decode($request->getContent(), true);
+            $usuario = User::find($data[0]);
+            $usuario->tipo = $data[1];
+            $usuario->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

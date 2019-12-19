@@ -3,6 +3,9 @@ import { EstablecimientoService } from '../../../Services/establecimiento.servic
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../../../shared/dialog.service';
+import { UsuarioService } from '../../../Services/usuario.service';
+import { Usuario } from '../../../models/usuario';
+
 
 @Component({
   selector: 'app-solicitud',
@@ -12,6 +15,7 @@ import { DialogService } from '../../../shared/dialog.service';
 })
 export class SolicitudComponent implements OnInit {
   public establecimiento: any;
+  public usuario: any;
   public numInac = 0;
   pageActual: number = 1;
   filterEstablecimiento = '';
@@ -20,7 +24,8 @@ export class SolicitudComponent implements OnInit {
     private _establecimientoService: EstablecimientoService,
     private _router: Router,
     private toastr: ToastrService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private _usuarioService: UsuarioService
 
   ) { }
 
@@ -42,9 +47,10 @@ export class SolicitudComponent implements OnInit {
   );
   }
 
-  confirmEstablecimiento(id, estado){
+  confirmEstablecimiento(id, estado, tipo){
     console.log(estado);
     estado = "activo";
+    tipo = "responsable";
     this.dialogService.openConfirmDialog('¿Deseas confirmar el establecimiento?').afterClosed().subscribe(res =>{
       if(res){
         this._establecimientoService.updateEstado(id, estado).subscribe(
@@ -54,17 +60,16 @@ export class SolicitudComponent implements OnInit {
             this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
               this._router.navigate(['/gestionSolicitudes'])); 
             console.log(estado);
-            
-            // this._router.navigate(['/gestionSolicitudes']);
           },
     
          error => {
            console.log("estoy en error");
-           console.log(this.establecimiento.estado);
+           console.log(this.usuario.tipo);
            this.verificacionError();
            //this.status = 'failed';
            console.log(<any>error);
          });
+         
       }
     });
   }

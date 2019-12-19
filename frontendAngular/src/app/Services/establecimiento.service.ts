@@ -35,6 +35,12 @@ export class EstablecimientoService {
     return this._http.get(this.url+'establecimientos/'+id, {headers: headers});
   }
 
+  getEstablecimientoNombre(nombre): Observable<any> {
+    let params = JSON.stringify(nombre);
+    let headers = new HttpHeaders().set('Content-type','application/json');
+    return this._http.get(this.url+'establecimientos/', {headers: headers});
+  }
+
   deleteEstablecimiento(id): Observable<any>{
     let headers = new HttpHeaders().set('Content-type','application/json'); 
     return this._http.delete(this.url+'establecimientos/'+id, {headers: headers});

@@ -28,23 +28,29 @@ export class PrestamoService {
 }
 
 //Devuelve lista de libros
-getLibros(): Observable<any> {
-    return this._http.get(this.url + 'libros');
+getSolicitudes(): Observable<any> {
+    return this._http.get(this.url + 'reservas');
 }
-//Devuelve un libro
-getLibro(id): Observable<any> {
-    let headers = new HttpHeaders().set('Content-type','application/json');
-    return this._http.get(this.url+'libros/'+id, {headers: headers});
-}
-//Borrar libros
-deleteLibro(id): Observable<any>{
-    let headers = new HttpHeaders().set('Content-type','application/json'); 
-    return this._http.delete(this.url+'libros/'+id, {headers: headers});
-}
+// //Devuelve un libro
+// getLibro(id): Observable<any> {
+//     let headers = new HttpHeaders().set('Content-type','application/json');
+//     return this._http.get(this.url+'libros/'+id, {headers: headers});
+// }
+// //Borrar libros
+// deleteLibro(id): Observable<any>{
+//     let headers = new HttpHeaders().set('Content-type','application/json'); 
+//     return this._http.delete(this.url+'libros/'+id, {headers: headers});
+// }
 
-updateLibro(id, libro, portada): Observable<any>{
-    let params = JSON.stringify([id,libro, portada]);
-    let headers = new HttpHeaders().set('Content-type','application/json'); 
-    return this._http.put(this.url+'libros/'+id, params, {headers: headers});
+// updateLibro(id, libro, portada): Observable<any>{
+//     let params = JSON.stringify([id,libro, portada]);
+//     let headers = new HttpHeaders().set('Content-type','application/json'); 
+//     return this._http.put(this.url+'libros/'+id, params, {headers: headers});
+// }
+
+updateTipoReserva(id, tipo): Observable<any>{
+  let params = JSON.stringify([id,tipo]);
+  let headers = new HttpHeaders().set('Content-type','application/json'); 
+  return this._http.put(this.url+'reserva', params, {headers: headers})
 }
 }

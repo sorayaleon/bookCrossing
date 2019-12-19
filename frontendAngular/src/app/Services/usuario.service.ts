@@ -45,4 +45,10 @@ updateUsuario(id, usuario): Observable<any>{
   let headers = new HttpHeaders().set('Content-type','application/json'); 
   return this._http.put(this.url+'usuarios/'+id, params, {headers: headers});
 }
+
+updateTipoUsuario(id, tipo): Observable<any>{
+  let params = JSON.stringify([id,tipo]);
+  let headers = new HttpHeaders().set('Content-type','application/json'); 
+  return this._http.put(this.url+'cambio', params, {headers: headers})
+}
 }

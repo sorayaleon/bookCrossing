@@ -40,6 +40,8 @@ import { NavbarAdminComponent } from './components/template/navbar-admin/navbar-
 import { NavbarResponsableComponent } from './components/template/navbar-responsable/navbar-responsable.component';
 import { NavbarUsuarioComponent } from './components/template/navbar-usuario/navbar-usuario.component';
 import { DevolucionPrestamoComponent } from './components/prestamo/devolucion-prestamo/devolucion-prestamo.component';
+import { AceptarPrestamoComponent } from './components/prestamo/aceptar-prestamo/aceptar-prestamo.component';
+import { SolicitudEstablecimientoComponent } from './components/establecimiento/solicitud-establecimiento/solicitud-establecimiento.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,8 @@ import { DevolucionPrestamoComponent } from './components/prestamo/devolucion-pr
     NavbarResponsableComponent,
     NavbarUsuarioComponent,
     DevolucionPrestamoComponent,
+    AceptarPrestamoComponent,
+    SolicitudEstablecimientoComponent,
 
   ],
   imports: [

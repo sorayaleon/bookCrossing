@@ -20,13 +20,15 @@ import { RefreshComponent } from './refresh/refresh.component';
 import { SolicitudComponent } from './components/establecimiento/solicitud/solicitud.component';
 import { VistaUsuarioComponent } from './components/libro/vista-usuario/vista-usuario.component';
 import { UsuarioEstablecimientoComponent } from './components/establecimiento/usuario-establecimiento/usuario-establecimiento.component';
+import { AceptarPrestamoComponent } from './components/prestamo/aceptar-prestamo/aceptar-prestamo.component';
+import { SolicitudEstablecimientoComponent } from './components/establecimiento/solicitud-establecimiento/solicitud-establecimiento.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
   {path: 'registro', component: RegistroComponent, canActivate: [AntesInicioSesionService]},
   {path: 'home', component: HomeComponent, canActivate: [SesionIniciadaService]},
   {path: 'requestPass', component: RequestResetComponent, canActivate: [AntesInicioSesionService]},
-  {path: 'responsePass', component: ResponseResetComponent, canActivate: [SesionIniciadaService]},
+  {path: 'responsePass', component: ResponseResetComponent, canActivate: [AntesInicioSesionService]},
   {path: 'gestionEstablecimientos', component: GestionEstablecimientosComponent, canActivate: [SesionIniciadaService]},
   {path: 'createEstablecimiento', component: CreateEstablecimientoComponent, canActivate: [SesionIniciadaService]},
   {path: 'updateEstablecimiento/:id', component: UpdateEstablecimientoComponent, canActivate: [SesionIniciadaService]},
@@ -39,9 +41,10 @@ const routes: Routes = [
   {path: 'refresh', component: RefreshComponent, canActivate: [SesionIniciadaService]},
   {path: 'gestionSolicitudes', component: SolicitudComponent, canActivate: [SesionIniciadaService]},
   {path: 'gestionUsuarios', component: RefreshComponent, canActivate: [SesionIniciadaService]},
-  {path: 'gestionPrestamos', component: RefreshComponent, canActivate: [SesionIniciadaService]},
+  {path: 'gestionPrestamos', component: AceptarPrestamoComponent, canActivate: [SesionIniciadaService]},
   {path: 'vistaLibro/:id', component: VistaUsuarioComponent, canActivate: [SesionIniciadaService]},
-  {path: 'vistaEstablecimiento/:id', component: UsuarioEstablecimientoComponent, canActivate: [SesionIniciadaService]},
+  {path: 'vistaEstablecimiento/:id', component: UsuarioEstablecimientoComponent, canActivate: [SesionIniciadaService]},  
+  {path: 'serColaborador', component: SolicitudEstablecimientoComponent, canActivate: [SesionIniciadaService]},
 ];
 
 @NgModule({

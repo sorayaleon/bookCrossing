@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../../../Services/global.service';
 import { ToastrService } from 'ngx-toastr';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-request-reset',
@@ -29,7 +28,7 @@ export class RequestResetComponent implements OnInit {
   onSubmit(){
     this.sendPasswordResetLink(this.form).subscribe(
       data => this.handleResponse(data),
-      error => this.toastr.error(error.error.error)
+      error => this.showError(error)
     );
   }
 
@@ -39,14 +38,16 @@ export class RequestResetComponent implements OnInit {
 
   handleResponse(res){
     console.log(res);
+    this.showSuccess();
     this.form.email = null
   }
 
-  // showSuccess(){
-  //   this.toastr.success('El libro ha sido insertado con éxito.', 'Correcto', {timeOut: 3000});
-  // }
 
-  // showError(error){
-  //   this.toastr.error(error, 'Error', {timeOut: 3000})
-  // }
+  showSuccess(){
+    this.toastr.success('Le hemos mandado un email, por favor revise su bandeja de entrada.', 'Correcto', {timeOut: 3000});
+  }
+
+  showError(error){
+    this.toastr.error(error, 'Error', {timeOut: 3000})
+  }
 }

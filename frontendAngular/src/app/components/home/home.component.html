@@ -7,7 +7,8 @@
       </div>
         <br/>
             <!--TABLA LIBROS-->
-    <div *ngIf="libro">
+    <div *ngIf="numInac == 0">No hay libros disponibles</div>
+    <div *ngIf= "numInac != 0">
         <h3>Libros disponibles</h3>
               <table class="table table-striped table-dark">
                 <thead>
@@ -18,11 +19,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <!-- <ng-container *ngIf= "numInac == 0">No hay libros disponibles</ng-container> -->
                   <tr *ngFor="let ejemplar of libro | paginate: {itemsPerPage: 7, currentPage: pageActual} | libro:filterLibro" >
+                    <ng-container *ngIf= "ejemplar.estado == 'activo'">
                     <td>{{ejemplar.titulo}}</td>
                     <td>{{ejemplar.autor}}</td>
                     <td>{{ejemplar.establecimientoInicial}}</td>
                     <td><a class="btn btn-info btn-sm" [routerLink]="['/vistaLibro', ejemplar.id]"><i class="material-icons">visibility</i></a></td>
+                  </ng-container>
                   </tr>
                 </tbody>
             </table>  
@@ -34,10 +38,14 @@
             <form class="form-inline my-2 my-lg-0 ">
                 <input class="form-control mr-sm-2" type="search" name="filterEstablecimiento" placeholder="Search" aria-label="Search" [(ngModel)]="filterEstablecimiento">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                <button type="button" class="btn btn-warning" routerLink="/serColaborador">Quiero ser establecimiento colaborador</button>
               </form>
+              
               <br/>
              <!--TABLA ESTABLECIMIENTOS-->
-    <div *ngIf="establecimiento">
+    
+      <div *ngIf="estInac == 0">No hay establecimientos disponibles</div>
+        <div *ngIf= "estInac != 0">
             <h3>Establecimientos Colaboradores</h3>
                   <table class="table table-striped table-dark">
                     <thead>
@@ -49,10 +57,12 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let local of establecimiento | paginate: {itemsPerPage: 7, currentPage: pageActual} | establecimiento:filterEstablecimiento" >
+                        <ng-container *ngIf= "local.estado == 'activo'">
                         <td>{{local.nombreEst}}</td>
                         <td>{{local.direccion}}</td>
                         <td>{{local.cp}}</td>
                         <td><a class="btn btn-info btn-sm" [routerLink]="['/vistaEstablecimiento', local.id]"><i class="material-icons">visibility</i></a></td>
+                      </ng-container>
                       </tr>
                     </tbody>
                 </table>  
