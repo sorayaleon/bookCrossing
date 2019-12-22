@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReservasTable extends Migration
+class CreateHistorialReservasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateReservasTable extends Migration
      */
     public function up()
     {
-        Schema::create('reservas', function (Blueprint $table) {
+        Schema::create('historial_reservas', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('tipo', ['solicitud','prestamo','devolucion'])->default('solicitud');
             $table->string('dni');
@@ -22,6 +22,9 @@ class CreateReservasTable extends Migration
             $table->integer('idL');
             $table->timestamp('fecha');
             $table->string('nombreEst');
+            $table->string('comentario');
+            $table->float('puntuacion');
+            $table->string('incidencia');
             $table->timestamps();
         });
     }
@@ -33,6 +36,6 @@ class CreateReservasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservas');
+        Schema::dropIfExists('historial_reservas');
     }
 }

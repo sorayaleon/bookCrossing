@@ -49,7 +49,7 @@ class LibrosController extends Controller
         $libro->autor = $data[0]["autor"];
         $libro->descripcion = $data[0]["descripcion"];
         $libro->categoria = $data[0]["categoria"];
-        $libro->establecimientoInicial = $data[0]["establecimiento"];
+        $libro->establecimiento = $data[0]["establecimiento"];
         $libro->portada= $data[1]["filename"];
         
         $file = UPLOAD_DIR.$data[1]["filename"];
@@ -105,7 +105,7 @@ class LibrosController extends Controller
         $libro->autor = $data[1]["autor"];
         $libro->descripcion = $data[1]["descripcion"];
         $libro->categoria = $data[1]["categoria"];
-        $libro->establecimientoInicial = $data[1]["establecimiento"];
+        $libro->establecimiento = $data[1]["establecimiento"];
         if($data[2] != ""){
             $libro->portada= $data[2]["filename"];
             $file = UPLOAD_DIR.$data[2]["filename"];

@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Global } from './global.service';
 import { Reserva } from '../models/reserva';
-import { Libro } from '../models/libro';
-import { Establecimiento } from '../models/establecimiento';
 
 
 @Injectable({
@@ -31,6 +29,22 @@ export class PrestamoService {
 getSolicitudes(): Observable<any> {
     return this._http.get(this.url + 'reservas');
 }
+
+getSolicitud(id): Observable<any> {
+  let headers = new HttpHeaders().set('Content-type','application/json');
+  return this._http.get(this.url+'reservas/'+id, {headers: headers});
+}
+
+
+aceptaPrestamo(id, tipo, fecha): Observable<any>{
+  let reserva = [id, tipo, fecha];
+  let params = JSON.stringify(reserva);
+  let headers = new HttpHeaders().set('Content-type','application/json');
+
+  return this._http.post(this.url+'reservas', params, {headers: headers});
+}
+
+
 // //Devuelve un libro
 // getLibro(id): Observable<any> {
 //     let headers = new HttpHeaders().set('Content-type','application/json');
@@ -42,15 +56,15 @@ getSolicitudes(): Observable<any> {
 //     return this._http.delete(this.url+'libros/'+id, {headers: headers});
 // }
 
-// updateLibro(id, libro, portada): Observable<any>{
-//     let params = JSON.stringify([id,libro, portada]);
+// updatePrestamo(id, tipo, fechaPrestamo, fechaDevolucion): Observable<any>{
+//     let params = JSON.stringify([id,tipo,fechaPrestamo, fechaDevolucion]);
 //     let headers = new HttpHeaders().set('Content-type','application/json'); 
-//     return this._http.put(this.url+'libros/'+id, params, {headers: headers});
+//     return this._http.put(this.url+'reserva', params, {headers: headers});
 // }
 
-updateTipoReserva(id, tipo): Observable<any>{
-  let params = JSON.stringify([id,tipo]);
-  let headers = new HttpHeaders().set('Content-type','application/json'); 
-  return this._http.put(this.url+'reserva', params, {headers: headers})
-}
+// updateTipoReserva(id, tipo): Observable<any>{
+//   let params = JSON.stringify([id,tipo]);
+//   let headers = new HttpHeaders().set('Content-type','application/json'); 
+//   return this._http.put(this.url+'reserva', params, {headers: headers})
+// }
 }

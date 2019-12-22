@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../../../shared/dialog.service';
 import { UsuarioService } from '../../../Services/usuario.service';
-import { Usuario } from '../../../models/usuario';
+import { HttpClient } from '@angular/common/http';
+import { Global } from '../../../Services/global.service';
+
 
 
 @Component({
@@ -17,19 +19,26 @@ export class SolicitudComponent implements OnInit {
   public establecimiento: any;
   public usuario: any;
   public numInac = 0;
+  public tipo;
   pageActual: number = 1;
   filterEstablecimiento = '';
+  public email;
+  private baseUrl: string;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
     private _router: Router,
     private toastr: ToastrService,
     private dialogService: DialogService,
-    private _usuarioService: UsuarioService
-
-  ) { }
+    private _usuarioService: UsuarioService,
+    private http: HttpClient,
+  ) { 
+    this.baseUrl = Global.url;
+  }
 
   ngOnInit() {
+    
+    this.tipo = sessionStorage.getItem("tipo");
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
@@ -39,6 +48,7 @@ export class SolicitudComponent implements OnInit {
             this.numInac += 1;
          }
        }
+       
        console.log(<any>result);
      },
      error => {
@@ -47,10 +57,14 @@ export class SolicitudComponent implements OnInit {
   );
   }
 
-  confirmEstablecimiento(id, estado, tipo){
+  confirmEstablecimiento(id, estado, dni){
     console.log(estado);
+    console.log(dni);
     estado = "activo";
-    tipo = "responsable";
+    if(this.tipo !='admin'){
+      this.tipo = "responsable";
+    }
+     
     this.dialogService.openConfirmDialog('¿Deseas confirmar el establecimiento?').afterClosed().subscribe(res =>{
       if(res){
         this._establecimientoService.updateEstado(id, estado).subscribe(
@@ -70,6 +84,16 @@ export class SolicitudComponent implements OnInit {
            console.log(<any>error);
          });
          
+         this._usuarioService.updateTipoUsuario(dni, this.tipo).subscribe(
+           response => {
+             console.log(this.tipo);
+           },
+           error => {
+            console.log(error);
+            console.log(this.tipo);
+            console.log(dni);
+           }
+         );
       }
     });
   }
@@ -93,11 +117,11 @@ export class SolicitudComponent implements OnInit {
   }
 
   showSuccess(){
-    this.toastr.success('El establecimiento ha sido eliminado con éxito.', 'Correcto', {timeOut: 3000});
+    this.toastr.success('La solicitud ha sido rechazada.', 'Correcto', {timeOut: 3000});
   }
 
   showError(){
-    this.toastr.error('El establecimiento no se ha eliminado.', 'Error', {timeOut: 3000})
+    this.toastr.error('No se ha podido rechazar la solicitud.', 'Error', {timeOut: 3000})
   }
 
   verificacionSuccess(){
@@ -107,5 +131,7 @@ export class SolicitudComponent implements OnInit {
   verificacionError(){
     this.toastr.error('El establecimiento no se ha verificado.', 'Error', {timeOut: 3000})
   }
-
+  denegarSolicitud(data){
+    return this.http.post(`${this.baseUrl}solicitudDenegada`, data)
+  }
 }

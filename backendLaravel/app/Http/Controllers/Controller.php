@@ -10,4 +10,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    
 }
+
+// Model::create([
+//     'datetime_column' => Carbon::createFromFormat( 'd/m/Y', $request->input('input_file')),
+// ]);

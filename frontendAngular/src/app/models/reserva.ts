@@ -4,13 +4,12 @@ export class Reserva{
         public tipo: string,
         public dni: string,
         public titulo: string,
-        public isbn: number,
+        public codigo: number,
         public idL: number,
-        public fechaSolicitud: string,
-        public fechaPrestamo: string,
-        public fechaDevolucion: string,
+        public fecha: string,
         public nombreEst: string,
         public comentario: string,
-        public puntuacion: number
+        public puntuacion: number,
+        public incidencia: string
         ){}
 }

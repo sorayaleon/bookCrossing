@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-Use App\Reserva;
+use App\historialReserva;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class ReservaController extends Controller
+class historialReservaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reservas = Reserva::all();
-        $respuesta = Response::json($reservas, 200);
+        $historial = historialReserva::all();
+        $respuesta = Response::json($historial, 200);
         return $respuesta;
     }
 
@@ -26,7 +26,7 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -39,16 +39,19 @@ class ReservaController extends Controller
     {
         $data = json_decode($request->getContent(), true);
 
-        $reserva = new Reserva();
-        $reserva->tipo = $data[0]["tipo"];
-        $reserva->dni = $data[0]["dni"];
-        $reserva->titulo = $data[0]["titulo"];
-        $reserva->codigo = $data[0]["codigo"];
-        $reserva->idL = $data[0]["idL"];
-        $reserva->fecha = $data[0]["fecha"];
-        $reserva->nombreEst = $data[0]["nombreEst"];
+        $historial = new historialReserva();
+        $historial->tipo = $data[0]["tipo"];
+        $historial->dni = $data[0]["dni"];
+        $historial->titulo = $data[0]["titulo"];
+        $historial->codigo = $data[0]["codigo"];
+        $historial->idL = $data[0]["idL"];
+        $historial->fecha = $data[0]["fecha"];
+        $historial->nombreEst = $data[0]["nombreEst"];
+        $historial->comentario = $data[0]["comentario"];
+        $historial->puntuacion = $data[0]["puntuacion"];
+        $historial->incidencia = $data[0]["incidencia"];
         
-        $reserva->save();
+        $historial->save();
         return json_encode("success");
     }
 
@@ -60,8 +63,8 @@ class ReservaController extends Controller
      */
     public function show($id)
     {
-        $reserva = Reserva::find($id);
-        return json_encode($reserva);
+        $historial = historialReserva::find($id);
+        return json_encode($historial);
     }
 
     /**
@@ -96,31 +99,5 @@ class ReservaController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    // public function updateTipoReserva(Request $request)
-    // {
-    //     try {
-    //         $data = json_decode($request->getContent(), true);
-    //         $reserva = Reserva::find($data[0]);
-    //         $reserva->tipo = $data[1];
-    //         $reserva->save();
-    //         return json_encode("success");
-    //     } catch (\Exception $e) {
-    //         return $e;
-    //     }
-    // }
-
-    public function updatePrestamo(Request $request){
-        try{
-            $data = json_decode($request->getContent(), true);
-            $reserva = Reserva::find($data[0]);
-            $reserva->tipo = $data[1];
-            $reserva->fecha = $data[1];
-            $reserva->save();
-            return json_encode("success");
-        }catch (\Exception $e){
-            return $e;
-        }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class UsersController extends Controller
 {
@@ -130,9 +131,11 @@ class UsersController extends Controller
 
     public function updateTipoUsuario(Request $request)
     {
+        
         try {
             $data = json_decode($request->getContent(), true);
-            $usuario = User::find($data[0]);
+            var_dump($data);
+            $usuario = User::where("dni",$data[0])->first();
             $usuario->tipo = $data[1];
             $usuario->save();
             return json_encode("success");

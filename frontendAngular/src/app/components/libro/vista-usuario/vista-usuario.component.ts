@@ -10,6 +10,7 @@ import { Reserva } from '../../../models/reserva';
 import { PrestamoService } from '../../../Services/prestamo.service';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
 import { Establecimiento } from '../../../models/establecimiento';
+import { HistorialService } from '../../../Services/historial.service';
 
 @Component({
   selector: 'app-vista-usuario',
@@ -38,12 +39,13 @@ export class VistaUsuarioComponent implements OnInit {
     private http: HttpClient,
     private _establecimientoService: EstablecimientoService,
     private _prestamoService: PrestamoService,
-  
+    private _historialService: HistorialService
+
   ) {
     this.url = Global.url;
     this.fecha = new Date('Y-m-d H:i:s');
     this.reserva = new Reserva(0, '', '', '', 0, 0, '',
-    '', '', '', '', 0);
+     '', '', 0, '');
     console.log(this.fecha);
    }
 
@@ -63,6 +65,9 @@ export class VistaUsuarioComponent implements OnInit {
     this._libroService.getLibro(id).subscribe(
       response => {
         this.libro = response;
+        console.log(this.libro);
+        console.log(this.libro.titulo);
+        console.log(this.libro.establecimiento);
         // this.getFichaEstablecimiento(this.libro.establecimientoInicial);
       }, error => {
         console.log(<any>error);
@@ -80,20 +85,20 @@ export class VistaUsuarioComponent implements OnInit {
   //   );
   // }
 
-  solicitar(idL, estado){
-    console.log(idL);
-    this.getFichaLibro(idL);
+  solicitar(id, estado){
+    console.log(id);
+    this.getFichaLibro(id);
     // this.getFichaEstablecimiento(idE);
     console.log(this.fecha);
-    this.reserva = new Reserva(0, 'solicitud', this.dniUsu, this.libro.titulo, this.libro.isbn, this.libro.id, this.fecha,
-    null, null, this.libro.establecimientoInicial, '', 0);
+    this.reserva = new Reserva(0, 'solicitud', this.dniUsu, this.libro.titulo, this.libro.codigo, this.libro.id, this.fecha,
+    this.libro.establecimiento, '', 0, '');
     console.log(this.libro.estado);
     console.log(this.libro);
     console.log(this.establecimiento);
     console.log(this.reserva);
     estado = 'solicitado';
 
-    this._libroService.updateEstadoLibro(idL, estado).subscribe(
+    this._libroService.updateEstadoLibro(id, estado).subscribe(
       response => {
         console.log(estado);
         this.showSuccess();
@@ -116,6 +121,19 @@ export class VistaUsuarioComponent implements OnInit {
         this.showError();
       }
     )
+
+    this._historialService.registraHistorial(this.reserva).subscribe(
+      response => {
+        console.log(response);
+        this.status = 'success';
+        this.saveReserva = response.reserva;
+        this.showSuccess();
+      }, error => {
+        this.status = 'failed';
+        console.log(<any>error);
+        this.showError();
+      }
+    )
     
   }
 
@@ -127,11 +145,5 @@ export class VistaUsuarioComponent implements OnInit {
     this.toastr.error('El libro no se ha reservado.', 'Error', {timeOut: 3000})
   }
 
-  // formatDate(date:Date): string{
-  //   const dia = date.getDate();
-  //   const mes = date.getMonth()+1;
-  //   const anio = date.getFullYear();
-
-  //   return `${dia}-${mes}-${anio}`;
-  // }
+ 
 }

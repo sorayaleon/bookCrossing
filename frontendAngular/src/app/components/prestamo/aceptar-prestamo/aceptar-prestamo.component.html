@@ -22,8 +22,8 @@
                 <ng-container *ngIf= "peticion.tipo == 'solicitud'">
                 <td>{{peticion.dni}}</td>
                 <td>{{peticion.titulo}}</td>
-                <td>{{peticion.isbn}}</td>
-                <td><a class="btn btn-success btn-sm" (click)="confirmSolicitud(peticion.id, peticion.estado, peticion.tipo)"><i class="material-icons">done_outline</i></a></td>
+                <td>{{peticion.codigo}}</td>
+                <td><a class="btn btn-success btn-sm" (click)="confirmSolicitud(peticion.id, peticion.dni, peticion.codigo, peticion.titulo, peticion.nombreEst, peticion.estado)"><i class="material-icons">done_outline</i></a></td>
                 </ng-container>
               </tr>
             </tbody>

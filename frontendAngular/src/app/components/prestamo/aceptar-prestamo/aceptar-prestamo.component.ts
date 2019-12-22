@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../../../shared/dialog.service';
 import { LibroService } from '../../../Services/libro.service';
 import { Libro } from '../../../models/libro';
+import { HistorialService } from '../../../Services/historial.service';
+import { Reserva } from '../../../models/reserva';
 
 
 @Component({
@@ -20,21 +22,25 @@ export class AceptarPrestamoComponent implements OnInit {
   filterSolicitud = '';
   public saveReserva;
   public libro: Libro;
-  
+  public fechaPrestamo: any;
+  public reserva: Reserva;
+  public status: string;
+
   constructor(
     private _prestamoService: PrestamoService,
     private _router: Router,
     private _route: ActivatedRoute,
     private toastr: ToastrService,
     private dialogService: DialogService,
-    private _libroService: LibroService
-  ) { }
+    private _libroService: LibroService, 
+    private _historialService: HistorialService
+  ) { 
+    this.fechaPrestamo = new Date();
+    
+    console.log(this.fechaPrestamo);
+  }
 
   ngOnInit() {
-    this._route.params.subscribe(params=> {
-      let id = params.id;
-      this.getFichaLibro(id);
-    })
 
     this._prestamoService.getSolicitudes().subscribe(
       result => {
@@ -53,52 +59,123 @@ export class AceptarPrestamoComponent implements OnInit {
   );
   }
 
-  getFichaLibro(id){
-    this._libroService.getLibro(id).subscribe(
-      response => {
-        this.libro = response;
-        console.log(this.libro);
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
 
-  confirmSolicitud(id, estado, tipo){
-    console.log(estado);
-    // this.getFichaLibro(idL);
+
+  confirmSolicitud(id, dni, codigo, titulo, nombreEst, estado){
+ 
+    let tipo = "prestamo";
     estado = "prestado";
-    tipo = "prestamo"
-    this.dialogService.openConfirmDialog('¿Deseas confirmar el préstamo?').afterClosed().subscribe(res =>{
-      if(res){
-        this._libroService.updateEstadoLibro(id, estado).subscribe(
-          response=>{
-            console.log(estado);
-            this.showSuccess();
-            // this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
-            //   this._router.navigate(['/gestionPrestamos'])); 
-            console.log(estado);
-          },
-    
-         error => {
-           console.log("estoy en error");
-          //  console.log(this.solicitud.estado);
-           this.showError();
-           //this.status = 'failed';
-           console.log(<any>error);
-         });
 
-        //  this._prestamoService.updateTipoReserva(id, tipo).subscribe(
-        //   response => {
-        //     console.log(response);
-        //     this.saveReserva = response.reserva;
-        //   }, error => {
-        //     console.log(<any>error);
-        //   }
-        // )
+    // this._historialService.registraPrestamo(this.reserva, tipo, this.fechaPrestamo).subscribe(
+    //   response => {
+    //     console.log(response);
+    //     this.status = 'success';
+    //     this.saveReserva = response.reserva;
+    //     this.showSuccess();
+    //   }, error => {
+    //     this.status = 'failed';
+    //     console.log(<any>error);
+    //     this.showError();
+    //   }
+    // )
+
+    this._libroService.updateEstadoLibro(codigo, estado).subscribe(
+      response => {
+        console.log(estado);
+        this.showSuccess();
+      }, error => {
+        this.status = 'failed';
+        console.log(<any>error);
+        this.showError();
       }
-    });
+    )
+
+    // this._prestamoService.aceptaPrestamo(id, tipo, this.fechaPrestamo).subscribe(
+    //   response => {
+    //     console.log(response);
+    //     this.showSuccess();
+    //     this._router.navigate(['/gestionPrestamos']);
+    //   }, error => {
+    //     this.status = 'failed';
+    //     console.log(<any>error);
+    //     this.showError();
+    //   }
+    // )
   }
+
+  // getPrestamo(id){
+  //   this._prestamoService.getSolicitud(id).subscribe(
+  //     response => {
+  //       this.reserva = response;
+  //     }, error => {
+  //       console.log(error);
+  //     }
+  //   )
+  // }
+
+  // getFichaLibro(id){
+  //   this._libroService.getLibro(id).subscribe(
+  //     response => {
+  //       this.libro = response;
+  //       console.log(this.libro.titulo);
+  //     }, error => {
+  //       console.log(<any>error);
+  //     }
+  //   );
+  // }
+
+  // confirmSolicitud(id, dni, codigo, titulo, nombreEst, estado){
+  // estado = "prestado";
+  //   this.reserva = new Reserva(0, 'prestamo', dni, titulo, codigo, this.fechaPrestamo,
+  //   nombreEst, '', 0, '');
+   
+    
+  //   this.dialogService.openConfirmDialog('¿Deseas confirmar el préstamo?').afterClosed().subscribe(res =>{
+  //     if(res){
+        
+    
+  //        this._prestamoService.aceptaPrestamo(id, 'tipo', this.fechaPrestamo).subscribe(
+  //         response => {
+  //           console.log(response);
+  //           this._libroService.updateEstadoLibro(codigo,estado).subscribe(
+  //             response=>{
+                
+  //               this.showSuccess();
+  //               // this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
+  //               //   this._router.navigate(['/gestionPrestamos'])); 
+              
+  //             },
+        
+  //            error => {
+  //              console.log("estoy en error");
+  //             //  console.log(this.solicitud.estado);
+  //              this.showError();
+  //              //this.status = 'failed';
+  //              console.log(<any>error);
+  //            });
+  //           this.saveReserva = response.reserva;
+  //         }, error => {
+  //           console.log(<any>error);
+  //         }
+  //       )
+
+  //       this._historialService.registraHistorial(this.reserva).subscribe(
+  //         response => {
+  //          console.log(response);
+  //         }, error => {
+  //           console.log(<any>error);
+  //         }
+  //       )
+  //     }
+  //   });
+  // }
+
+  // calcularFecha(){
+  //   let dosSemanas = 1000 * 60 * 60 * 24 * 14;
+  //   let suma = this.fechaPrestamo.getTime() + dosSemanas;
+  //   this.fechaDevolucion = new Date(suma);
+  //   return (Date.parse(this.fechaDevolucion));
+  // }
 
   showSuccess(){
     this.toastr.success('El préstamo se ha realizado correctamente.', 'Correcto', {timeOut: 3000});

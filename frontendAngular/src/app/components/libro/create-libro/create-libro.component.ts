@@ -20,6 +20,7 @@ export class CreateLibroComponent implements OnInit {
   public saveLibro;
   public formularioLibro: FormGroup;//Creo el objeto de tipo FormGroup
   public categoriaList: string[];
+  public categoriaEst: string[];
   public establecimiento: any;
   
   constructor(
@@ -30,7 +31,7 @@ export class CreateLibroComponent implements OnInit {
     private _router: Router
   ) {
     this.title = "Crear Libro";
-    this.libro = new Libro(0, 0 , 0 ,'', '', '', '', '', '', '');
+    this.libro = new Libro(0, 0 , 0 , '', '', '', '', '', '', '');
     this.createForm();
 
     this.formularioLibro = this.fb.group({
@@ -40,7 +41,8 @@ export class CreateLibroComponent implements OnInit {
       autor: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
       descripcion:['',[Validators.required, Validators.maxLength(1000)]],
       categoria: ['', Validators.required],
-      establecimientoInicial: ['', Validators.required]
+      establecimiento: ['', Validators.required],
+      codigo: ['', [Validators.required]],
     })
    }
 
