@@ -57,6 +57,7 @@ export class DevolucionComponent implements OnInit {
       response => {
         this.prestamo = response;
         console.log(this.prestamo);
+        this.calcularFecha(this.prestamo.fecha);
       }, error => {
         console.log(<any>error);
         
@@ -76,7 +77,7 @@ export class DevolucionComponent implements OnInit {
 
     this.dialogService.openConfirmDialog('¿Deseas confirmar el préstamo?').afterClosed().subscribe(res =>{
       if(res){
-        this.prestamo = new Reserva(0, tipo, this.prestamo.dni, this.prestamo.titulo, this.prestamo.codigo, this.prestamo.idL, this.fechaDevolucion,
+        this.prestamo = new Reserva(0, tipo, this.prestamo.dni, this.prestamo.titulo, this.prestamo.codigo, this.prestamo.idL, this.prestamo.idUsu, this.fechaDevolucion,
           this.prestamo.nombreEst, '', 0, incidencia, 'si');
 
       this._historialService.registraHistorial(this.prestamo).subscribe(
@@ -116,6 +117,12 @@ export class DevolucionComponent implements OnInit {
 })
 }
 
+calcularFecha(fechaPrestamo){
+  let dosSemanas = 1000 * 60 * 60 * 24 * 14;
+  let suma = fechaPrestamo.getTime() + dosSemanas;
+  this.fechaDevolucion = new Date(suma);
+  return (Date.parse(this.fechaDevolucion));
+}
 
 showSuccess(){
   this.toastr.success('La devolución del préstamo se ha realizado correctamente.', 'Correcto', {timeOut: 3000});

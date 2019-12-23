@@ -27,6 +27,9 @@
         <a class="nav-link" routerLink="/devolucionPrestamo" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Devolucion</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" routerLink="/incidencia" *ngIf="loggedIn && (tipo=='admin')">Incidencia</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" [routerLink]="['/perfil', idUsu]" *ngIf="loggedIn">Mi perfil</a>
       </li>
     </ul>

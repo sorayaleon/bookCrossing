@@ -24,6 +24,8 @@ import { AceptarPrestamoComponent } from './components/prestamo/aceptar-prestamo
 import { SolicitudEstablecimientoComponent } from './components/establecimiento/solicitud-establecimiento/solicitud-establecimiento.component';
 import { DevolucionPrestamoComponent } from './components/prestamo/devolucion-prestamo/devolucion-prestamo.component';
 import { DevolucionComponent } from './components/prestamo/devolucion/devolucion.component';
+import { IncidenciaComponent } from './components/incidencia/incidencia.component';
+import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
@@ -49,6 +51,8 @@ const routes: Routes = [
   {path: 'vistaLibro/:id', component: VistaUsuarioComponent, canActivate: [SesionIniciadaService]},
   {path: 'vistaEstablecimiento/:id', component: UsuarioEstablecimientoComponent, canActivate: [SesionIniciadaService]},  
   {path: 'serColaborador', component: SolicitudEstablecimientoComponent, canActivate: [SesionIniciadaService]},
+  {path: 'incidencia', component: IncidenciaComponent, canActivate: [SesionIniciadaService]},
+  {path: 'incidencia/:id', component: VerIncidenciaComponent, canActivate: [SesionIniciadaService]},
 ];
 
 @NgModule({

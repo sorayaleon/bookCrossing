@@ -51,4 +51,10 @@ updateTipoUsuario(id, tipo): Observable<any>{
   let headers = new HttpHeaders().set('Content-type','application/json'); 
   return this._http.put(this.url+'cambio', params, {headers: headers})
 }
+
+updateEstadoUsuario(id, estado): Observable<any>{
+  let params = JSON.stringify([id, estado]);
+  let headers = new HttpHeaders().set('Content-type','application/json'); 
+  return this._http.put(this.url+'bloqueo', params, {headers: headers})
+}
 }

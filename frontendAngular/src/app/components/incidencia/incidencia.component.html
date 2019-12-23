@@ -1,0 +1,36 @@
+<div class="container">
+    <form class="form-inline my-2 my-lg-0 ">
+        <input class="form-control mr-sm-2" type="search" name="filterIncidencia" placeholder="Search" aria-label="Search" [(ngModel)]="filterIncidencia">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      </form>
+    <div>
+    <br/>
+    <div *ngIf= "numIncidencias == 0">No hay incidencias pendientes</div>
+  <div *ngIf= "numIncidencias != 0">
+    <h3>Incidencias </h3>
+          <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Título</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let incidencia of incidencias  | paginate: {itemsPerPage: 7, currentPage: pageActual} ">
+                <!-- | solicitud:filterSolicitud -->
+                <ng-container *ngIf= "incidencia.incidenciaActiva == 'si'">
+                <td>{{incidencia.dni}}</td>
+                <td>{{incidencia.titulo}}</td>
+                <td><a class="btn btn-danger btn-sm" [routerLink]="['/incidencia/'+incidencia.id]">VER</a></td>
+                </ng-container>
+              </tr>
+            </tbody>
+        </table>  
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
+      </div>  
+        <br><br>
+    </div>
+</div>
+  
+  
+  

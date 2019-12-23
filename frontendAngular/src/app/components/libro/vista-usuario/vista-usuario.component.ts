@@ -29,6 +29,7 @@ export class VistaUsuarioComponent implements OnInit {
   public status: string;
   public idUsu;
   public saveReserva;
+  public idusu;
 
   constructor(
     private _libroService: LibroService,
@@ -44,7 +45,7 @@ export class VistaUsuarioComponent implements OnInit {
   ) {
     this.url = Global.url;
     this.fecha = new Date('Y-m-d H:i:s');
-    this.reserva = new Reserva(0, '', '', '', 0, 0, '',
+    this.reserva = new Reserva(0, '', '', '', 0, 0, 0, '',
      '', '', 0, '', '');
     console.log(this.fecha);
    }
@@ -90,7 +91,7 @@ export class VistaUsuarioComponent implements OnInit {
     this.getFichaLibro(id);
     // this.getFichaEstablecimiento(idE);
     console.log(this.fecha);
-    this.reserva = new Reserva(0, 'solicitud', this.dniUsu, this.libro.titulo, this.libro.codigo, this.libro.id, this.fecha,
+    this.reserva = new Reserva(0, 'solicitud', this.dniUsu, this.libro.titulo, this.libro.codigo, this.libro.id, this.idUsu,  this.fecha,
     this.libro.establecimiento, '', 0, '', 'no');
     console.log(this.libro.estado);
     console.log(this.libro);

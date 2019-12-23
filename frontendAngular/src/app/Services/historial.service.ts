@@ -27,11 +27,21 @@ export class HistorialService {
     return this._http.get(this.url + 'historial');
 }
 
+verHistorial(id): Observable<any> {
+  let headers = new HttpHeaders().set('Content-type','application/json');
+  return this._http.get(this.url+'historial/'+id, {headers: headers});
+}
   registraPrestamo(id, tipo, fecha): Observable<any>{
     let historial = [id, tipo, fecha];
     let params = JSON.stringify(historial);
     let headers = new HttpHeaders().set('Content-type','application/json');
   
     return this._http.post(this.url+'historial', params, {headers: headers});
+  }
+
+  cambiarEstadoIncidencia(id, incidenciaActiva): Observable<any> {
+    let params = JSON.stringify([id,incidenciaActiva]);
+      let headers = new HttpHeaders().set('Content-type','application/json'); 
+      return this._http.put(this.url+'historial/'+id, params, {headers: headers});
   }
 }

@@ -51,12 +51,12 @@ export class DevolucionPrestamoComponent implements OnInit {
   );
   }
 
-  devolverPrestamo(id, dni, idL, titulo, codigo, nombreEst){
+  devolverPrestamo(id, dni, idL, idUsu, titulo, codigo, nombreEst){
       let tipo = "devolucion";
   
       this.dialogService.openConfirmDialog('¿Deseas confirmar el préstamo?').afterClosed().subscribe(res =>{
         if(res){
-          this.prestamo = new Reserva(0, 'devolucion', dni, titulo, codigo, idL, this.fechaDevolucion,
+          this.prestamo = new Reserva(0, 'devolucion', dni, titulo, codigo, idL, idUsu, this.fechaDevolucion,
             nombreEst, '', 0, '', 'no');
   
         this._historialService.registraHistorial(this.prestamo).subscribe(

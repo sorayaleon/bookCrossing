@@ -44,4 +44,5 @@ Route::put('reserva', 'ReservaController@updatePrestamo');
 Route::resource('historial', 'HistorialReservaController');
 Route::put('estado', 'LibrosController@updateEstadoLibro');
 Route::put('cambio', 'UsersController@updateTipoUsuario');
+Route::put('bloqueo', 'UsersController@updateEstadoUsuario');
 

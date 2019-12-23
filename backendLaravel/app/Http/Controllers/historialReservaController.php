@@ -45,6 +45,7 @@ class historialReservaController extends Controller
         $historial->titulo = $data[0]["titulo"];
         $historial->codigo = $data[0]["codigo"];
         $historial->idL = $data[0]["idL"];
+        $historial->idUsu = $data[0]["idUsu"];
         $historial->fecha = $data[0]["fecha"];
         $historial->nombreEst = $data[0]["nombreEst"];
         $historial->comentario = $data[0]["comentario"];
@@ -85,9 +86,18 @@ class historialReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        try{
+            $data = json_decode($request->getContent(), true);
+            $historial = historialReserva::find($data[0]);
+            $historial->incidenciaActiva = $data[1];
+            // var_dump($historial->incidenciaActiva);
+            $historial->save();
+            return json_encode("success");
+        }catch (\Exception $e){
+            return $e;
+        }
     }
 
     /**

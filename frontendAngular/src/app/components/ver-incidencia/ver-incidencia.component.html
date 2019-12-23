@@ -1,0 +1,46 @@
+<div class="container"  *ngIf="incidencia">
+    
+   
+    <div class="text-center">
+        <h1>{{incidencia.titulo}}</h1>
+        <br/><br/>
+    </div>
+    <div class="form-row">
+   
+    <div class="col-md-4 col-sm-6 col-xs-12" *ngIf="usuario">     
+        
+        <div class="form-group">
+            <h2>{{incidencia.dni}}</h2>
+        </div>
+
+        <div class="form-group">
+            <h2>{{incidencia.nombreEst}}</h2>
+        </div>
+        
+        <div class="form-group">
+            <h4>{{usuario.nombre}}</h4>
+        </div>
+        <div class="form-group">
+            <h4>{{usuario.email}}</h4>
+        </div>
+        <div class="form-group">
+            <h4>{{usuario.estado}}</h4>
+        </div>
+        
+    </div>
+
+    <div class="col-md-8 col-sm-6 col-xs-12">
+        <br/>
+        <p>{{incidencia.incidencia}}</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="text-center">
+        <button type="button" class="btn-primary btn-lg" [routerLink]="['/incidencia']">Volver</button>&nbsp;  
+        <button type="button" class="btn-success btn-lg" (click)="resolver(incidencia.id)">Incidencia Resuelta</button>&nbsp;
+        <button type="button" class="btn-danger btn-lg" (click)="bloquear(usuario.id)">Bloquear Usuario</button>
+    </div>
+</div>
+    
+</div>

@@ -143,4 +143,19 @@ class UsersController extends Controller
             return $e;
         }
     }
+
+    public function updateEstadoUsuario(Request $request)
+    {
+        
+        try {
+            $data = json_decode($request->getContent(), true);
+            // var_dump($data);
+            $usuario = User::find($data[0]);
+            $usuario->estado = $data[1];
+            $usuario->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

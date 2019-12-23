@@ -44,6 +44,8 @@ import { AceptarPrestamoComponent } from './components/prestamo/aceptar-prestamo
 import { SolicitudEstablecimientoComponent } from './components/establecimiento/solicitud-establecimiento/solicitud-establecimiento.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { DevolucionComponent } from './components/prestamo/devolucion/devolucion.component';
+import { IncidenciaComponent } from './components/incidencia/incidencia.component';
+import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { DevolucionComponent } from './components/prestamo/devolucion/devolucion
     AceptarPrestamoComponent,
     SolicitudEstablecimientoComponent,
     DevolucionComponent,
+    IncidenciaComponent,
+    VerIncidenciaComponent,
 
   ],
   imports: [

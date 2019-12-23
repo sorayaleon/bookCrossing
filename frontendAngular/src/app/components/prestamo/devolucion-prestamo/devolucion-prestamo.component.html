@@ -23,7 +23,7 @@
               <td>{{peticion.dni}}</td>
               <td>{{peticion.titulo}}</td>
               <td>{{peticion.codigo}}</td>
-              <td><a class="btn btn-success btn-sm" (click)="devolverPrestamo(peticion.id, peticion.dni, peticion.idL, peticion.titulo, peticion.codigo, peticion.nombreEst)"><i class="material-icons">done_outline</i></a></td>
+              <td><a class="btn btn-success btn-sm" (click)="devolverPrestamo(peticion.id, peticion.dni, peticion.idL, peticion.idUsu, peticion.titulo, peticion.codigo, peticion.nombreEst)"><i class="material-icons">done_outline</i></a></td>
               <td><a class="btn btn-danger btn-sm" [routerLink]="['/devolucion/'+peticion.id]">INCIDENCIA</a></td>
               </ng-container>
             </tr>

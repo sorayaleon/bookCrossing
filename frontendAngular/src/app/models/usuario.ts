@@ -7,7 +7,6 @@ export class Usuario{
         public email: string,
         public password: string,
         public alias: string,
-        // public foto: string,
         public tipo: string,
         public estado: string,
        

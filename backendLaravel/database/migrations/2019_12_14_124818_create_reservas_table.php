@@ -20,6 +20,7 @@ class CreateReservasTable extends Migration
             $table->string('titulo');
             $table->integer('codigo');
             $table->integer('idL');
+            $table->integer('idUsu');
             $table->timestamp('fecha');
             $table->string('nombreEst');
             $table->timestamps();
