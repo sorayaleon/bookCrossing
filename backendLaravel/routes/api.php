@@ -40,7 +40,7 @@ Route::resource('libros', 'LibrosController');
 Route::resource('usuarios', 'UsersController');
 Route::put('estados', 'EstablecimientosController@updateEstado');
 Route::resource('reservas', 'ReservaController');
-Route::put('reservas', 'ReservaController@updatePrestamo');
+Route::put('reserva', 'ReservaController@updatePrestamo');
 Route::resource('historial', 'HistorialReservaController');
 Route::put('estado', 'LibrosController@updateEstadoLibro');
 Route::put('cambio', 'UsersController@updateTipoUsuario');

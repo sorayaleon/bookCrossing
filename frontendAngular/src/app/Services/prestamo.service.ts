@@ -36,12 +36,12 @@ getSolicitud(id): Observable<any> {
 }
 
 
-aceptaPrestamo(id, tipo, fecha): Observable<any>{
-  let reserva = [id, tipo, fecha];
+aceptaPrestamo(tipo, fecha): Observable<any>{
+  let reserva = [tipo, fecha];
   let params = JSON.stringify(reserva);
   let headers = new HttpHeaders().set('Content-type','application/json');
 
-  return this._http.post(this.url+'reservas', params, {headers: headers});
+  return this._http.put(this.url+'reserva', params, {headers: headers});
 }
 
 

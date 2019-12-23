@@ -1,4 +1,4 @@
-<ng-container *ngIf="!loggedIn">
+<!-- <ng-container *ngIf="!loggedIn">
   <app-navbar></app-navbar>
 </ng-container>
 <ng-container *ngIf="loggedIn && tipo=='admin'">
@@ -9,7 +9,8 @@
 </ng-container>
 <ng-container *ngIf="loggedIn && tipo=='normal'">
   <app-navbar-usuario></app-navbar-usuario>
-</ng-container>
+</ng-container> -->
+<app-navbar></app-navbar>
 <div class="container">
   <router-outlet></router-outlet>
 </div>

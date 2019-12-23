@@ -13,4 +13,7 @@ export class DevolucionPrestamoComponent implements OnInit {
   ngOnInit() {
   }
 
+  devolverLibro(id){
+
+  }
 }

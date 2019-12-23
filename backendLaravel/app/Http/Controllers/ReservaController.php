@@ -114,8 +114,9 @@ class ReservaController extends Controller
     public function updatePrestamo(Request $request){
         try{
             $data = json_decode($request->getContent(), true);
-            $reserva = Reserva::find($data[0]);
-            $reserva->tipo = $data[1];
+            $reserva = Reserva::first();
+            // var_dump($data);
+            $reserva->tipo = $data[0];
             $reserva->fecha = $data[1];
             $reserva->save();
             return json_encode("success");

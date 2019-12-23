@@ -27,8 +27,8 @@ export class HistorialService {
     return this._http.get(this.url + 'historial');
 }
 
-  registraPrestamo(prestamo:Reserva, tipo, fecha): Observable<any>{
-    let historial = [prestamo, tipo, fecha];
+  registraPrestamo(id, tipo, fecha): Observable<any>{
+    let historial = [id, tipo, fecha];
     let params = JSON.stringify(historial);
     let headers = new HttpHeaders().set('Content-type','application/json');
   

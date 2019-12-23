@@ -134,7 +134,7 @@ class UsersController extends Controller
         
         try {
             $data = json_decode($request->getContent(), true);
-            var_dump($data);
+            // var_dump($data);
             $usuario = User::where("dni",$data[0])->first();
             $usuario->tipo = $data[1];
             $usuario->save();

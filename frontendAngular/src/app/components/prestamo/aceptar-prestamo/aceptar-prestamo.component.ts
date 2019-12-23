@@ -13,7 +13,7 @@ import { Reserva } from '../../../models/reserva';
   selector: 'app-aceptar-prestamo',
   templateUrl: './aceptar-prestamo.component.html',
   styleUrls: ['./aceptar-prestamo.component.css'],
-  providers: [PrestamoService]
+  providers: [PrestamoService, LibroService]
 })
 export class AceptarPrestamoComponent implements OnInit {
   public solicitud: any;
@@ -35,7 +35,7 @@ export class AceptarPrestamoComponent implements OnInit {
     private _libroService: LibroService, 
     private _historialService: HistorialService
   ) { 
-    this.fechaPrestamo = new Date();
+    this.fechaPrestamo = new Date('Y-m-d H:i:s');
     
     console.log(this.fechaPrestamo);
   }
@@ -61,27 +61,24 @@ export class AceptarPrestamoComponent implements OnInit {
 
 
 
-  confirmSolicitud(id, dni, codigo, titulo, nombreEst, estado){
- 
+  confirmSolicitud(id, dni, idL, titulo, codigo, nombreEst, estado){
+    console.log(id);
+    console.log(idL);
     let tipo = "prestamo";
     estado = "prestado";
-
-    // this._historialService.registraPrestamo(this.reserva, tipo, this.fechaPrestamo).subscribe(
-    //   response => {
-    //     console.log(response);
-    //     this.status = 'success';
-    //     this.saveReserva = response.reserva;
-    //     this.showSuccess();
-    //   }, error => {
-    //     this.status = 'failed';
-    //     console.log(<any>error);
-    //     this.showError();
-    //   }
-    // )
-
-    this._libroService.updateEstadoLibro(codigo, estado).subscribe(
+    this.dialogService.openConfirmDialog('¿Deseas confirmar el préstamo?').afterClosed().subscribe(res =>{
+          if(res){
+            
+    
+    console.log(tipo);
+    this.reserva = new Reserva(0, tipo, dni, titulo, codigo, idL, this.fechaPrestamo,
+    nombreEst, '', 0, '');
+    console.log(tipo);
+    this._historialService.registraHistorial(this.reserva).subscribe(
       response => {
-        console.log(estado);
+        console.log(response);
+        this.status = 'success';
+        this.saveReserva = response.reserva;
         this.showSuccess();
       }, error => {
         this.status = 'failed';
@@ -90,18 +87,34 @@ export class AceptarPrestamoComponent implements OnInit {
       }
     )
 
-    // this._prestamoService.aceptaPrestamo(id, tipo, this.fechaPrestamo).subscribe(
-    //   response => {
-    //     console.log(response);
-    //     this.showSuccess();
-    //     this._router.navigate(['/gestionPrestamos']);
-    //   }, error => {
-    //     this.status = 'failed';
-    //     console.log(<any>error);
-    //     this.showError();
-    //   }
-    // )
+    console.log(tipo);
+
+    this._prestamoService.aceptaPrestamo("prestamo", this.fechaPrestamo).subscribe(
+      response => {
+        console.log(response);
+        this._libroService.updateEstadoLibro(idL, estado).subscribe(
+          response => {
+            console.log(estado);
+            this.showSuccess();
+          }, error => {
+            this.status = 'failed';
+            console.log(<any>error);
+            this.showError();
+          }
+        )
+        this.showSuccess();
+        this._router.navigate(['/gestionPrestamos']);
+      }, error => {
+        this.status = 'failed';
+        console.log(<any>error);
+        this.showError();
+      }
+    )
   }
+}
+  
+  )}
+  // 
 
   // getPrestamo(id){
   //   this._prestamoService.getSolicitud(id).subscribe(
