@@ -42,6 +42,8 @@ import { NavbarUsuarioComponent } from './components/template/navbar-usuario/nav
 import { DevolucionPrestamoComponent } from './components/prestamo/devolucion-prestamo/devolucion-prestamo.component';
 import { AceptarPrestamoComponent } from './components/prestamo/aceptar-prestamo/aceptar-prestamo.component';
 import { SolicitudEstablecimientoComponent } from './components/establecimiento/solicitud-establecimiento/solicitud-establecimiento.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { DevolucionComponent } from './components/prestamo/devolucion/devolucion.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { SolicitudEstablecimientoComponent } from './components/establecimiento/
     DevolucionPrestamoComponent,
     AceptarPrestamoComponent,
     SolicitudEstablecimientoComponent,
+    DevolucionComponent,
 
   ],
   imports: [
@@ -87,7 +90,8 @@ import { SolicitudEstablecimientoComponent } from './components/establecimiento/
     MatDialogModule,
     ReactiveFormsModule,
     MatIconModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     MatDialog,

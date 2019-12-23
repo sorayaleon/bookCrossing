@@ -8,5 +8,5 @@ class historialReserva extends Model
 {
     protected $table = "historial_reservas";
 
-    protected $fillable = ['tipo', 'dni', 'titulo', 'codigo', 'idL', 'fecha', 'nombreEst', 'comentario', 'puntuacion', 'incidencia'];
+    protected $fillable = ['tipo', 'dni', 'titulo', 'codigo', 'idL', 'fecha', 'nombreEst', 'comentario', 'puntuacion', 'incidencia','incidenciaActiva'];
 }

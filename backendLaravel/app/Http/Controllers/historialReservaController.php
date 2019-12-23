@@ -50,7 +50,7 @@ class historialReservaController extends Controller
         $historial->comentario = $data[0]["comentario"];
         $historial->puntuacion = $data[0]["puntuacion"];
         $historial->incidencia = $data[0]["incidencia"];
-        
+        $historial->incidenciaActiva = $data[0]["incidenciaActiva"];
         $historial->save();
         return json_encode("success");
     }

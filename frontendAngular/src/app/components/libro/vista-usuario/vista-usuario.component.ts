@@ -45,7 +45,7 @@ export class VistaUsuarioComponent implements OnInit {
     this.url = Global.url;
     this.fecha = new Date('Y-m-d H:i:s');
     this.reserva = new Reserva(0, '', '', '', 0, 0, '',
-     '', '', 0, '');
+     '', '', 0, '', '');
     console.log(this.fecha);
    }
 
@@ -91,7 +91,7 @@ export class VistaUsuarioComponent implements OnInit {
     // this.getFichaEstablecimiento(idE);
     console.log(this.fecha);
     this.reserva = new Reserva(0, 'solicitud', this.dniUsu, this.libro.titulo, this.libro.codigo, this.libro.id, this.fecha,
-    this.libro.establecimiento, '', 0, '');
+    this.libro.establecimiento, '', 0, '', 'no');
     console.log(this.libro.estado);
     console.log(this.libro);
     console.log(this.establecimiento);

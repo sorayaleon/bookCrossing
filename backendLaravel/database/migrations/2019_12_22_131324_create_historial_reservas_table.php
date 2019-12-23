@@ -24,7 +24,8 @@ class CreateHistorialReservasTable extends Migration
             $table->string('nombreEst');
             $table->string('comentario');
             $table->float('puntuacion');
-            $table->string('incidencia');
+            $table->string('incidencia')->default('');
+            $table->enum('incidenciaActiva', ['si','no'])->default('no');
             $table->timestamps();
         });
     }

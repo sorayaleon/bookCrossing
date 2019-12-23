@@ -95,7 +95,8 @@ class ReservaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reserva = Reserva::find($id);
+        $reserva->delete();
     }
 
     // public function updateTipoReserva(Request $request)

@@ -10,6 +10,7 @@ export class Reserva{
         public nombreEst: string,
         public comentario: string,
         public puntuacion: number,
-        public incidencia: string
+        public incidencia: string,
+        public incidenciaActiva: string
         ){}
 }

@@ -22,6 +22,8 @@ import { VistaUsuarioComponent } from './components/libro/vista-usuario/vista-us
 import { UsuarioEstablecimientoComponent } from './components/establecimiento/usuario-establecimiento/usuario-establecimiento.component';
 import { AceptarPrestamoComponent } from './components/prestamo/aceptar-prestamo/aceptar-prestamo.component';
 import { SolicitudEstablecimientoComponent } from './components/establecimiento/solicitud-establecimiento/solicitud-establecimiento.component';
+import { DevolucionPrestamoComponent } from './components/prestamo/devolucion-prestamo/devolucion-prestamo.component';
+import { DevolucionComponent } from './components/prestamo/devolucion/devolucion.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
@@ -42,6 +44,8 @@ const routes: Routes = [
   {path: 'gestionSolicitudes', component: SolicitudComponent, canActivate: [SesionIniciadaService]},
   {path: 'gestionUsuarios', component: RefreshComponent, canActivate: [SesionIniciadaService]},
   {path: 'gestionPrestamos', component: AceptarPrestamoComponent, canActivate: [SesionIniciadaService]},
+  {path: 'devolucionPrestamo', component: DevolucionPrestamoComponent, canActivate: [SesionIniciadaService]},
+  {path: 'devolucion/:id', component: DevolucionComponent, canActivate: [SesionIniciadaService]},
   {path: 'vistaLibro/:id', component: VistaUsuarioComponent, canActivate: [SesionIniciadaService]},
   {path: 'vistaEstablecimiento/:id', component: UsuarioEstablecimientoComponent, canActivate: [SesionIniciadaService]},  
   {path: 'serColaborador', component: SolicitudEstablecimientoComponent, canActivate: [SesionIniciadaService]},

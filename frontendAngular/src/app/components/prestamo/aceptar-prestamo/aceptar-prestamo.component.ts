@@ -72,7 +72,7 @@ export class AceptarPrestamoComponent implements OnInit {
     
     console.log(tipo);
     this.reserva = new Reserva(0, tipo, dni, titulo, codigo, idL, this.fechaPrestamo,
-    nombreEst, '', 0, '');
+    nombreEst, '', 0, '', 'no');
     console.log(tipo);
     this._historialService.registraHistorial(this.reserva).subscribe(
       response => {
@@ -103,7 +103,9 @@ export class AceptarPrestamoComponent implements OnInit {
           }
         )
         this.showSuccess();
-        this._router.navigate(['/gestionPrestamos']);
+        this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
+        this._router.navigate(['/gestionPrestamos']));
+  
       }, error => {
         this.status = 'failed';
         console.log(<any>error);

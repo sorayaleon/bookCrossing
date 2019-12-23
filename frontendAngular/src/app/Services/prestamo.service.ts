@@ -44,6 +44,10 @@ aceptaPrestamo(tipo, fecha): Observable<any>{
   return this._http.put(this.url+'reserva', params, {headers: headers});
 }
 
+deleteReserva(id): Observable<any>{
+  let headers = new HttpHeaders().set('Content-type','application/json'); 
+  return this._http.delete(this.url+'reservas/'+id, {headers: headers});
+}
 
 // //Devuelve un libro
 // getLibro(id): Observable<any> {

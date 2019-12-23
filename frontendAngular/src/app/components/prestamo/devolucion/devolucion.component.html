@@ -1,0 +1,40 @@
+<div class="container" *ngIf="prestamo">
+    
+    <div class="text-center">
+        <h1>{{prestamo.titulo}}</h1>
+        <br/><br/>
+    </div>
+
+   
+    <div class="col-md-4 col-sm-6 col-xs-12" >     
+       
+        <div class="form-group">
+            <h2>{{prestamo.dni}}</h2>
+        </div>
+        
+        <div class="form-group">
+            <h4>{{prestamo.codigo}}</h4>
+        </div>
+        <div class="form-group">
+            <h4>{{prestamo.fecha}}</h4>
+        </div>
+    </div>
+    
+    <form #devolucionForm="ngForm" [formGroup]="formularioDevolucion" (ngSubmit)="onSubmit(); formularioDevolucion.reset()">
+    <div class="col-md-8 col-sm-6 col-xs-12">
+            <label for="incidencia">¿Se ha producido alguna incidencia? Comunícalo aquí:</label>
+            <textarea rows="8" cols="80" class="form-control" name="incidencia" formControlName="incidencia" [(ngModel)]="prestamo.incidencia"></textarea> 
+    </div>
+
+    <br/>
+
+
+<div class="form-group">
+    <div class="text-center">
+        <br/>
+        <button type="button" class="btn btn-secondary btn-lg" [routerLink]="['/devolucionPrestamo']">Volver</button>&nbsp;  
+        <input type="submit" class="btn btn-primary btn-lg" value="Realizar devolución" [disabled]="formularioDevolucion.invalid">
+    </div>
+</div>
+</form>
+</div>
