@@ -56,8 +56,8 @@ export class DevolucionComponent implements OnInit {
     this._prestamoService.getSolicitud(id).subscribe(
       response => {
         this.prestamo = response;
-        console.log(this.prestamo);
-        this.calcularFecha(this.prestamo.fecha);
+        console.log(this.prestamo.fecha);
+        // this.calcularFecha(this.prestamo.fecha);
       }, error => {
         console.log(<any>error);
         
@@ -117,12 +117,12 @@ export class DevolucionComponent implements OnInit {
 })
 }
 
-calcularFecha(fechaPrestamo){
-  let dosSemanas = 1000 * 60 * 60 * 24 * 14;
-  let suma = fechaPrestamo.getTime() + dosSemanas;
-  this.fechaDevolucion = new Date(suma);
-  return (Date.parse(this.fechaDevolucion));
-}
+// calcularFecha(fechaPrestamo){
+//   let dosSemanas = 1000 * 60 * 60 * 24 * 14;
+//   let suma = fechaPrestamo.getTime() + dosSemanas;
+//   this.fechaDevolucion = new Date(suma);
+//   return (Date.parse(this.fechaDevolucion));
+// }
 
 showSuccess(){
   this.toastr.success('La devolución del préstamo se ha realizado correctamente.', 'Correcto', {timeOut: 3000});

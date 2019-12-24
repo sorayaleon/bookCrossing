@@ -45,4 +45,7 @@ Route::resource('historial', 'HistorialReservaController');
 Route::put('estado', 'LibrosController@updateEstadoLibro');
 Route::put('cambio', 'UsersController@updateTipoUsuario');
 Route::put('bloqueo', 'UsersController@updateEstadoUsuario');
+Route::resource('comentarios', 'ComentariosController');
+// Route::put('comentarios', 'ComentariosController@updateEstadoComentario');
+Route::put('comentario', 'ComentariosController@updateEstadoComentario');
 

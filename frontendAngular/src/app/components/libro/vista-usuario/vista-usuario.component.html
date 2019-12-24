@@ -1,4 +1,4 @@
-<div class="container" *ngIf="libro || establecimiento">
+<div class="container" *ngIf="libro || establecimiento || usuario">
     
     <!--TITULO-->
     <div class="text-center">
@@ -46,4 +46,39 @@
     </div>
 </div>
     
+<div class="form-group">
+    <div class="text-center">
+        <h2>COMENTARIOS</h2>
+        
+        <form #comentariosForm="ngForm" [formGroup]="formularioComentarios" (ngSubmit)="onSubmit(); formularioComentarios.reset()">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                    <label for="comentario">Comenta qué te ha parecido el libro:</label>
+                    <textarea rows="8" cols="80" class="form-control" name="comentario" formControlName="comentario" [(ngModel)]="comentario.comentario"></textarea> 
+            </div>
+        
+        <div class="form-group">
+            <div class="text-center">
+                <br/>
+                <input type="submit" class="btn btn-primary btn-lg" value="Enviar" [disabled]="formularioComentarios.invalid">
+            </div>
+        </div>
+        </form>
+
+        <div *ngIf="comentarioLibro == 0">No hay comentarios</div>
+        <div *ngIf="comentarioLibro != 0">
+            <div *ngFor="let coment of comentario">
+                <ng-container *ngIf="coment.idL == libro.id && coment.estado == 'activo'">
+            <p>{{coment.alias}}</p>
+            <p>{{coment.comentario}}</p>
+            <ng-container *ngIf="tipo == 'admin'">
+                <a class="btn btn-danger btn-sm" (click)="eliminarComentario(coment.id)"><i class="material-icons">delete</i></a>
+            </ng-container>
+        </ng-container>
+        </div>
+        </div>
+        
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
+
+    </div>
+</div>
 </div>

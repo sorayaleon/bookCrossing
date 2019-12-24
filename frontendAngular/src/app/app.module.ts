@@ -46,6 +46,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { DevolucionComponent } from './components/prestamo/devolucion/devolucion.component';
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
+import { RetrasoComponent } from './components/libro/retraso/retraso.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidenc
     DevolucionComponent,
     IncidenciaComponent,
     VerIncidenciaComponent,
+    RetrasoComponent,
 
   ],
   imports: [
