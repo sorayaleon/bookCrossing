@@ -31,8 +31,10 @@ export class HomeComponent implements OnInit {
     private _usuarioService: UsuarioService
   ) { 
     this.fechaHoy = new Date('Y-m-d H:i:s');
-    this.fechaDosDias = this.calcularFecha();
     this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DDThh:mm:ss');
+    this.fechaDosDias = this.calcularFecha();
+    this.fechaDosDias = moment(this.fechaDosDias).format('YYYY-MM-DDThh:mm:ss');
+    
   }
 
   ngOnInit() {
@@ -79,7 +81,6 @@ export class HomeComponent implements OnInit {
           console.log(this.solicitud[index]["fecha"]);
           console.log(this.fechaHoy);
           if(this.solicitud[index]["fecha"]<this.fechaHoy){
-            console.log("he entrado alguna vez");
             this.controlRetraso(this.solicitud[index]["idUsu"]);
           } 
         }
@@ -87,8 +88,10 @@ export class HomeComponent implements OnInit {
 
       for (let index = 0; index < this.solicitud.length; index++) {
         if(this.solicitud[index]["tipo"]=="solicitud"){
+          console.log(this.fechaDosDias);
           if(this.solicitud[index]["fecha"]<this.fechaDosDias){
-            this.controlLibro(this.solicitud[index]["idL"]);
+            console.log(this.solicitud[index]["id"]);
+            this.controlLibro(this.solicitud[index]["idL"], this.solicitud[index]["id"]);
           }
           
         }
@@ -109,7 +112,7 @@ controlRetraso(id){
   )
   }
 
-  controlLibro(id){
+  controlLibro(id, idR){
     this._libroService.updateEstadoLibro(id, "activo").subscribe(
       result => {
         console.log(<any>result);
@@ -117,6 +120,13 @@ controlRetraso(id){
         console.log(<any>error);
       }
     )
+    this._prestamoService.deleteReserva(idR).subscribe(
+    result => {
+      console.log(<any>result);
+    }, error => {
+      console.log(<any>error);
+    }
+  )
   }
 
   calcularFecha(){
