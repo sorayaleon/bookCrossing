@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     this.fechaHoy = new Date('Y-m-d H:i:s');
     this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DDThh:mm:ss');
     this.fechaDosDias = this.calcularFecha();
-    this.fechaDosDias = moment(this.fechaDosDias).format('YYYY-MM-DDThh:mm:ss');
+    this.fechaDosDias = moment(this.fechaDosDias).format('YYYY-MM-DD hh:mm:ss');
     
   }
 
@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
       console.log(this.solicitud);
       for (let index = 0; index < this.solicitud.length; index++) {
         if(this.solicitud[index]["tipo"]=="prestamo"){
-          console.log("he entrado");
+          
           console.log(this.solicitud[index]["fecha"]);
           console.log(this.fechaHoy);
           if(this.solicitud[index]["fecha"]<this.fechaHoy){
@@ -89,7 +89,9 @@ export class HomeComponent implements OnInit {
       for (let index = 0; index < this.solicitud.length; index++) {
         if(this.solicitud[index]["tipo"]=="solicitud"){
           console.log(this.fechaDosDias);
-          if(this.solicitud[index]["fecha"]<this.fechaDosDias){
+          console.log(this.solicitud[index]["fecha"]);
+          if(this.solicitud[index]["fecha"]>this.fechaDosDias){
+            console.log("he entrado");
             console.log(this.solicitud[index]["id"]);
             this.controlLibro(this.solicitud[index]["idL"], this.solicitud[index]["id"]);
           }
@@ -103,9 +105,12 @@ export class HomeComponent implements OnInit {
 }
 
 controlRetraso(id){
-  this._usuarioService.updateEstadoUsuario(id, "penalizado").subscribe(
+  let estado = "penalizado";
+  console.log(estado);
+  this._usuarioService.updateEstadoUsuario(id, estado).subscribe(
     result => {
       console.log(<any>result);
+      console.log(estado);
     }, error => {
       console.log(<any>error);
     }

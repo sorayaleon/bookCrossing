@@ -111,7 +111,7 @@ class UsersController extends Controller
             $data = json_decode($request->getContent(), true);
             // var_dump($data);
             $usuario = User::where("id",$data[0])->first();
-            $usuario->estado = $data[0];
+            $usuario->estado = $data[1];
             $usuario->save();
             return json_encode("success");
         } catch (\Exception $e) {
