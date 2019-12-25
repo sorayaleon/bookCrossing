@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   public solicitud: any;
   public prestamo: any;
   public fechaHoy: any;
-  public fechaDosDias: any;
+  // public fechaDosDias: any;
   
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -30,10 +30,10 @@ export class HomeComponent implements OnInit {
     private _prestamoService: PrestamoService,
     private _usuarioService: UsuarioService
   ) { 
-    this.fechaHoy = new Date('Y-m-d H:i:s');
-    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DDThh:mm:ss');
-    this.fechaDosDias = this.calcularFecha();
-    this.fechaDosDias = moment(this.fechaDosDias).format('YYYY-MM-DD hh:mm:ss');
+    this.fechaHoy = new Date();
+    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD hh:mm:ss');
+    // this.fechaDosDias = this.calcularFecha();
+    // this.fechaDosDias = moment(this.fechaDosDias).format('YYYY-MM-DD hh:mm:ss');
     
   }
 
@@ -76,25 +76,15 @@ export class HomeComponent implements OnInit {
       this.solicitud = response;
       console.log(this.solicitud);
       for (let index = 0; index < this.solicitud.length; index++) {
-        if(this.solicitud[index]["tipo"]=="prestamo"){
-          
-          console.log(this.solicitud[index]["fecha"]);
-          console.log(this.fechaHoy);
-          if(this.solicitud[index]["fecha"]<this.fechaHoy){
+        if(this.solicitud[index]["tipo"]=="prestamo" && this.solicitud[index]["fecha"]<this.fechaHoy){
             this.controlRetraso(this.solicitud[index]["idUsu"]);
-          } 
+         
         }
       }
 
       for (let index = 0; index < this.solicitud.length; index++) {
-        if(this.solicitud[index]["tipo"]=="solicitud"){
-          console.log(this.fechaDosDias);
-          console.log(this.solicitud[index]["fecha"]);
-          if(this.solicitud[index]["fecha"]>this.fechaDosDias){
-            console.log("he entrado");
-            console.log(this.solicitud[index]["id"]);
+        if(this.solicitud[index]["tipo"]=="solicitud" && this.solicitud[index]["fecha"]<this.fechaHoy){
             this.controlLibro(this.solicitud[index]["idL"], this.solicitud[index]["id"]);
-          }
           
         }
       }
@@ -134,11 +124,11 @@ controlRetraso(id){
   )
   }
 
-  calcularFecha(){
-    let hoy = new Date();
-    let dosDias = 1000 * 60 * 60 * 24 * 2;
-    let suma = hoy.getTime() + dosDias;
-    this.fechaDosDias = new Date(suma);
-    return this.fechaDosDias;
-  }
+  // calcularFecha(){
+  //   let hoy = new Date();
+  //   let dosDias = 1000 * 60 * 60 * 24 * 2;
+  //   let suma = hoy.getTime() + dosDias;
+  //   this.fechaDosDias = new Date(suma);
+  //   return this.fechaDosDias;
+  // }
 }
