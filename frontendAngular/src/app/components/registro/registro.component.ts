@@ -21,8 +21,8 @@ export class RegistroComponent implements OnInit {
     alias: null,
     email: null,
     password: null,
-    foto: null,
-    passwordRep: null
+    passwordRep: null,
+    numLibros: 0
   };
   public error: [];
   public url:string;
@@ -36,7 +36,7 @@ export class RegistroComponent implements OnInit {
     private toastr: ToastrService,
   ) { 
     this.url = Global.url;
-    this.usuario = new Usuario(0,  '', '', '',  '', '', '', '',  '');
+    this.usuario = new Usuario(0,  '', '', '',  '', '', '', '',  '', 0);
     // this.createForm();
 
     this.formularioRegistro = this.fb.group({
@@ -46,7 +46,6 @@ export class RegistroComponent implements OnInit {
       alias: ['',[Validators.required, Validators.maxLength(20)]],
       email:['',[Validators.required, Validators.email]],
       password: ['', [ Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      // foto: ['', Validators.required],
       passwordRep:['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
     }, {validator: this.passwordMatchValidator});
   }

@@ -7,7 +7,7 @@ import { LibroService } from '../../../Services/libro.service';
 import { Libro } from '../../../models/libro';
 import { HistorialService } from '../../../Services/historial.service';
 import { Reserva } from '../../../models/reserva';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-aceptar-prestamo',
@@ -25,6 +25,7 @@ export class AceptarPrestamoComponent implements OnInit {
   public fechaPrestamo: any;
   public reserva: Reserva;
   public status: string;
+  public fechaDevolucion: any;
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -36,8 +37,11 @@ export class AceptarPrestamoComponent implements OnInit {
     private _historialService: HistorialService
   ) { 
     this.fechaPrestamo = new Date('Y-m-d H:i:s');
-    
-    console.log(this.fechaPrestamo);
+    this.fechaDevolucion = this.calcularFecha();
+    console.log(this.fechaDevolucion);
+    this.fechaDevolucion = moment(this.fechaDevolucion).format('YYYY-MM-DDThh:mm:ss');
+    console.log(this.fechaDevolucion);
+    console.log(typeof(this.fechaPrestamo));
   }
 
   ngOnInit() {
@@ -57,6 +61,8 @@ export class AceptarPrestamoComponent implements OnInit {
        console.log(<any>error);
      }
   );
+
+   
   }
 
 
@@ -64,6 +70,8 @@ export class AceptarPrestamoComponent implements OnInit {
   confirmSolicitud(id, dni, idL, idUsu, titulo, codigo, nombreEst, estado){
     console.log(id);
     console.log(idL);
+   
+    console.log(this.fechaDevolucion);
     let tipo = "prestamo";
     estado = "prestado";
     this.dialogService.openConfirmDialog('¿Deseas confirmar el préstamo?').afterClosed().subscribe(res =>{
@@ -88,8 +96,9 @@ export class AceptarPrestamoComponent implements OnInit {
     )
 
     console.log(tipo);
-
-    this._prestamoService.aceptaPrestamo("prestamo", this.fechaPrestamo).subscribe(
+    console.log(this.fechaDevolucion);
+    console.log(id);
+    this._prestamoService.aceptaPrestamo(id, "prestamo", this.fechaDevolucion).subscribe(
       response => {
         console.log(response);
         this._libroService.updateEstadoLibro(idL, estado).subscribe(
@@ -117,12 +126,14 @@ export class AceptarPrestamoComponent implements OnInit {
   
   )}
 
-  // calcularFecha(){
-  //   let dosSemanas = 1000 * 60 * 60 * 24 * 14;
-  //   let suma = this.fechaPrestamo.getTime() + dosSemanas;
-  //   this.fechaDevolucion = new Date(suma);
-  //   return (Date.parse(this.fechaDevolucion));
-  // }
+  calcularFecha(){
+    let hoy = new Date();
+    let dosSemanas = 1000 * 60 * 60 * 24 * 14;
+    let suma = hoy.getTime() + dosSemanas;
+    this.fechaDevolucion = new Date(suma);
+    // return (Date.parse(this.fechaDevolucion));
+    return this.fechaDevolucion;
+  }
 
   showSuccess(){
     this.toastr.success('El préstamo se ha realizado correctamente.', 'Correcto', {timeOut: 3000});

@@ -117,13 +117,6 @@ export class DevolucionComponent implements OnInit {
 })
 }
 
-// calcularFecha(fechaPrestamo){
-//   let dosSemanas = 1000 * 60 * 60 * 24 * 14;
-//   let suma = fechaPrestamo.getTime() + dosSemanas;
-//   this.fechaDevolucion = new Date(suma);
-//   return (Date.parse(this.fechaDevolucion));
-// }
-
 showSuccess(){
   this.toastr.success('La devolución del préstamo se ha realizado correctamente.', 'Correcto', {timeOut: 3000});
 }

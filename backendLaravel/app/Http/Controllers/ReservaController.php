@@ -85,7 +85,16 @@ class ReservaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $data = json_decode($request->getContent(), true);
+            $reserva = Reserva::find($id);
+            $reserva->tipo = $data[1];
+            $reserva->fecha = $data[2];
+            $reserva->save();
+            return json_encode("success");
+        }catch (\Exception $e){
+            return $e;
+        }
     }
 
     /**
@@ -100,30 +109,4 @@ class ReservaController extends Controller
         $reserva->delete();
     }
 
-    // public function updateTipoReserva(Request $request)
-    // {
-    //     try {
-    //         $data = json_decode($request->getContent(), true);
-    //         $reserva = Reserva::find($data[0]);
-    //         $reserva->tipo = $data[1];
-    //         $reserva->save();
-    //         return json_encode("success");
-    //     } catch (\Exception $e) {
-    //         return $e;
-    //     }
-    // }
-
-    public function updatePrestamo(Request $request){
-        try{
-            $data = json_decode($request->getContent(), true);
-            $reserva = Reserva::first();
-            // var_dump($data);
-            $reserva->tipo = $data[0];
-            $reserva->fecha = $data[1];
-            $reserva->save();
-            return json_encode("success");
-        }catch (\Exception $e){
-            return $e;
-        }
-    }
 }

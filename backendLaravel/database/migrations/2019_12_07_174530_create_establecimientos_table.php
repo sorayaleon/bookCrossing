@@ -15,8 +15,8 @@ class CreateEstablecimientosTable extends Migration
     {
         Schema::create('establecimientos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombreResp');
-            $table->string('email');
+            $table->string('dni')->unique();
+            $table->string('email')->unique();
             $table->string('nombreEst')->unique();
             $table->string('direccion');
             $table->integer('cp');

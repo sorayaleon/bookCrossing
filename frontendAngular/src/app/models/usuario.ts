@@ -9,6 +9,6 @@ export class Usuario{
         public alias: string,
         public tipo: string,
         public estado: string,
-       
+        public numLibros: number
         ){}
 }

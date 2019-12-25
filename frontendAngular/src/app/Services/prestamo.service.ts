@@ -36,18 +36,19 @@ getSolicitud(id): Observable<any> {
 }
 
 
-aceptaPrestamo(tipo, fecha): Observable<any>{
-  let reserva = [tipo, fecha];
+aceptaPrestamo(id, tipo, fecha): Observable<any>{
+  let reserva = [id, tipo, fecha];
   let params = JSON.stringify(reserva);
   let headers = new HttpHeaders().set('Content-type','application/json');
 
-  return this._http.put(this.url+'reserva', params, {headers: headers});
+  return this._http.put(this.url+'reservas/'+id, params, {headers: headers});
 }
 
 deleteReserva(id): Observable<any>{
   let headers = new HttpHeaders().set('Content-type','application/json'); 
   return this._http.delete(this.url+'reservas/'+id, {headers: headers});
 }
+
 
 // //Devuelve un libro
 // getLibro(id): Observable<any> {

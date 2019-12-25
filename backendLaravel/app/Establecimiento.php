@@ -8,5 +8,5 @@ class Establecimiento extends Model
 {
     protected $table = "establecimientos";
 
-    protected $fillable = ['nombreResp', 'email', 'nombreEst', 'direccion', 'cp', 'tfno', 'horarioAp', 'horarioC', 'latitud', 'longitud', 'estado'];
+    protected $fillable = ['dni', 'email', 'nombreEst', 'direccion', 'cp', 'tfno', 'horarioAp', 'horarioC', 'latitud', 'longitud', 'estado'];
 }

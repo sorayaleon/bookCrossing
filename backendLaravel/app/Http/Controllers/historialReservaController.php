@@ -48,8 +48,6 @@ class historialReservaController extends Controller
         $historial->idUsu = $data[0]["idUsu"];
         $historial->fecha = $data[0]["fecha"];
         $historial->nombreEst = $data[0]["nombreEst"];
-        $historial->comentario = $data[0]["comentario"];
-        $historial->puntuacion = $data[0]["puntuacion"];
         $historial->incidencia = $data[0]["incidencia"];
         $historial->incidenciaActiva = $data[0]["incidenciaActiva"];
         $historial->save();

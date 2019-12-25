@@ -72,8 +72,8 @@ export class CreateEstablecimientoComponent implements OnInit {
   onSubmit(form){
     console.log(this.formularioEstablecimiento.value);
     this.establecimiento.email = this.usuario.email;
-    this.establecimiento.nombreResp = this.usuario.dni;
-    this._establecimientoService.saveEstablecimiento(this.establecimiento, this.establecimiento.email, this.establecimiento.nombreResp).subscribe(
+    this.establecimiento.dni = this.usuario.dni;
+    this._establecimientoService.saveEstablecimiento(this.establecimiento, this.establecimiento.email, this.establecimiento.dni).subscribe(
       response => {
         this.status='success';
         console.log(this.establecimiento);

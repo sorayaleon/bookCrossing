@@ -1,7 +1,7 @@
 export class Establecimiento{
     constructor(
         public id: number,
-        public nombreResp: string,
+        public dni: string,
         public email: string,
         public nombreEst: string,
         public direccion: string,

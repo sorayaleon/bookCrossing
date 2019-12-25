@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('tipo', ['admin','responsable', 'normal'])->default('normal');
-            $table->enum('estado', ['activo','inactivo', 'pendiente'])->default('pendiente');
+            $table->enum('estado', ['activo','inactivo', 'penalizado'])->default('pendiente');
+            $table->integer('numLibros');
             $table->rememberToken();
             $table->timestamps();
         });

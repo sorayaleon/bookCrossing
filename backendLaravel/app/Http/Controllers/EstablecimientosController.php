@@ -41,7 +41,7 @@ class EstablecimientosController extends Controller
         $data = json_decode($request->getContent(), true);
 
         $establecimiento = new Establecimiento();
-        $establecimiento->nombreResp = $data[0]["nombreResp"];
+        $establecimiento->dni = $data[0]["dni"];
         $establecimiento->email = $data[0]["email"];
         $establecimiento->nombreEst = $data[0]["nombreEst"];
         $establecimiento->direccion = $data[0]["direccion"];
@@ -94,31 +94,11 @@ class EstablecimientosController extends Controller
             $data = json_decode($request->getContent(), true);
 
             $establecimiento = Establecimiento::find($data[0]);
-            // $establecimiento->nombreResp = $data[1]["nombreResp"];
-            // $establecimiento->email = $data[1]["email"];
-            // $establecimiento->nombreEst = $data[1]["nombreEst"];
-            // $establecimiento->direccion = $data[1]["direccion"];
-            // $establecimiento->cp = $data[1]["cp"];
             $establecimiento->tfno = $data[1]["tfno"];
             $establecimiento->horarioAp = $data[1]["horarioAp"];
             $establecimiento->horarioC = $data[1]["horarioC"];
-            // $establecimiento->estado = $data[1]["estado"];
-            // $establecimiento->latitud = $data[1]["latitud"];
-            // $establecimiento->longitud = $data[1]["longitud"];
-            $establecimiento->save();
 
-            // $establecimiento = Establecimiento::find($data[0]);
-            // $establecimiento->nombreResp = $data[0]["nombreResp"];
-            // $establecimiento->email = $data[0]["email"];
-            // $establecimiento->nombreEst = $data[0]["nombreEst"];
-            // $establecimiento->direccion = $data[0]["direccion"];
-            // $establecimiento->cp = $data[0]["cp"];
-            // $establecimiento->tfno = $data[0]["tfno"];
-            // $establecimiento->horarioAp = $data[0]["horarioAp"];
-            // $establecimiento->horarioC = $data[0]["horarioC"];
-            // $establecimiento->latitud = $data[0]["latitud"];
-            // $establecimiento->longitud = $data[0]["longitud"];
-            // $establecimiento->save();
+            $establecimiento->save();
 
             return json_encode("success");
         } catch (\Exception $e) {

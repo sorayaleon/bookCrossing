@@ -40,12 +40,10 @@ Route::resource('libros', 'LibrosController');
 Route::resource('usuarios', 'UsersController');
 Route::put('estados', 'EstablecimientosController@updateEstado');
 Route::resource('reservas', 'ReservaController');
-Route::put('reserva', 'ReservaController@updatePrestamo');
 Route::resource('historial', 'HistorialReservaController');
 Route::put('estado', 'LibrosController@updateEstadoLibro');
 Route::put('cambio', 'UsersController@updateTipoUsuario');
 Route::put('bloqueo', 'UsersController@updateEstadoUsuario');
 Route::resource('comentarios', 'ComentariosController');
-// Route::put('comentarios', 'ComentariosController@updateEstadoComentario');
 Route::put('comentario', 'ComentariosController@updateEstadoComentario');
 
