@@ -11,15 +11,18 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/gestionLibros" *ngIf="loggedIn && tipo=='admin'">Gestión Libros</a>
       </li>
+      <ul>Establecimientos
       <li class="nav-item">
         <a class="nav-link" routerLink="/gestionSolicitudes" *ngIf="loggedIn && tipo=='admin'">Gestión Solicitudes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/gestionUsuarios" *ngIf="loggedIn && tipo=='admin'">Gestión Usuarios</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" routerLink="/gestionEstablecimientos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de mis Establecimientos</a>
       </li>
+    </ul>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/gestionUsuarios" *ngIf="loggedIn && tipo=='admin'">Gestión Usuarios</a>
+      </li>
+      <ul>Prestamos
       <li class="nav-item">
         <a class="nav-link" routerLink="/gestionPrestamos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de Prestamos</a>
       </li>
@@ -27,8 +30,9 @@
         <a class="nav-link" routerLink="/devolucionPrestamo" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Devolucion</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/incidencia" *ngIf="loggedIn && (tipo=='admin')">Incidencia</a>
+        <a class="nav-link" routerLink="/incidencia" *ngIf="loggedIn && (tipo=='admin')">Incidencias y Retrasos</a>
       </li>
+    </ul>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/perfil', idUsu]" *ngIf="loggedIn">Mi perfil</a>
       </li>

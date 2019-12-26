@@ -4,6 +4,7 @@ import { LibroService } from '../../Services/libro.service';
 import { PrestamoService } from '../../Services/prestamo.service';
 import { UsuarioService } from '../../Services/usuario.service';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,24 +21,32 @@ export class HomeComponent implements OnInit {
   public numInac = 0;
   public estInac = 0;
   public solicitud: any;
-  public prestamo: any;
+  public prestamos: any;
   public fechaHoy: any;
-  // public fechaDosDias: any;
+  public numPrestamos = 0;
+  public idUsu;
+  public prestamo;
   
   constructor(
     private _establecimientoService: EstablecimientoService,
     private _libroService: LibroService,
     private _prestamoService: PrestamoService,
-    private _usuarioService: UsuarioService
+    private _usuarioService: UsuarioService,
+    private _route: ActivatedRoute,
   ) { 
     this.fechaHoy = new Date();
-    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD hh:mm:ss');
+    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
     // this.fechaDosDias = this.calcularFecha();
     // this.fechaDosDias = moment(this.fechaDosDias).format('YYYY-MM-DD hh:mm:ss');
     
   }
 
   ngOnInit() {
+    this._route.params.subscribe(params => {
+      this.idUsu = sessionStorage.getItem("id");
+    });
+    
+
     this._libroService.getLibros().subscribe(
       result => {
        this.libro = result;
@@ -78,8 +87,12 @@ export class HomeComponent implements OnInit {
       for (let index = 0; index < this.solicitud.length; index++) {
         if(this.solicitud[index]["tipo"]=="prestamo" && this.solicitud[index]["fecha"]<this.fechaHoy){
             this.controlRetraso(this.solicitud[index]["idUsu"]);
-         
+            
+            
         }
+        if(this.solicitud[index]["idUsu"]<this.idUsu){
+          return this.numPrestamos+=1;
+       }
       }
 
       for (let index = 0; index < this.solicitud.length; index++) {
@@ -124,11 +137,4 @@ controlRetraso(id){
   )
   }
 
-  // calcularFecha(){
-  //   let hoy = new Date();
-  //   let dosDias = 1000 * 60 * 60 * 24 * 2;
-  //   let suma = hoy.getTime() + dosDias;
-  //   this.fechaDosDias = new Date(suma);
-  //   return this.fechaDosDias;
-  // }
 }

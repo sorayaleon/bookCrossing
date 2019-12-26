@@ -4,6 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../Services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
+import { PrestamoService } from '../../Services/prestamo.service';
+import { HistorialService } from '../../Services/historial.service';
+
 
 @Component({
   selector: 'app-perfil',
@@ -15,14 +19,26 @@ export class PerfilComponent implements OnInit {
   public url: string;
   public usuario: Usuario;
   public idUsu;
-  
+  public historiales: any;
+  public numHistoriales = 0;
+  pageActual: number = 1;
+  filterHisotrial = '';
+  public fechaHoy: any;
+  public prestamos: any;
+  public numPrestamos = 0;
+
   constructor(
     private _usuarioService: UsuarioService,
     private _router: Router,
     private _route: ActivatedRoute,
     private toastr: ToastrService,
+    private _prestamoService: PrestamoService,
+    private _historialService: HistorialService,
   ) { 
     this.url = Global.url;
+    this.fechaHoy = new Date();
+    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
+
   }
 
   ngOnInit() {
@@ -30,7 +46,7 @@ export class PerfilComponent implements OnInit {
       this.idUsu = sessionStorage.getItem("id");
       console.log(this.idUsu);
       this.getFichaUsuario(this.idUsu);
-       
+      this.prestamo();
     })
   }
 
@@ -52,6 +68,38 @@ export class PerfilComponent implements OnInit {
       }, error => {
         console.log(<any>error);
         this.showError();
+      }
+    )
+  }
+
+  prestamo(){
+    this._prestamoService.getSolicitudes().subscribe(
+      response => {
+        this.prestamos = response;
+        console.log(<any>response);
+        for (let index = 0; index < this.prestamos.length; index++) {
+          if(this.prestamos[index]["tipo"]=="prestamo" && this.prestamos[index]["idUsu"]==this.idUsu && this.prestamos[index]["fecha"] < this.fechaHoy){
+             this.numPrestamos += 1;
+          }
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
+  historial(){
+    this._historialService.getHistorial().subscribe(
+      response => {
+        this.historiales = response;
+        for (let index = 0; index < this.historiales.length; index++) {
+          if(this.historiales[index]["tipo"]=="si"){
+             this.numHistoriales += 1;
+          }
+        }
+        console.log(<any>response);
+      }, error => {
+        console.log(<any>error);
       }
     )
   }

@@ -1,10 +1,15 @@
 <div class="container">
-        
+    <div *ngIf= "numPrestamos!=0">  
+      <div class="alert alert-danger">
+        Tienes libros pendientes de devolución
+      </div> 
+    </div>
+
         <form class="form-inline my-2 my-lg-0 ">
           <input class="form-control mr-sm-2" type="search" name="filterLibro" placeholder="Search" aria-label="Search" [(ngModel)]="filterLibro">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
         </form>
-      </div>
+     
         <br/>
             <!--TABLA LIBROS-->
     <div *ngIf="numInac == 0">No hay libros disponibles</div>
@@ -71,4 +76,4 @@
                 <br><br>
         
     <!--FIN TABLA ESTABLECIMIENTOS-->
-    
+  </div>  
