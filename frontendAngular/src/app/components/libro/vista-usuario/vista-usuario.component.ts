@@ -16,6 +16,7 @@ import { Comentarios } from '../../../models/comentarios';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Usuario } from '../../../models/usuario';
 import * as moment from 'moment';
+import { UsuarioService } from '../../../Services/usuario.service';
 
 @Component({
   selector: 'app-vista-usuario',
@@ -59,7 +60,8 @@ export class VistaUsuarioComponent implements OnInit {
     private _prestamoService: PrestamoService,
     private _historialService: HistorialService,
     private _comentariosService: ComentariosService,
-    public fb: FormBuilder
+    private _usuarioService: UsuarioService,
+    public fb: FormBuilder,
 
   ) {
     this.url = Global.url;
@@ -206,17 +208,13 @@ export class VistaUsuarioComponent implements OnInit {
   }
 
   controlPrestamo(){
-    this._prestamoService.getSolicitudes().subscribe(
+    this._usuarioService.getUsuario(this.idUsu).subscribe(
       response => {
         
         console.log(<any>response);
-        this.solicitud = response;
-        console.log(this.solicitud);
-        for (let index = 0; index < this.solicitud.length; index++) {
-          if(this.solicitud[index]["tipo"]=="prestamo" && this.solicitud[index]["fecha"]<this.fechaHoy && this.solicitud[index]["idUsu"]==this.idUsu){
-            return this.numPrestamos+=1;
-         }
-        }
+        this.usuario = response;
+        console.log(this.usuario.estado);
+        
       }, error => {
         console.log(<any>error);
       }
