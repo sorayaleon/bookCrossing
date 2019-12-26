@@ -15,6 +15,7 @@ import { ComentariosService } from '../../../Services/comentarios.service';
 import { Comentarios } from '../../../models/comentarios';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Usuario } from '../../../models/usuario';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-vista-usuario',
@@ -43,6 +44,9 @@ export class VistaUsuarioComponent implements OnInit {
   filterLibro = '';
   public usuario: Usuario;
   public tipo;
+  public solicitud;
+  public numPrestamos = 0;
+  public fechaHoy: any;
 
   constructor(
     private _libroService: LibroService,
@@ -66,6 +70,8 @@ export class VistaUsuarioComponent implements OnInit {
     this.formularioComentarios = this.fb.group({
       comentario: ['']
     })
+    this.fechaHoy = new Date();
+    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
    }
 
   ngOnInit() {
@@ -77,6 +83,7 @@ export class VistaUsuarioComponent implements OnInit {
       let id = params.id;
       this.getFichaLibro(id);
       this.mostrarComentarios(id);
+      this.controlPrestamo();
     })
   }
 
@@ -196,6 +203,24 @@ export class VistaUsuarioComponent implements OnInit {
         this.inactivarError();
       }
     );
+  }
+
+  controlPrestamo(){
+    this._prestamoService.getSolicitudes().subscribe(
+      response => {
+        
+        console.log(<any>response);
+        this.solicitud = response;
+        console.log(this.solicitud);
+        for (let index = 0; index < this.solicitud.length; index++) {
+          if(this.solicitud[index]["tipo"]=="prestamo" && this.solicitud[index]["fecha"]<this.fechaHoy && this.solicitud[index]["idUsu"]==this.idUsu){
+            return this.numPrestamos+=1;
+         }
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   showSuccess(){

@@ -90,9 +90,13 @@ export class HomeComponent implements OnInit {
             
             
         }
-        if(this.solicitud[index]["idUsu"]<this.idUsu){
-          return this.numPrestamos+=1;
-       }
+      //   if(this.solicitud[index]["idUsu"]<this.idUsu){
+      //     return this.numPrestamos+=1;
+      //  }
+
+      if(this.solicitud[index]["tipo"]=="prestamo" && this.solicitud[index]["fecha"]<this.fechaHoy && this.solicitud[index]["idUsu"]==this.idUsu){
+            return this.numPrestamos+=1;
+         }
       }
 
       for (let index = 0; index < this.solicitud.length; index++) {
