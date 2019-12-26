@@ -210,11 +210,9 @@ export class VistaUsuarioComponent implements OnInit {
   controlPrestamo(){
     this._usuarioService.getUsuario(this.idUsu).subscribe(
       response => {
-        
         console.log(<any>response);
         this.usuario = response;
         console.log(this.usuario.estado);
-        
       }, error => {
         console.log(<any>error);
       }

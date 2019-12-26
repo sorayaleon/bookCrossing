@@ -9,6 +9,8 @@ import { HistorialService } from '../../../Services/historial.service';
 import { Libro } from '../../../models/libro';
 import { LibroService } from '../../../Services/libro.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UsuarioService } from '../../../Services/usuario.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-devolucion',
@@ -24,6 +26,9 @@ export class DevolucionComponent implements OnInit {
   public status: string;
   public formularioDevolucion: FormGroup;
   public idPrestamo;
+  public prestamos;
+  public fechaHoy: any;
+  public numPrestamos = 0;
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -33,6 +38,7 @@ export class DevolucionComponent implements OnInit {
     private dialogService: DialogService,
     private _libroService: LibroService, 
     private _historialService: HistorialService,
+    private _usuarioService: UsuarioService,
     public fb: FormBuilder,
   ) {
     this.url = Global.url;
@@ -41,6 +47,9 @@ export class DevolucionComponent implements OnInit {
     this.formularioDevolucion = this.fb.group({
       incidencia: ['', [Validators.required]]
     })
+
+    this.fechaHoy = new Date();
+    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
    }
 
   ngOnInit() {
@@ -105,6 +114,8 @@ export class DevolucionComponent implements OnInit {
               this.showError();
             }
           )
+          console.log(this.prestamo.idUsu);
+          this.controlPenalizados(this.prestamo.idUsu);
           this.showSuccess();
           this._router.navigate(['/devolucionPrestamo']);
         }, error => {
@@ -115,6 +126,44 @@ export class DevolucionComponent implements OnInit {
       )
   }
 })
+}
+
+controlPenalizados(idUsu){
+  this.numPrestamos = 0;
+  console.log(idUsu);
+  this._prestamoService.getSolicitudes().subscribe(
+    response => {
+      console.log(<any>response);
+      this.prestamos = response;
+      for (let index = 0; index < this.prestamos.length; index++) {
+        if(this.prestamos[index]["tipo"]=="prestamo" && this.prestamos[index]["fecha"]<this.fechaHoy && this.prestamos[index]["idUsu"]==idUsu){
+           this.numPrestamos += 1;
+           console.log("ha entrado en contador")
+           console.log(this.numPrestamos);
+           console.log(" numero prestados")
+        }
+      }
+      if(this.numPrestamos == 0){
+        this.cambiarEstadoUsuario(idUsu);
+        console.log("ha entrado en cambiar usuario")
+      }
+    }, error => {
+      console.log(<any>error);
+    }
+  )
+  
+  
+}
+
+cambiarEstadoUsuario(idUsu){
+  this._usuarioService.updateEstadoUsuario(idUsu, 'activo').subscribe(
+    response => {
+      console.log(<any>response);
+      console.log("ha entrado en la funcion cambiar usuario")
+    }, error => {
+      console.log(<any>error);
+    }
+  )
 }
 
 showSuccess(){

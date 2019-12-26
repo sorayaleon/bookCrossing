@@ -6,6 +6,8 @@ import { HistorialService } from '../../../Services/historial.service';
 import { LibroService } from '../../../Services/libro.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../../Services/usuario.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-devolucion-prestamo',
@@ -21,6 +23,8 @@ export class DevolucionPrestamoComponent implements OnInit {
   public savePrestamo;
   public fechaDevolucion: any;
   public status: string;
+  public prestamos;
+  public fechaHoy: any;
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -29,8 +33,12 @@ export class DevolucionPrestamoComponent implements OnInit {
     private _libroService: LibroService,
     private toastr: ToastrService,
     private _router: Router,
+    private _usuarioService: UsuarioService,
   ) { 
     this.fechaDevolucion = new Date('Y-m-d H:i:s');
+
+    this.fechaHoy = new Date();
+    this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
   }
 
   ngOnInit() {
@@ -84,6 +92,7 @@ export class DevolucionPrestamoComponent implements OnInit {
                 this.showError();
               }
             )
+            this.controlPenalizados(idUsu);
             this.showSuccess();
             this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
           this._router.navigate(['/devolucionPrestamo'])); 
@@ -97,7 +106,42 @@ export class DevolucionPrestamoComponent implements OnInit {
     }
   })
   }
-  // 
+  
+  controlPenalizados(idUsu){
+    this.numPrestamos = 0;
+    console.log(idUsu);
+    this._prestamoService.getSolicitudes().subscribe(
+      response => {
+        console.log(<any>response);
+        this.prestamos = response;
+        for (let index = 0; index < this.prestamos.length; index++) {
+          if(this.prestamos[index]["tipo"]=="prestamo" && this.prestamos[index]["fecha"]<this.fechaHoy && this.prestamos[index]["idUsu"]==idUsu){
+             this.numPrestamos += 1;
+             console.log("ha entrado en contador")
+             console.log(this.numPrestamos);
+             console.log(" numero prestados")
+          }
+        }
+        if(this.numPrestamos == 0){
+          this.cambiarEstadoUsuario(idUsu);
+          console.log("ha entrado en cambiar usuario")
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+  }
+  
+  cambiarEstadoUsuario(idUsu){
+    this._usuarioService.updateEstadoUsuario(idUsu, 'activo').subscribe(
+      response => {
+        console.log(<any>response);
+        console.log("ha entrado en la funcion cambiar usuario")
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+  }
   
   showSuccess(){
     this.toastr.success('La devolución del préstamo se ha realizado correctamente.', 'Correcto', {timeOut: 3000});
