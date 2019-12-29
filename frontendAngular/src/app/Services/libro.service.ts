@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Libro } from '../models/libro';
 import { Global } from './global.service';
+import { Valoracion } from '../models/valoracion';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +48,23 @@ export class LibroService {
     let params = JSON.stringify([codigo,estado]);
     let headers = new HttpHeaders().set('Content-type','application/json'); 
     return this._http.put(this.url+'estado', params, {headers: headers})
+  }
+
+  valorarLibro(valoracion: Valoracion){
+      let calificacion = [valoracion]
+      let params = JSON.stringify(calificacion);
+      let headers = new HttpHeaders().set('Content-type','application/json');
+
+      return this._http.post(this.url+'valoracion', params, {headers: headers});
+  }
+
+  updateValorarLibro(id, puntuacion, votos){
+    let params = JSON.stringify([id,puntuacion,votos]);
+    let headers = new HttpHeaders().set('Content-type','application/json'); 
+    return this._http.put(this.url+'valoracion/'+id, params, {headers: headers})
+  }
+
+  getValoracion(){
+    return this._http.get(this.url + 'valoracion');
   }
 }

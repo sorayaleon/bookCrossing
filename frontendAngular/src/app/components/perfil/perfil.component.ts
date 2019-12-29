@@ -25,7 +25,7 @@ export class PerfilComponent implements OnInit {
   filterHisotrial = '';
   public fechaHoy: any;
   public prestamos: any;
-  public numPrestamos = 0;
+  public numPrestamos;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -47,6 +47,7 @@ export class PerfilComponent implements OnInit {
       console.log(this.idUsu);
       this.getFichaUsuario(this.idUsu);
       this.prestamo();
+      this.historial();
     })
   }
 
@@ -54,6 +55,7 @@ export class PerfilComponent implements OnInit {
     this._usuarioService.getUsuario(id).subscribe(
       response => {
         this.usuario = response;
+        this.numPrestamos = this.usuario.numLibros;
       }, error => {
         console.log(<any>error);
       }
@@ -93,11 +95,12 @@ export class PerfilComponent implements OnInit {
       response => {
         this.historiales = response;
         for (let index = 0; index < this.historiales.length; index++) {
-          if(this.historiales[index]["tipo"]=="si"){
+          if(this.historiales[index]["idUsu"]== this.idUsu){
              this.numHistoriales += 1;
           }
         }
         console.log(<any>response);
+        console.log(this.numHistoriales)
       }, error => {
         console.log(<any>error);
       }
