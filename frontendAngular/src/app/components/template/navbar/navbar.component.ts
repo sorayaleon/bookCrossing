@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   public url: string;
   public idUsu;
   public tipo;
-
+  public alias;
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.idUsu = sessionStorage.getItem("id");
     this.tipo = sessionStorage.getItem("tipo");
+    this.alias = sessionStorage.getItem("alias");
     console.log(this.idUsu);
     console.log(this.tipo);
     this.auth.authStatus.subscribe(value => this.loggedIn = value);

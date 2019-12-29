@@ -92,7 +92,9 @@ class AuthController extends Controller
             'id' => auth()->user()->id,
             'tipo' => auth()->user()->tipo, 
             'dni' => auth()->user()->dni, 
-            'email' => auth()->user()->email
+            'email' => auth()->user()->email, 
+            'estado' => auth()->user()->estado,
+            'numLibros' => auth()->user()->numLibros, 
         ]);
         
     }

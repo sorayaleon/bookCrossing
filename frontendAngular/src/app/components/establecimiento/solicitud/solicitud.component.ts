@@ -38,7 +38,7 @@ export class SolicitudComponent implements OnInit {
 
   ngOnInit() {
     
-    this.tipo = sessionStorage.getItem("tipo");
+    // this.tipo = sessionStorage.getItem("tipo");
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
@@ -60,11 +60,9 @@ export class SolicitudComponent implements OnInit {
   confirmEstablecimiento(id, estado, dni){
     console.log(estado);
     console.log(dni);
+    
     estado = "activo";
-    if(this.tipo !='admin'){
-      this.tipo = "responsable";
-    }
-     
+  
     this.dialogService.openConfirmDialog('¿Deseas confirmar el establecimiento?').afterClosed().subscribe(res =>{
       if(res){
         this._establecimientoService.updateEstado(id, estado).subscribe(
@@ -83,7 +81,23 @@ export class SolicitudComponent implements OnInit {
            //this.status = 'failed';
            console.log(<any>error);
          });
-         
+
+      this._usuarioService.getUsuarios().subscribe(
+        response => {
+          console.log(<any>response);
+          this.usuario = response;
+          for (let index = 0; index < this.usuario.length; index++) {
+            if(this.usuario[index]["dni"]== dni){
+               this.tipo = this.usuario[index]["tipo"];
+            }
+          }
+        }, error => {
+          console.log(<any>error);
+        }
+      )
+         if(this.tipo !='admin'){
+          this.tipo = "responsable";
+        }
          this._usuarioService.updateTipoUsuario(dni, this.tipo).subscribe(
            response => {
              console.log(this.tipo);

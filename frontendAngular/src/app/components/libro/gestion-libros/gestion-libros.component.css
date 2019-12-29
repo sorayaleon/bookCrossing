@@ -1,0 +1,13 @@
+th{
+    color: whitesmoke;
+}
+
+h2{
+    color: dodgerblue;
+}
+
+.paginador{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}

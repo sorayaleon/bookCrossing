@@ -16,7 +16,7 @@ export class PrestamoService {
     this.url = Global.url;
    }
 
-   //Solicitar préstamo
+  
    solicitaPrestamo(prestamo: Reserva): Observable<any>{
     let reserva = [prestamo];
     let params = JSON.stringify(reserva);
@@ -25,7 +25,6 @@ export class PrestamoService {
     return this._http.post(this.url+'reservas', params, {headers: headers});
 }
 
-//Devuelve lista de libros
 getSolicitudes(): Observable<any> {
     return this._http.get(this.url + 'reservas');
 }

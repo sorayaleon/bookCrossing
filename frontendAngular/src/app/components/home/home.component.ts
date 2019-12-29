@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
   public numPrestamos = 0;
   public idUsu;
   public prestamo;
+  public numLibros;
+  public usuario;
   
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -90,19 +92,17 @@ export class HomeComponent implements OnInit {
             
             
         }
-      //   if(this.solicitud[index]["idUsu"]<this.idUsu){
-      //     return this.numPrestamos+=1;
-      //  }
 
-      if(this.solicitud[index]["tipo"]=="prestamo" && this.solicitud[index]["fecha"]<this.fechaHoy && this.solicitud[index]["idUsu"]==this.idUsu){
+      if(this.solicitud[index]["tipo"]=="prestamo" && this.solicitud[index]["fecha"]<this.fechaHoy 
+      && this.solicitud[index]["idUsu"]==this.idUsu){
             return this.numPrestamos+=1;
          }
       }
-
+      
       for (let index = 0; index < this.solicitud.length; index++) {
         if(this.solicitud[index]["tipo"]=="solicitud" && this.solicitud[index]["fecha"]<this.fechaHoy){
             this.controlLibro(this.solicitud[index]["idL"], this.solicitud[index]["id"]);
-          
+            this.restaLibro(this.solicitud[index]["idUsu"]);
         }
       }
     }, error => {
@@ -141,4 +141,26 @@ controlRetraso(id){
   )
   }
 
-}
+
+  restaLibro(id){
+    this._usuarioService.getUsuario(id).subscribe(
+      response => {
+        console.log(<any>response);
+        this.usuario = response;
+        this.numLibros = this.usuario.numLibros;
+
+        this.numLibros-=1;
+    this._usuarioService.UpdateNumLibros(id, this.numLibros).subscribe(
+      response =>{
+        console.log(<any>response);
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+    
+  }
+  }

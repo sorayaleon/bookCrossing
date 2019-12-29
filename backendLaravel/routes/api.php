@@ -38,6 +38,7 @@ Route::group([
 Route::resource('establecimientos', 'EstablecimientosController');
 Route::resource('libros', 'LibrosController');
 Route::resource('usuarios', 'UsersController');
+Route::put('num', 'UsersController@UpdateNumLibros');
 Route::put('estados', 'EstablecimientosController@updateEstado');
 Route::resource('reservas', 'ReservaController');
 Route::resource('historial', 'HistorialReservaController');

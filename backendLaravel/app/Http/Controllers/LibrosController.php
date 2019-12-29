@@ -15,7 +15,6 @@ class LibrosController extends Controller
      */
     public function index()
     {
-         //Muestro todos los libros en formato json
          $libros = Libro::all();
          $respuesta = Response::json($libros,200);
          return $respuesta;
@@ -47,7 +46,7 @@ class LibrosController extends Controller
         $libro->isbn = $data[0]["isbn"];
         $libro->titulo = $data[0]["titulo"];
         $libro->autor = $data[0]["autor"];
-        $libro->descripcion = $data[0]["descripcion"];
+        $libro->sinopsis = $data[0]["sinopsis"];
         $libro->categoria = $data[0]["categoria"];
         $libro->establecimiento = $data[0]["establecimiento"];
         $libro->portada= $data[1]["filename"];
@@ -103,22 +102,21 @@ class LibrosController extends Controller
         $libro->isbn = $data[1]["isbn"];
         $libro->titulo = $data[1]["titulo"];
         $libro->autor = $data[1]["autor"];
-        $libro->descripcion = $data[1]["descripcion"];
+        $libro->sinopsis = $data[1]["sinopsis"];
         $libro->categoria = $data[1]["categoria"];
         $libro->establecimiento = $data[1]["establecimiento"];
         if($data[2] != ""){
             $libro->portada= $data[2]["filename"];
             $file = UPLOAD_DIR.$data[2]["filename"];
             $success = file_get_contents($file, base64_decode($data[2]["value"]));
-       
         }
         
         $libro->save();
         
         return json_encode("success");
-    } catch (\Exception $e){
-        return $e;
-    }
+        } catch (\Exception $e){
+            return $e;
+        }
     }
 
     /**
@@ -129,14 +127,11 @@ class LibrosController extends Controller
      */
     public function destroy($id)
     {
-       
             // Localizamos y creamos el objeto
             $libro = Libro::find($id);
             
             //borramos el usuario de la BD
             $libro->delete();
-            
-            
     }
 
     public function updateEstadoLibro(Request $request)

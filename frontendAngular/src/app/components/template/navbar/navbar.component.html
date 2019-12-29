@@ -11,28 +11,36 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/gestionLibros" *ngIf="loggedIn && tipo=='admin'">Gestión Libros</a>
       </li>
-      <ul>Establecimientos
+      
+      <li class="nav-item dropdown" *ngIf="loggedIn && tipo=='admin'">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Establecimientos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" routerLink="/gestionSolicitudes" *ngIf="loggedIn && tipo=='admin'">Gestión Solicitudes</a>
+     
       <li class="nav-item">
-        <a class="nav-link" routerLink="/gestionSolicitudes" *ngIf="loggedIn && tipo=='admin'">Gestión Solicitudes</a>
+        <a class="dropdown-item" routerLink="/gestionEstablecimientos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de mis Establecimientos</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/gestionEstablecimientos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de mis Establecimientos</a>
-      </li>
-    </ul>
+    </div>
       <li class="nav-item">
         <a class="nav-link" routerLink="/gestionUsuarios" *ngIf="loggedIn && tipo=='admin'">Gestión Usuarios</a>
       </li>
-      <ul>Prestamos
-      <li class="nav-item">
+      
+      <li class="nav-item dropdown" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Prestamos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="nav-link" routerLink="/gestionPrestamos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de Prestamos</a>
-      </li>
-      <li class="nav-item">
+      
+      
         <a class="nav-link" routerLink="/devolucionPrestamo" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Devolucion</a>
-      </li>
-      <li class="nav-item">
+     
         <a class="nav-link" routerLink="/incidencia" *ngIf="loggedIn && (tipo=='admin')">Incidencias y Retrasos</a>
+      </div>
       </li>
-    </ul>
+    
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/perfil', idUsu]" *ngIf="loggedIn">Mi perfil</a>
       </li>
@@ -44,6 +52,9 @@
   </li>
   <li class="nav-item">
     <a class="nav-link  mr-sm-2" routerLink="/login" *ngIf="!loggedIn!loggedIn">Iniciar Sesión</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link  mr-sm-2" *ngIf="loggedIn">Hola {{alias}}</a>
   </li>
   <li class="nav-item">
     <a class="nav-link  mr-sm-2" href="#" (click)="logout($event)" *ngIf="loggedIn">Cerrar Sesión</a>

@@ -5,7 +5,7 @@ export class Libro{
         public isbn: number,
         public titulo: string,
         public autor: string,
-        public descripcion: string,
+        public sinopsis: string,
         public portada: string,
         public categoria: string,
         public establecimiento: string, 

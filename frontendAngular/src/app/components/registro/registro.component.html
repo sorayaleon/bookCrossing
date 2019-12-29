@@ -19,7 +19,8 @@
             <div class="form-group row">
               <label for="inputNombre3" class="col-sm-2 col-form-label">Nombre</label>
               <div class="col-sm-10">
-                <input type="text" name="nombre" class="form-control" id="inputNombre3" placeholder="Nombre" formControlName="nombre" [(ngModel)]="form.nombre" required>
+                <input type="text" name="nombre" class="form-control" id="inputNombre3" placeholder="Nombre" formControlName="nombre" 
+                [(ngModel)]="form.nombre" required>
                   <span *ngIf="formularioRegistro.controls['nombre'].errors?.maxlength">La longitud no puede ser mayor de 50 caracteres</span>
                   <span *ngIf="formularioRegistro.controls['nombre'].errors?.pattern">No se admiten caracteres numéricos</span>
                 </div>

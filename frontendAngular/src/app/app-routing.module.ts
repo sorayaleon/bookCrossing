@@ -26,7 +26,6 @@ import { DevolucionPrestamoComponent } from './components/prestamo/devolucion-pr
 import { DevolucionComponent } from './components/prestamo/devolucion/devolucion.component';
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
-import { RetrasoComponent } from './components/libro/retraso/retraso.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
@@ -54,7 +53,6 @@ const routes: Routes = [
   {path: 'serColaborador', component: SolicitudEstablecimientoComponent, canActivate: [SesionIniciadaService]},
   {path: 'incidencia', component: IncidenciaComponent, canActivate: [SesionIniciadaService]},
   {path: 'incidencia/:id', component: VerIncidenciaComponent, canActivate: [SesionIniciadaService]},
-  {path: 'retraso', component: RetrasoComponent, canActivate: [SesionIniciadaService]},
 ];
 
 @NgModule({

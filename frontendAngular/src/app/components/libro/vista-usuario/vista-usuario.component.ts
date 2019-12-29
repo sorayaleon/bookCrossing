@@ -48,6 +48,9 @@ export class VistaUsuarioComponent implements OnInit {
   public solicitud;
   public numPrestamos = 0;
   public fechaHoy: any;
+  public numLibros;
+  public estado;
+  
 
   constructor(
     private _libroService: LibroService,
@@ -82,6 +85,8 @@ export class VistaUsuarioComponent implements OnInit {
       this.dniUsu = sessionStorage.getItem("dni");
       this.alias = sessionStorage.getItem("alias");
       this.tipo = sessionStorage.getItem("tipo");
+      this.estado = sessionStorage.getItem("estado");
+      this.numLibros = sessionStorage.getItem("numLibros");
       let id = params.id;
       this.getFichaLibro(id);
       this.mostrarComentarios(id);
@@ -132,6 +137,7 @@ export class VistaUsuarioComponent implements OnInit {
         console.log(response);
         this.status = 'success';
         this.saveReserva = response.reserva;
+        this.sumaLibro(this.idUsu);
         this.showSuccess();
         this._router.navigate(['/home']);
       }, error => {
@@ -217,6 +223,29 @@ export class VistaUsuarioComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  sumaLibro(id){
+    this._usuarioService.getUsuario(id).subscribe(
+      response => {
+        console.log(<any>response);
+        this.usuario = response;
+        this.numLibros = this.usuario.numLibros;
+        console.log(this.numLibros);
+
+        this.numLibros+=1;
+      this._usuarioService.UpdateNumLibros(id, this.numLibros).subscribe(
+      response =>{
+        console.log(<any>response);
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+    
   }
 
   showSuccess(){

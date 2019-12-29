@@ -118,4 +118,17 @@ class UsersController extends Controller
             return $e;
         }
     }
+
+    public function UpdateNumLibros(Request $request){
+        try {
+            $data = json_decode($request->getContent(), true);
+            var_dump($data);
+            $usuario = User::where("id",$data[0])->first();
+            $usuario->numLibros = $data[1];
+            $usuario->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

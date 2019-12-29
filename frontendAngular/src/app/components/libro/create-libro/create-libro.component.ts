@@ -35,11 +35,11 @@ export class CreateLibroComponent implements OnInit {
     this.createForm();
 
     this.formularioLibro = this.fb.group({
-      portada: ['', [Validators.required]],
+      portada: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
       isbn: ['',[Validators.required]],
       titulo: ['',[Validators.required, Validators.maxLength(50)]],
       autor: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
-      descripcion:['',[Validators.required, Validators.maxLength(1000)]],
+      sinopsis:['',[Validators.required, Validators.maxLength(1000)]],
       categoria: ['', Validators.required],
       establecimiento: ['', Validators.required],
       codigo: ['', [Validators.required]],

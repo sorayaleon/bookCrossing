@@ -25,6 +25,8 @@ export class DevolucionPrestamoComponent implements OnInit {
   public status: string;
   public prestamos;
   public fechaHoy: any;
+  public usuario;
+  public numLibros;
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -79,7 +81,9 @@ export class DevolucionPrestamoComponent implements OnInit {
             this.showError();
           }
         )
-  
+        
+        this.restaLibro(idUsu);
+
         this._prestamoService.deleteReserva(id).subscribe(
           response => {
             console.log(response);
@@ -141,6 +145,28 @@ export class DevolucionPrestamoComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  restaLibro(id){
+    this._usuarioService.getUsuario(id).subscribe(
+      response => {
+        console.log(<any>response);
+        this.usuario = response;
+        this.numLibros = this.usuario.numLibros;
+
+        this.numLibros-=1;
+    this._usuarioService.UpdateNumLibros(id, this.numLibros).subscribe(
+      response =>{
+        console.log(<any>response);
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+    
   }
   
   showSuccess(){

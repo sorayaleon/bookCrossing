@@ -79,7 +79,8 @@ export class SolicitudEstablecimientoComponent implements OnInit {
         this.showSuccess();
         this._router.navigate(['/home']);
       }, error => {
-        this.status = 'failed';
+        // this.status = 'failed';
+        this._router.navigate(['/home']);
         console.log(<any>error);
         this.showError();
       }
@@ -91,6 +92,6 @@ export class SolicitudEstablecimientoComponent implements OnInit {
   }
 
   showError(){
-    this.toastr.error('El establecimiento no se ha insertado.', 'Error', {timeOut: 3000})
+    this.toastr.error('El establecimiento no se ha creado. Un mismo usuario no puede ser responsable de más de un establecimiento', 'Error', {timeOut: 3000})
   }
 }
