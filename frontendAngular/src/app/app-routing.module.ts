@@ -26,6 +26,7 @@ import { DevolucionPrestamoComponent } from './components/prestamo/devolucion-pr
 import { DevolucionComponent } from './components/prestamo/devolucion/devolucion.component';
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [SesionIniciadaService]},
   {path: 'requestPass', component: RequestResetComponent, canActivate: [AntesInicioSesionService]},
   {path: 'responsePass', component: ResponseResetComponent, canActivate: [AntesInicioSesionService]},
+  {path: 'responseLogin', component: ConfirmEmailComponent, canActivate: [AntesInicioSesionService]},
   {path: 'gestionEstablecimientos', component: GestionEstablecimientosComponent, canActivate: [SesionIniciadaService]},
   {path: 'createEstablecimiento', component: CreateEstablecimientoComponent, canActivate: [SesionIniciadaService]},
   {path: 'updateEstablecimiento/:id', component: UpdateEstablecimientoComponent, canActivate: [SesionIniciadaService]},

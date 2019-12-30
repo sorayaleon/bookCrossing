@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TokenService } from '../../Services/token.service';
-import { Global } from '../../Services/global.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../Services/auth.service';
+import { AuthService } from 'src/app/Services/auth.service';
+import { Global } from '../../Services/global.service';
+import { UsuarioService } from '../../Services/usuario.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-confirm-email',
+  templateUrl: './confirm-email.component.html',
+  styleUrls: ['./confirm-email.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class ConfirmEmailComponent implements OnInit {
   public form = {
     email: null,
     password: null
@@ -19,17 +19,18 @@ export class LoginComponent implements OnInit {
 
   public error = null;
   public url:string;
-  public estado;
- 
+  public id;
+  
+  
   constructor(
     private http: HttpClient,
     private Token: TokenService,
     private router: Router,
     private auth: AuthService,
-  
-  ) {
+    private _usuarioService: UsuarioService,
+  ) { 
     this.url = Global.url;
-   }
+  }
 
   ngOnInit() {
   }
@@ -37,24 +38,28 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     
     return this.http.post(this.url+'login', this.form).subscribe(
-      data =>{ 
+      data =>{ this.handleResponse(data),
         sessionStorage.setItem("id", data['id']), 
+        this.id = sessionStorage.getItem("id");
         sessionStorage.setItem("tipo", data['tipo']), 
         sessionStorage.setItem("dni", data['dni']),
         sessionStorage.setItem("alias", data['alias']);
         sessionStorage.setItem("email", data['email']);
-        sessionStorage.setItem("estado", data['estado']);
-        this.estado = sessionStorage.getItem("estado");
-        console.log(this.estado)
-        if(this.estado == 'activo'){
-          this.handleResponse(data);
-        }else{
-          this.pedirConfirmacion();
-        }
-        
+        console.log(data);
+        this.cambiarEstadoUsuario(this.id);
       },
       error => this.handleError(error)
     );
+  }
+
+  cambiarEstadoUsuario(id){
+    this._usuarioService.updateEstadoUsuario(id, 'activo').subscribe(
+      response => {
+        console.log(<any>response);
+      }, error => {
+        console.log(<any>error);
+      }
+    )
   }
 
 handleResponse(data){
@@ -65,10 +70,5 @@ handleResponse(data){
 
   handleError(error){
     this.error = error.error.error;
-  }
-
-
-  pedirConfirmacion(){
-    this.error = "No has confirmado tu cuenta. Por favor, revisa tu email y haz click en el botón 'Validar Email'";
   }
 }

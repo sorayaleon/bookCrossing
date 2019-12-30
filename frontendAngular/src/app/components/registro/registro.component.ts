@@ -54,10 +54,21 @@ export class RegistroComponent implements OnInit {
   }
 
   onSubmit(){
+
+    this.sendEmailValidationLink(this.form).subscribe(
+      data => this.handleResponse(data),
+      error => this.handleError(error)
+    );
+
     return this.http.post(this.url +'registro', this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
+   
+  }
+
+  sendEmailValidationLink(data){
+    return this.http.post(`${this.url}sendValidationMailLink`, data);
   }
 
   handleResponse(data){
@@ -77,7 +88,7 @@ export class RegistroComponent implements OnInit {
  }
 
  showSuccess(){
-  this.toastr.success('El usuario se ha creado con éxito.', 'Correcto', {timeOut: 3000});
+  this.toastr.success('El usuario se ha creado con éxito. Le hemos enviado un email, por favor revise su bandeja de entrada', 'Correcto', {timeOut: 3000});
 }
 
 showError(){
