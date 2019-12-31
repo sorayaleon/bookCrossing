@@ -33,6 +33,8 @@ Route::group([
     Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
     Route::post('resetPassword', 'ChangePasswordController@process');
     Route::post('sendValidationMailLink', 'sendValidationMailController@sendEmail');
+    Route::post('solicitudAceptada', 'SendEstablecimientoMailController@sendEmailAceptar');
+    Route::post('solicitudDenegada', 'SendEstablecimientoMailController@sendEmailRechazo');
 });
 
 Route::resource('establecimientos', 'EstablecimientosController');

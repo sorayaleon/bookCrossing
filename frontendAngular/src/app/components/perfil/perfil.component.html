@@ -29,7 +29,8 @@
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Préstamos activos</a>
                                     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Historial de préstamos</a>
-                                </div>
+                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Solicitudes</a>
+                                  </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -84,12 +85,38 @@
                                     </table>
                                     <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
                                 </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                  <div *ngIf= "numSolicitudes == 0">No solicitado ningún libro</div>
+                                  <div *ngIf= "numSolicitudes != 0"> 
+                                  <table class="table" cellspacing="0">
+                                    <thead>
+                                      <tr>
+                                          <th>Título</th>
+                                          <th>Establecimiento</th>
+                                          <th>Fecha</th>
+                                          <th></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let solicitud of solicitudes">
+                                          <ng-container *ngIf= "solicitud.idUsu == idUsu"> 
+                                          <td>{{solicitud.titulo}}</td>
+                                          <td>{{solicitud.nombreEst}}</td>
+                                          <td>{{solicitud.fecha}}</td>
+                                          <td><button type="button" class="btn btn-danger" (click)="cancelarSolicitud(solicitud.id, solicitud.idL)">Cancelar</button></td>
+                                        </ng-container>
+                                        </tr>
+                                  </tbody>
+                                  </table>
+                              </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
             </div>
+
 
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                 <h2>¿Deseas darte de baja de la aplicación?</h2>

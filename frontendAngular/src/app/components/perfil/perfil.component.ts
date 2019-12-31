@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { PrestamoService } from '../../Services/prestamo.service';
 import { HistorialService } from '../../Services/historial.service';
+import { LibroService } from '../../Services/libro.service';
+import { EstablecimientoService } from '../../Services/establecimiento.service';
+import { Establecimiento } from 'src/app/models/establecimiento';
 
 
 @Component({
@@ -26,6 +29,13 @@ export class PerfilComponent implements OnInit {
   public fechaHoy: any;
   public prestamos: any;
   public numPrestamos;
+  public solicitudes: any;
+  public numSolicitudes;
+  public status: string;
+  public establecimiento: Establecimiento;
+  public establecimientos;
+  public dni;
+  public idEst;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -34,6 +44,8 @@ export class PerfilComponent implements OnInit {
     private toastr: ToastrService,
     private _prestamoService: PrestamoService,
     private _historialService: HistorialService,
+    private _libroService: LibroService,
+    private _establecimientoService: EstablecimientoService,
   ) { 
     this.url = Global.url;
     this.fechaHoy = new Date();
@@ -44,10 +56,15 @@ export class PerfilComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe(params=> {
       this.idUsu = sessionStorage.getItem("id");
+      this.dni = sessionStorage.getItem("dni");
       console.log(this.idUsu);
       this.getFichaUsuario(this.idUsu);
       this.prestamo();
       this.historial();
+      this.solicitud();
+      // this.idEst = this.getEstablecimientos();
+      // console.log(this.idEst);
+      // this.getFichaEstablecimiento(this.idEst);
     })
   }
 
@@ -61,6 +78,35 @@ export class PerfilComponent implements OnInit {
       }
     );
   }
+
+  // getEstablecimientos(){
+  //   this._establecimientoService.getEstablecimientos().subscribe(
+  //     response => {
+  //       console.log(response);
+  //       this.establecimientos = response;
+  //       for (let index = 0; index < this.establecimientos.length; index++) {
+  //         if(this.establecimientos[index]["dni"]==this.dni){
+             
+  //         }
+  //       }
+        
+  //     }, error =>{
+  //       console.log(<any>error);
+  //     }
+  //   )
+    
+  // }
+
+  // getFichaEstablecimiento(id){
+  //   this._establecimientoService.getEstablecimiento(id).subscribe(
+  //     response => {
+  //       console.log(<any>response);
+  //       this.establecimiento = response;
+  //     }, error => {
+  //       console.log(<any>error);
+  //     }
+  //   )
+  // }
 
   eliminarUsuario(id){
     this._usuarioService.deleteUsuario(id).subscribe(
@@ -90,6 +136,22 @@ export class PerfilComponent implements OnInit {
     )
   }
 
+  solicitud(){
+    this._prestamoService.getSolicitudes().subscribe(
+      response => {
+        this.solicitudes = response;
+        console.log(<any>response);
+        for (let index = 0; index < this.prestamos.length; index++) {
+          if(this.prestamos[index]["tipo"]=="solicitud" && this.prestamos[index]["idUsu"]==this.idUsu){
+             this.numSolicitudes += 1;
+          }
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
   historial(){
     this._historialService.getHistorial().subscribe(
       response => {
@@ -107,6 +169,28 @@ export class PerfilComponent implements OnInit {
     )
   }
 
+  cancelarSolicitud(id, idL){
+    this._prestamoService.deleteReserva(id).subscribe(
+      response => {
+        console.log(<any>response);
+        this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
+          this._router.navigate(['/perfil/'+this.idUsu])); 
+
+          this._libroService.updateEstadoLibro(idL, "activo").subscribe(
+            response => {
+              this.cancelaSuccess();
+            }, error => {
+              this.status = 'failed';
+              console.log(<any>error);
+              this.cancelaError();
+            }
+          )
+      },error => {
+        console.log(<any>error);
+      }
+    )
+  }
+
   volver(id){
     this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
       this._router.navigate(['/perfil/'+id]));
@@ -118,5 +202,13 @@ export class PerfilComponent implements OnInit {
 
   showError(){
     this.toastr.error('Error al dar de baja al usuario de la aplicación.', 'Error', {timeOut: 3000})
+  }
+
+  cancelaSuccess(){
+    this.toastr.success('La solicitud del libro se ha cancelado correctamente.', 'Correcto', {timeOut: 3000});
+  }
+
+  cancelaError(){
+    this.toastr.error('La solicitud del libro no se ha cancelado.', 'Correcto', {timeOut: 3000});
   }
 }

@@ -24,6 +24,7 @@ export class SolicitudComponent implements OnInit {
   filterEstablecimiento = '';
   public email;
   private baseUrl: string;
+  public form;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -37,8 +38,6 @@ export class SolicitudComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    // this.tipo = sessionStorage.getItem("tipo");
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
@@ -57,10 +56,13 @@ export class SolicitudComponent implements OnInit {
   );
   }
 
-  confirmEstablecimiento(id, estado, dni){
+  confirmEstablecimiento(id, estado, dni, email){
     console.log(estado);
     console.log(dni);
-    
+    this.form = {
+      id: id,
+      email: email,
+    }
     estado = "activo";
   
     this.dialogService.openConfirmDialog('¿Deseas confirmar el establecimiento?').afterClosed().subscribe(res =>{
@@ -72,6 +74,8 @@ export class SolicitudComponent implements OnInit {
             this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
               this._router.navigate(['/gestionSolicitudes'])); 
             console.log(estado);
+            
+    
           },
     
          error => {
@@ -108,28 +112,52 @@ export class SolicitudComponent implements OnInit {
             console.log(dni);
            }
          );
+         console.log(id);
+         this.aceptarSolicitud(this.form).subscribe(
+          data => this.handleResponse(data),
+          error => this.verificacionError()
+        );
       }
     });
   }
 
-  deleteEstablecimiento(id){
+  deleteEstablecimiento(id, email){
+    this.form = {
+      id: id,
+      email: email,
+    }
     this.dialogService.openConfirmDialog('¿Deseas borrar el libro?').afterClosed().subscribe(res =>{
       if(res){
     this._establecimientoService.deleteEstablecimiento(id).subscribe(
       response => {
         this.showSuccess();
         this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
-          this._router.navigate(['/gestionEstablecimientos'])); 
-       
+          this._router.navigate(['/gestionSolicitudes'])); 
+         
       }, error => {
         console.log(<any>error);
         this.showError();
       }
     )
+    console.log(email);
+    this.denegarSolicitud(this.form).subscribe(
+      data => this.responseRechazo(data),
+      error => this.showError()
+    );
   }
 });
   }
 
+  handleResponse(res){
+    console.log(res);
+    this.verificacionSuccess();
+  }
+
+  responseRechazo(res){
+    console.log(res);
+    this.showSuccess();
+  }
+  
   showSuccess(){
     this.toastr.success('La solicitud ha sido rechazada.', 'Correcto', {timeOut: 3000});
   }
@@ -145,7 +173,12 @@ export class SolicitudComponent implements OnInit {
   verificacionError(){
     this.toastr.error('El establecimiento no se ha verificado.', 'Error', {timeOut: 3000})
   }
+
   denegarSolicitud(data){
     return this.http.post(`${this.baseUrl}solicitudDenegada`, data)
+  }
+
+  aceptarSolicitud(data){
+    return this.http.post(`${this.baseUrl}solicitudAceptada`, data);
   }
 }

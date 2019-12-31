@@ -26,7 +26,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let local of establecimiento  | paginate: {itemsPerPage: 7, currentPage: pageActual} | establecimiento:filterEstablecimiento">
-                <ng-container *ngIf= "local.estado == 'activo' && local.nombreResp == this.dni">
+                <ng-container *ngIf= "local.estado == 'activo'">
                 <td>{{local.nombreEst}}</td>
                 <td>{{local.direccion}}</td>
                 <td>{{local.cp}}</td>

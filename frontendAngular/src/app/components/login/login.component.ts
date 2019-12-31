@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("estado", data['estado']);
         this.estado = sessionStorage.getItem("estado");
         console.log(this.estado)
-        if(this.estado == 'activo'){
+        if(this.estado != 'inactivo'){
           this.handleResponse(data);
         }else{
           this.pedirConfirmacion();

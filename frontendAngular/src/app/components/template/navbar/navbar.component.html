@@ -12,7 +12,7 @@
         <a class="nav-link" routerLink="/gestionLibros" *ngIf="loggedIn && tipo=='admin'">Gestión Libros</a>
       </li>
       
-      <li class="nav-item dropdown" *ngIf="loggedIn && tipo=='admin'">
+      <li class="nav-item dropdown" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Establecimientos
         </a>
@@ -20,8 +20,13 @@
         <a class="dropdown-item" routerLink="/gestionSolicitudes" *ngIf="loggedIn && tipo=='admin'">Gestión Solicitudes</a>
      
       <li class="nav-item">
-        <a class="dropdown-item" routerLink="/gestionEstablecimientos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de mis Establecimientos</a>
+        <a class="dropdown-item" routerLink="/gestionEstablecimientos" *ngIf="loggedIn && tipo=='admin'">Gestión de Establecimientos</a>
       </li>
+
+      <li class="nav-item">
+        <a class="dropdown-item" [routerLink]="['/fichaEstablecimiento', idUsu]" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de mi Establecimiento</a>
+      </li>
+
     </div>
       <li class="nav-item">
         <a class="nav-link" routerLink="/gestionUsuarios" *ngIf="loggedIn && tipo=='admin'">Gestión Usuarios</a>

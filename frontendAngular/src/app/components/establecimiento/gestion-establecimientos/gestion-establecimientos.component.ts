@@ -36,8 +36,7 @@ export class GestionEstablecimientosComponent implements OnInit {
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
-       console.log(this.establecimiento.estado);
-       console.log(<any>result);
+      
      },
      error => {
        console.log(<any>error);
