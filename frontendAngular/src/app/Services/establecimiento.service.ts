@@ -27,6 +27,14 @@ export class EstablecimientoService {
       return this._http.post(this.url+'establecimientos', params, {headers: headers});
     }
 
+    saveEstablecimientoAdmin(establecimiento: Establecimiento): Observable<any>{
+      let ficha = [establecimiento];
+      let params = JSON.stringify(ficha);
+      let headers = new HttpHeaders().set('Content-type','application/json');
+    
+      return this._http.post(this.url+'establecimientos', params, {headers: headers});
+    }
+
     getEstablecimientos(): Observable<any> {
       return this._http.get(this.url + 'establecimientos');
     }

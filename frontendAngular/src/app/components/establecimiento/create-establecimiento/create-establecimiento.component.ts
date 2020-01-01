@@ -35,8 +35,10 @@ export class CreateEstablecimientoComponent implements OnInit {
   ) {
     this.title = "Registra tu establecimiento";
     this.establecimiento = new Establecimiento(0, '', '', '', '', 0, 0, '', '', 0, 0, '')
-   
+
     this.formularioEstablecimiento = this.fb.group({
+      dni: ['', [Validators.required]],
+      email:['',[Validators.required, Validators.email]],
       nombreEst: ['', [Validators.required, Validators.maxLength(30)]],
       direccion: ['', [Validators.required, Validators.maxLength(50)]],
       cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern(/^\d+$/)]],
@@ -54,36 +56,40 @@ export class CreateEstablecimientoComponent implements OnInit {
       console.log(this.idUsu);
       console.log(this.email);
       console.log(this.dni);
-      this.getFichaUsuario(this.idUsu, this.email, this.dni);
+      // this.getFichaUsuario(this.idUsu, this.email, this.dni);
+      this._usuarioService.getUsuarios().subscribe(
+        response => {
+          this.usuario = response;
+        }, error => {
+          console.log(<any>error);
+        }
+      )
+    
     })
    
   }
 
-  getFichaUsuario(id, email, dni){
-    this._usuarioService.getUsuario(id).subscribe(
-      response => {
-        this.usuario = response;
-      }, error => {
-        console.log(<any>error);
-      }
-    );
-  }
+  // getFichaUsuario(id, email, dni){
+  //   this._usuarioService.getUsuario(id).subscribe(
+  //     response => {
+  //       this.usuario = response;
+  //     }, error => {
+  //       console.log(<any>error);
+  //     }
+  //   );
+  // }
 
   onSubmit(form){
     console.log(this.formularioEstablecimiento.value);
-    this.establecimiento.email = this.usuario.email;
-    this.establecimiento.dni = this.usuario.dni;
-    this._establecimientoService.saveEstablecimiento(this.establecimiento, this.establecimiento.email, this.establecimiento.dni).subscribe(
+
+    this._establecimientoService.saveEstablecimientoAdmin(this.establecimiento).subscribe(
       response => {
         this.status='success';
-        console.log(this.establecimiento);
-        console.log(response);
-        this.saveEstablecimiento = response.establecimiento;
-        console.log(this.establecimiento);
         this.showSuccess();
-        this._router.navigate(['/gestionEstablecimientos']);
+        this._router.navigate(['/gestionSolicitudes']);
       }, error => {
-        this.status = 'failed';
+        this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
+          this._router.navigate(['/gestionEstablecimientos']));
         console.log(<any>error);
         this.showError();
       }
@@ -95,6 +101,6 @@ export class CreateEstablecimientoComponent implements OnInit {
   }
 
   showError(){
-    this.toastr.error('El establecimiento no se ha insertado.', 'Error', {timeOut: 3000})
+    this.toastr.error('No se ha podido crear el establecimiento.', 'Error', {timeOut: 3000})
   }
 }

@@ -10,6 +10,9 @@ import { HistorialService } from '../../Services/historial.service';
 import { LibroService } from '../../Services/libro.service';
 import { EstablecimientoService } from '../../Services/establecimiento.service';
 import { Establecimiento } from 'src/app/models/establecimiento';
+import { DialogService } from '../../shared/dialog.service';
+import { TokenService } from '../../Services/token.service';
+import { AuthService } from '../../Services/auth.service';
 
 
 @Component({
@@ -36,6 +39,7 @@ export class PerfilComponent implements OnInit {
   public establecimientos;
   public dni;
   public idEst;
+  public contador;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -46,6 +50,9 @@ export class PerfilComponent implements OnInit {
     private _historialService: HistorialService,
     private _libroService: LibroService,
     private _establecimientoService: EstablecimientoService,
+    private dialogService: DialogService,
+    private auth: AuthService,
+    private Token: TokenService,
   ) { 
     this.url = Global.url;
     this.fechaHoy = new Date();
@@ -109,16 +116,41 @@ export class PerfilComponent implements OnInit {
   // }
 
   eliminarUsuario(id){
-    this._usuarioService.deleteUsuario(id).subscribe(
-      response => {
-        this.showSuccess();
-        this._router.navigate(['/home']);
-      }, error => {
-        console.log(<any>error);
-        this.showError();
-      }
-    )
-  }
+    this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
+      if(res){
+        this.contador = 0;
+        this.idUsu = parseInt(this.idUsu);
+      this._establecimientoService.getEstablecimientos().subscribe(
+        response => {
+          this.establecimiento = response;
+          console.log(this.idUsu)
+          for(let index = 0; index < this.establecimiento.length; index++){
+            if(this.establecimiento[index]["dni"] == this.dni){
+              this.contador += 1;
+            }
+          }
+          console.log(this.contador)
+        if(this.contador == 0){
+          
+          this._usuarioService.deleteUsuario(id).subscribe(
+            response => {
+              this.showSuccess();
+              // this._router.navigate(['/login']);
+              this.Token.remove();
+              this.auth.changeAuthStatus(false);
+              localStorage.clear();
+              this._router.navigateByUrl('/login');
+            }, error => {
+              console.log(<any>error);
+              this.showError();
+            }
+          )
+                }else{
+                  this.noPermitido();
+                }
+        })
+        
+  }})}
 
   prestamo(){
     this._prestamoService.getSolicitudes().subscribe(
@@ -210,5 +242,10 @@ export class PerfilComponent implements OnInit {
 
   cancelaError(){
     this.toastr.error('La solicitud del libro no se ha cancelado.', 'Correcto', {timeOut: 3000});
+  }
+
+  noPermitido(){
+
+    this.toastr.error('No puedes darte de baja de la aplicación porque eres responsable de un establecimiento que colabora con la aplicación.', 'Error', {timeOut: 3000})
   }
 }

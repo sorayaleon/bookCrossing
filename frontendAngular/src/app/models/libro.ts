@@ -1,4 +1,5 @@
 export class Libro{
+  length: number;
     constructor(
         public id: number,
         public codigo: number,

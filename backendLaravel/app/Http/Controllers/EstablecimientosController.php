@@ -39,7 +39,8 @@ class EstablecimientosController extends Controller
     public function store(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-
+ 
+        
         $establecimiento = new Establecimiento();
         $establecimiento->dni = $data[0]["dni"];
         $establecimiento->email = $data[0]["email"];
@@ -51,7 +52,7 @@ class EstablecimientosController extends Controller
         $establecimiento->horarioC = $data[0]["horarioC"];
         $establecimiento->latitud = $data[0]["latitud"];
         $establecimiento->longitud = $data[0]["longitud"];
-
+        
         $establecimiento->save();
         // echo json_encode($libro);
         return json_encode("success");

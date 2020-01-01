@@ -1,4 +1,5 @@
 export class Usuario{
+  length: number;
     constructor(
         public id: number,
         public dni: string,

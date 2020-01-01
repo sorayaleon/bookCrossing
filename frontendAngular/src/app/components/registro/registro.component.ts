@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../models/usuario';
 import { Global } from '../../Services/global.service';
 import { ToastrService } from 'ngx-toastr';
+import { validDNI } from 'spain-id';
 
 @Component({
   selector: 'app-registro',
@@ -13,7 +14,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
-
+ public dni;
+   
   public form = {
     dni: null,
     nombre: null,
@@ -34,10 +36,12 @@ export class RegistroComponent implements OnInit {
     private router: Router,
     public fb: FormBuilder,
     private toastr: ToastrService,
+    
   ) { 
     this.url = Global.url;
     this.usuario = new Usuario(0,  '', '', '',  '', '', '', '',  '', 0);
     // this.createForm();
+    
 
     this.formularioRegistro = this.fb.group({
       dni: ['', [Validators.required]],
@@ -47,7 +51,9 @@ export class RegistroComponent implements OnInit {
       email:['',[Validators.required, Validators.email]],
       password: ['', [ Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       passwordRep:['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-    }, {validator: this.passwordMatchValidator});
+    }, {validator: this.passwordMatchValidator, 
+      // validators: this.validarDni
+    });
   }
 
   ngOnInit() {
@@ -94,4 +100,9 @@ export class RegistroComponent implements OnInit {
 showError(){
   this.toastr.error('No se ha podido crear el usuario.', 'Error', {timeOut: 3000})
 }
+
+// validarDni(formularioRegistro){
+//   this.dni = formularioRegistro.get('dni').value;
+//   return validDNI(this.dni);
+// }
 }

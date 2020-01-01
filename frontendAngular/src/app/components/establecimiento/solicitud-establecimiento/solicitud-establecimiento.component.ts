@@ -88,10 +88,10 @@ export class SolicitudEstablecimientoComponent implements OnInit {
   }
 
   showSuccess(){
-    this.toastr.success('El establecimiento ha sido creado con éxito.', 'Correcto', {timeOut: 3000});
+    this.toastr.success('Solicitud enviada con éxito. Recibirás confirmación vía Email', 'Correcto', {timeOut: 3000});
   }
 
   showError(){
-    this.toastr.error('El establecimiento no se ha creado. Un mismo usuario no puede ser responsable de más de un establecimiento', 'Error', {timeOut: 3000})
+    this.toastr.error('No se ha enviado la solicitud. Un mismo usuario no puede ser responsable de más de un establecimiento', 'Error', {timeOut: 3000})
   }
 }

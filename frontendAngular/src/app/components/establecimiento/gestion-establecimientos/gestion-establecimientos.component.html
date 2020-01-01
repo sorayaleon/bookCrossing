@@ -31,7 +31,7 @@
                 <td>{{local.direccion}}</td>
                 <td>{{local.cp}}</td>
                 <td><a class="btn btn-warning btn-sm" [routerLink]="['/updateEstablecimiento', local.id]"><i class="material-icons">create</i></a></td>
-                <td><a class="btn btn-danger btn-sm" (click)="deleteEstablecimiento(local.id)"><i class="material-icons">delete</i></a></td>
+                <td><a class="btn btn-danger btn-sm" (click)="deleteEstablecimiento(local.id, local.dni, local.nombreEst)"><i class="material-icons">delete</i></a></td>
                 <td><a class="btn btn-info btn-sm" [routerLink]="['/fichaEstablecimiento', local.id]"><i class="material-icons">visibility</i></a></td>
               </ng-container>
               </tr>

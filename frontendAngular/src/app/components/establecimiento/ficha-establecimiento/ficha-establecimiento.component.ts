@@ -6,6 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../../../shared/dialog.service';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../../../Services/usuario.service';
+import { LibroService } from '../../../Services/libro.service';
+import { Libro } from '../../../models/libro';
+import { Usuario } from '../../../models/usuario';
 
 @Component({
   selector: 'app-ficha-establecimiento',
@@ -18,6 +21,11 @@ export class FichaEstablecimientoComponent implements OnInit {
   public establecimiento: Establecimiento;
   public tipo;
   public idUsu;
+  public libro: Libro;
+  public contador;
+  public usuario: Usuario;
+  public dni;
+  public idEst;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -26,20 +34,23 @@ export class FichaEstablecimientoComponent implements OnInit {
     private _router: Router,
     private toastr: ToastrService,
     private _usuarioService: UsuarioService,
+    private _libroService: LibroService,
     
   ) {
     this.url = Global.url;
     this.tipo = sessionStorage.getItem("tipo");
     this.idUsu = sessionStorage.getItem("id");
-    
+    this.dni = sessionStorage.getItem("dni");
    }
 
   ngOnInit() {
     this.route.params.subscribe(params=> {
       let id = params.id;
-      this.getFichaEstablecimiento(id);
-     
+     this.getFichaEstablecimiento(id);
     })
+    
+    
+    
   }
   getFichaEstablecimiento(id){
     this._establecimientoService.getEstablecimiento(id).subscribe(
@@ -53,22 +64,92 @@ export class FichaEstablecimientoComponent implements OnInit {
     );
   }
 
-  deleteEstablecimiento(id){
+//   deleteEstablecimiento(id, nombre){
+//     console.log(nombre)
+//     this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
+//       if(res){
+//         this._libroService.getLibros().subscribe(
+//           response => {
+//             this.libro = response;
+//             for(let index=0; index<this.libro.length; index++){
+//               if(this.libro[index]["establecimiento"]== nombre){
+//                 this.contador+=1;
+//               }
+//             }
+//             if(this.contador == 0){
+              
+//             this._establecimientoService.deleteEstablecimiento(id).subscribe(
+//               response => {
+//                 this.showSuccess();
+//                 if(this.tipo == "responsable"){
+//                   this._usuarioService.updateTipoUsuario(this.idUsu, 'normal');
+//                 }
+//                 this._router.navigate(['/home']);
+        
+//               }, error => {
+//                 console.log(<any>error);
+//                 this.showError();
+//               }
+//             )
+//           }
+//           },error => {
+//               this.error();
+//           }
+//     )}
+// });
+//   }
+
+  deleteEstablecimiento(id, nombre){
     this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
       if(res){
-    this._establecimientoService.deleteEstablecimiento(id).subscribe(
-      response => {
-        this.showSuccess();
-        if(this.tipo == "responsable"){
-          this._usuarioService.updateTipoUsuario(this.idUsu, 'normal');
-        }
-        this._router.navigate(['/home']);
+        this.contador = 0;
+      this._libroService.getLibros().subscribe(
+        response => {
+          this.libro = response;
+          for(let index = 0; index < this.libro.length; index++){
+            if(this.libro[index]["establecimiento"] == nombre){
+              this.contador += 1;
+            }
+          }
+          console.log(this.contador)
 
-      }, error => {
-        console.log(<any>error);
-        this.showError();
-      }
-    )
+          if(this.contador == 0){
+            
+                 if(this.tipo !='admin'){
+                  this.tipo = "normal";
+                }
+                console.log(this.tipo);
+                this.idUsu = parseInt(this.idUsu);
+                console.log(this.idUsu);
+                 this._usuarioService.updateTipoUsuario(this.dni, this.tipo).subscribe(
+                   response => {
+                     console.log(this.tipo);
+                     this._establecimientoService.deleteEstablecimiento(id).subscribe(
+                      response => {
+                    this.showSuccess();
+                    this._router.navigate(['/home']);
+                  }, error => {
+                    console.log(<any>error);
+                    this.error();
+                  }
+                )
+                   },
+                   error => {
+                    console.log(error);
+                    this.error();
+                   }
+                 );
+                } else {
+                  this.showError();
+                }
+        }, error => {
+          console.log(<any>error)
+          this.error();
+        }
+      )
+      console.log(this.contador)
+
+      
   }
 });
   }
@@ -78,7 +159,11 @@ export class FichaEstablecimientoComponent implements OnInit {
   }
 
   showError(){
-    this.toastr.error('No se ha podido eliminar el establecimiento.', 'Error', {timeOut: 3000})
+    this.toastr.error('No se ha podido eliminar el establecimiento. Retire los libros antes de proceder a eliminarlo.', 'Error', {timeOut: 3000})
+  }
+
+  error(){
+    this.toastr.error('Error al eliminar el establecimiento.', 'Error', {timeOut: 3000});
   }
 
 }

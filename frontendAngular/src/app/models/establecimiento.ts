@@ -1,4 +1,5 @@
 export class Establecimiento{
+  length: number;
     constructor(
         public id: number,
         public dni: string,

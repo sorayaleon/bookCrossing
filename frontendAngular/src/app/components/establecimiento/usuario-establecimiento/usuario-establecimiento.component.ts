@@ -24,6 +24,7 @@ export class UsuarioEstablecimientoComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params=> {
       let id = params.id;
+      console.log(id)
       this.getFichaEstablecimiento(id);
      
     })

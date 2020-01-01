@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
+import {isbnValidate } from 'isbn-validate';
+
+ 
 
 @Component({
   selector: 'app-create-libro',
@@ -23,16 +26,19 @@ export class CreateLibroComponent implements OnInit {
   public categoriaEst: string[];
   public establecimiento: any;
   
+  
   constructor(
     private _establecimientoService: EstablecimientoService,
     private _libroService: LibroService,
     public fb: FormBuilder, //Objeto para la validación de los campos
     private toastr: ToastrService,
-    private _router: Router
+    private _router: Router,
+    
   ) {
     this.title = "Crear Libro";
     this.libro = new Libro(0, 0 , 0 , '', '', '', '', '', '', '');
     this.createForm();
+    
 
     this.formularioLibro = this.fb.group({
       portada: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
@@ -42,7 +48,7 @@ export class CreateLibroComponent implements OnInit {
       sinopsis:['',[Validators.required, Validators.maxLength(1000)]],
       categoria: ['', Validators.required],
       establecimiento: ['', Validators.required],
-      codigo: ['', [Validators.required]],
+      codigo: ['', [Validators.required, Validators.maxLength(7), Validators.minLength(7)]],
     })
    }
 
@@ -108,4 +114,10 @@ export class CreateLibroComponent implements OnInit {
   showError(){
     this.toastr.error('El libro no se ha insertado.', 'Error', {timeOut: 3000})
   }
+
+//   isbn(formularioRegistro) {
+//     const ISBN = require( 'isbn-validate' );
+//     return ISBN.Validate(formularioRegistro.get('isbn').value) == true
+//        ? null : {'isbn': true};
+//  }
 }

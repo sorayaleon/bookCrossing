@@ -55,6 +55,7 @@ const routes: Routes = [
   {path: 'serColaborador', component: SolicitudEstablecimientoComponent, canActivate: [SesionIniciadaService]},
   {path: 'incidencia', component: IncidenciaComponent, canActivate: [SesionIniciadaService]},
   {path: 'incidencia/:id', component: VerIncidenciaComponent, canActivate: [SesionIniciadaService]},
+ 
 ];
 
 @NgModule({

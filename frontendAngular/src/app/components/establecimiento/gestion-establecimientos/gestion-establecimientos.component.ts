@@ -5,6 +5,11 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../../../shared/dialog.service';
 import { Global } from '../../../Services/global.service';
+import { UsuarioService } from '../../../Services/usuario.service';
+import { Usuario } from '../../../models/usuario';
+import { LibroService } from '../../../Services/libro.service';
+import { Libro } from '../../../models/libro';
+
 
 @Component({
   selector: 'app-gestion-establecimientos',
@@ -18,6 +23,11 @@ export class GestionEstablecimientosComponent implements OnInit {
   pageActual: number = 1;
   filterEstablecimiento = '';
   public dni;
+  public usuario: Usuario;
+  public tipo;
+  public libro: Libro;
+  public contador = 0;
+
   constructor(
     private _establecimientoService: EstablecimientoService,
     private _router: Router,
@@ -25,6 +35,8 @@ export class GestionEstablecimientosComponent implements OnInit {
     private toastr: ToastrService,
     private dialogService: DialogService,
     private http: HttpClient,
+    private _usuarioService: UsuarioService,
+    private _libroService: LibroService
     
   ) {
     this.title = "Gestión de establecimientos";
@@ -45,20 +57,69 @@ export class GestionEstablecimientosComponent implements OnInit {
   
   }
 
-  deleteEstablecimiento(id){
+
+  deleteEstablecimiento(id, dni, nombre){
     this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
       if(res){
-    this._establecimientoService.deleteEstablecimiento(id).subscribe(
-      response => {
-        this.showSuccess();
+        this.contador = 0;
+      this._libroService.getLibros().subscribe(
+        response => {
+          this.libro = response;
+          for(let index = 0; index < this.libro.length; index++){
+            if(this.libro[index]["establecimiento"] == nombre){
+              this.contador += 1;
+            }
+          }
+          console.log(this.contador)
+
+          if(this.contador == 0){
+            this.showSuccess();
+            this._usuarioService.getUsuarios().subscribe(
+              response => {
+                this.usuario = response;
+                  for (let index = 0; index < this.usuario.length; index++) {
+                    if(this.usuario[index]["dni"]== dni){
+                       this.tipo = this.usuario[index]["tipo"];
+                    }
+                  }
+                }, error => {
+                  console.log(<any>error);
+                }
+              )
+                 if(this.tipo !='admin'){
+                  this.tipo = "normal";
+                }
+                 this._usuarioService.updateTipoUsuario(dni, this.tipo).subscribe(
+                   response => {
+                     console.log(this.tipo);
+                     this._establecimientoService.deleteEstablecimiento(id).subscribe(
+                      response => {
+                    this.showSuccess();
+                  }, error => {
+                    console.log(<any>error);
+                    this.showError();
+                  }
+                )
+                   },
+                   error => {
+                    console.log(error);
+                    console.log(this.tipo);
+                    console.log(dni);
+                   }
+                 );
+                } else {
+                  this.tieneLibro();
+                }
+        }, error => {
+          console.log(<any>error)
+        }
+      )
+      console.log(this.contador)
+      
         this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
           this._router.navigate(['/gestionEstablecimientos'])); 
        
-      }, error => {
-        console.log(<any>error);
-        this.showError();
-      }
-    )
+    
   }
 });
   }
@@ -71,4 +132,10 @@ export class GestionEstablecimientosComponent implements OnInit {
     this.toastr.error('No se ha podido eliminar el establecimiento.', 'Error', {timeOut: 3000})
   }
 
+  tieneLibro(){
+    this.toastr.error('No se puede eliminar el establecimiento porque aún está en posesión de libros.', 'Error', {timeOut: 3000})
+  }
+
 }
+
+
