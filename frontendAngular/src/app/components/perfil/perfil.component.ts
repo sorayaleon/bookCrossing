@@ -40,6 +40,7 @@ export class PerfilComponent implements OnInit {
   public dni;
   public idEst;
   public contador;
+  public libro;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -131,7 +132,15 @@ export class PerfilComponent implements OnInit {
           }
           console.log(this.contador)
         if(this.contador == 0){
-          
+          this._prestamoService.getSolicitudes().subscribe(
+            response => {
+              this.libro = response;
+              for(let index = 0; index < this.libro.length; index++){
+                if(this.libro[index]["dni"] == this.dni && this.libro[index]["tipo"] == 'prestamo'){
+                  this.contador += 1;
+                }
+              }
+              if(this.contador == 0){
           this._usuarioService.deleteUsuario(id).subscribe(
             response => {
               this.showSuccess();
@@ -145,6 +154,14 @@ export class PerfilComponent implements OnInit {
               this.showError();
             }
           )
+        }   else {
+          this.tieneLibro();
+        } 
+        }, error => {
+          console.log(<any>error)
+          this.showError();
+        }
+      )
                 }else{
                   this.noPermitido();
                 }
@@ -248,4 +265,10 @@ export class PerfilComponent implements OnInit {
 
     this.toastr.error('No puedes darte de baja de la aplicación porque eres responsable de un establecimiento que colabora con la aplicación.', 'Error', {timeOut: 3000})
   }
+
+  tieneLibro(){
+    this.toastr.error('No se puede eliminar el usuario porque aún está en posesión de libros.', 'Error', {timeOut: 3000})
+  }
+
+  
 }

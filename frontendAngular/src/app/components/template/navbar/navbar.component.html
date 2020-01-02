@@ -31,7 +31,7 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/gestionUsuarios" *ngIf="loggedIn && tipo=='admin'">Gestión Usuarios</a>
       </li>
-      
+
       <li class="nav-item dropdown" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Prestamos

@@ -11,14 +11,26 @@
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" *ngIf="usuario">
                 <h3>DNI:</h3><br/>
                 <h4>{{usuario.dni}}</h4><br/>
+                <h3>Alias:</h3><br/>
+                <h4>{{usuario.alias}}</h4><br/>
                 <h3>Nombre:</h3><br/>
                 <h4>{{usuario.nombre}}</h4><br/>
                 <h3>Apellidos:</h3><br/>
                 <h4>{{usuario.apellidos}}</h4><br/>
                 <h3>Email:</h3><br/>
                 <h4>{{usuario.email}}</h4><br/>
+                <button class="btn btn-primary" ng-click="showForm()" ng-hide="formVisibility">Actualizar</button>
                 
-            </div>
+                <div ng-show="formVisibility" class="wrapper">
+                  <h2>Actualiza tus datos</h2>
+                  Alias: <input type="text" ng-model="actualizaUsuario.alias">
+                  Email: <input type="email" ng-model="actualizarUsuario.emial">
+                  Password: <input type="text" ng-model="actualizarUsuario.password">
+                  Confirma Password: <input type="text">
+                  <!-- <button type="button" class="btn btn-danger" (click)="actualizar()">Actualizar</button> -->
+                </div>
+            
+              </div>
 
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               <section id="tabs" class="project-tab">
@@ -127,24 +139,5 @@
           </div>
         </div>
       </div>
-
-       <!-- <div *ngIf="reservas">
-                            <h3>Historial de libros</h3>
-                                  <table class="table table-striped table-dark">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">Título</th>
-                                        <th scope="col">Fecha Préstamo</th>
-                                        <th scope="col">Fecha Devolución</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr *ngFor="let libro of reservas" >
-                                        <td>{{libro.titulo}}</td>
-                                        <td>{{libro.inicioPrestamo}}</td>
-                                        <td>{{libro.devolucionPrestamo}}</td>
-                                      </tr>
-                                    </tbody>
-                                </table>   -->
-                                <!-- <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>  -->
-                              <!-- </div>   -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+      

@@ -27,6 +27,7 @@ import { DevolucionComponent } from './components/prestamo/devolucion/devolucion
 import { IncidenciaComponent } from './components/incidencia/incidencia.component';
 import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
+import { GestionUsuariosComponent } from './components/usuarios/gestion-usuarios/gestion-usuarios.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
@@ -46,7 +47,7 @@ const routes: Routes = [
   {path: 'perfil/:id', component: PerfilComponent, canActivate: [SesionIniciadaService]},
   {path: 'refresh', component: RefreshComponent, canActivate: [SesionIniciadaService]},
   {path: 'gestionSolicitudes', component: SolicitudComponent, canActivate: [SesionIniciadaService]},
-  {path: 'gestionUsuarios', component: RefreshComponent, canActivate: [SesionIniciadaService]},
+  {path: 'gestionUsuarios', component: GestionUsuariosComponent, canActivate: [SesionIniciadaService]},
   {path: 'gestionPrestamos', component: AceptarPrestamoComponent, canActivate: [SesionIniciadaService]},
   {path: 'devolucionPrestamo', component: DevolucionPrestamoComponent, canActivate: [SesionIniciadaService]},
   {path: 'devolucion/:id', component: DevolucionComponent, canActivate: [SesionIniciadaService]},
