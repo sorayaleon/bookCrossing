@@ -46,10 +46,12 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("estado", data['estado']);
         this.estado = sessionStorage.getItem("estado");
         console.log(this.estado)
-        if(this.estado != 'inactivo'){
+        if(this.estado != 'inactivo' && this.estado != 'bloqueado'){
           this.handleResponse(data);
-        }else{
+        }else if(this.estado == 'inactivo'){
           this.pedirConfirmacion();
+        }else if(this.estado == 'bloqueado'){
+          this.estasBloqueado();
         }
         
       },
@@ -70,5 +72,9 @@ handleResponse(data){
 
   pedirConfirmacion(){
     this.error = "No has confirmado tu cuenta. Por favor, revisa tu email y haz click en el botón 'Validar Email'";
+  }
+
+  estasBloqueado(){
+    this.error = "Tu cuenta ha sido bloqueada";
   }
 }

@@ -28,8 +28,11 @@ import { IncidenciaComponent } from './components/incidencia/incidencia.componen
 import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { GestionUsuariosComponent } from './components/usuarios/gestion-usuarios/gestion-usuarios.component';
+import { FichaUsuariosComponent } from './components/usuarios/ficha-usuarios/ficha-usuarios.component';
+import { IndexComponent } from './components/index/index.component';
 
 const routes: Routes = [
+  {path: '', component: IndexComponent, canActivate: [AntesInicioSesionService]},
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
   {path: 'registro', component: RegistroComponent, canActivate: [AntesInicioSesionService]},
   {path: 'home', component: HomeComponent, canActivate: [SesionIniciadaService]},
@@ -56,6 +59,7 @@ const routes: Routes = [
   {path: 'serColaborador', component: SolicitudEstablecimientoComponent, canActivate: [SesionIniciadaService]},
   {path: 'incidencia', component: IncidenciaComponent, canActivate: [SesionIniciadaService]},
   {path: 'incidencia/:id', component: VerIncidenciaComponent, canActivate: [SesionIniciadaService]},
+  {path: 'fichaUsuario/:id', component: FichaUsuariosComponent, canActivate: [SesionIniciadaService]},
  
 ];
 

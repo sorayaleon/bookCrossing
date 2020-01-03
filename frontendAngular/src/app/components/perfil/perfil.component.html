@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="usuario">
         <div class="col-3">
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Mis datos</a>
@@ -19,17 +19,26 @@
                 <h4>{{usuario.apellidos}}</h4><br/>
                 <h3>Email:</h3><br/>
                 <h4>{{usuario.email}}</h4><br/>
-                <button class="btn btn-primary" ng-click="showForm()" ng-hide="formVisibility">Actualizar</button>
+
+                <br/>
                 
-                <div ng-show="formVisibility" class="wrapper">
+                <form #registroForm="ngForm" [formGroup]="formularioUsuario" (ngSubmit)="onSubmit()"> 
+                
                   <h2>Actualiza tus datos</h2>
-                  Alias: <input type="text" ng-model="actualizaUsuario.alias">
-                  Email: <input type="email" ng-model="actualizarUsuario.emial">
-                  Password: <input type="text" ng-model="actualizarUsuario.password">
-                  Confirma Password: <input type="text">
-                  <!-- <button type="button" class="btn btn-danger" (click)="actualizar()">Actualizar</button> -->
-                </div>
-            
+                  
+                  <div class="form-group">
+                    <label for="alias">Alias</label>
+                    <input type="text" name="alias" class="form-control" formControlName="alias" [(ngModel)]="this.usuario.alias">
+                    <span *ngIf="formularioUsuario.controls['alias'].errors?.maxlength">La longitud no puede ser mayor de 20 caracteres</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" formControlName="email" [(ngModel)]="this.usuario.email">
+                    <span *ngIf="formularioUsuario.controls['email'].errors?.email">Formato de email no válido</span>
+                  </div>
+                  <input type="submit" class="btn btn-primary btn-lg" value="Actualizar" [disabled]="formularioUsuario.invalid">
+                </form>
               </div>
 
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">

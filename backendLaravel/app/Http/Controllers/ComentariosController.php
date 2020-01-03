@@ -104,5 +104,16 @@ class ComentariosController extends Controller
         //
     }
 
-
+    public function updateComentario(Request $request)
+    {
+        try {
+            $data = json_decode($request->getContent(), true);
+            $comentario = Comentarios::find($data[0]);
+            $comentario->alias = $data[1];
+            $comentario->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

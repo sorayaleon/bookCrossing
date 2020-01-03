@@ -1,0 +1,114 @@
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ul class="carousel-indicators">
+      <li data-target="#demo" data-slide-to="0" class="active"></li>
+      <li data-target="#demo" data-slide-to="1"></li>
+      <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+  
+    <!-- The slideshow -->
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{{'http://127.0.0.1:8000/descargas/2744022.jpg'}}" width="100%" height="auto">
+        <div class="carousel-caption">
+            <h3>“Un libro no es sólo un amigo, también te ayuda a hacer amigos. Cuando has poseído un libro con la mente y el espíritu, te has enriquecido personalmente. Pero cuando se lo pasas a alguien te has enriquecido por triplicado.”
+
+                </h3>
+            <p>— Henry Miller
+                Los libros en mi vida (1969)</p>
+          </div> 
+      </div>
+      <div class="carousel-item">
+        <img src="{{'http://127.0.0.1:8000/descargas/342387-PA9PVN-610.jpg'}}" width="100%" height="auto">
+      </div>
+      <div class="carousel-item">
+        <img src="{{'http://127.0.0.1:8000/descargas/backcrossing1.jpg'}}" width="auto" height="10">
+      </div>
+    </div>
+  
+    <!-- Left and right controls -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </a>
+  
+  </div>
+  <br/><br/><br/>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>¿Qué es Córdoba BookCrossing?</h1>      
+      <p>Es la Biblioteca Mundial. Es la web de una red social inteligente. Es la fiesta de la literatura y un lugar donde los libros cobran una nueva vida. BookCrossing es el acto de dar a un libro una identidad única, de manera que, como el libro pasa de lector a lector, se pueda seguirlo e interconectar a sus lectores. </p>
+    </div>     
+  </div>
+  <br/><br/><br/>
+
+  <h1>MEJORES VALORADOS</h1>
+  <div class="row">
+     
+    <div class="col-sm-4">
+        <div class="estrellas">
+            <img src="{{'http://127.0.0.1:8000/descargas/9788498890372.jpg'}}" class="img-responsive" style="width:100%" alt="Image">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        </div>
+      
+      <div *ngIf="estrellas == 1">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div *ngIf="estrellas == 2">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div *ngIf="estrellas == 3">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div *ngIf="estrellas == 4">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div *ngIf="estrellas == 5">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    </div>
+
+      <h3>El último deseo</h3>
+      <h4>ANDRZEJ SAPKOWSK</h4>
+      <br/><br/><br/>
+    </div>
+    <div class="col-sm-4"> 
+      <img src="{{'http://127.0.0.1:8000/descargas/9788498890372.jpg'}}" class="img-responsive" style="width:100%" alt="Image">
+      <h3>El último deseo</h3> 
+      <h4>ANDRZEJ SAPKOWSK</h4>  
+    </div>
+    <div class="col-sm-4">
+        <img src="{{'http://127.0.0.1:8000/descargas/9788498890372.jpg'}}" class="img-responsive" style="width:100%" alt="Image">
+        <h3>El último deseo</h3> 
+        <h4>ANDRZEJ SAPKOWSK</h4>
+    </div>
+  </div>
+  

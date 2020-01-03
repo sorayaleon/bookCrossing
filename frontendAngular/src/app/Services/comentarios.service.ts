@@ -34,4 +34,10 @@ export class ComentariosService {
       let headers = new HttpHeaders().set('Content-type','application/json'); 
       return this._http.put(this.url+'comentarios/'+id, params, {headers: headers})
     }
+
+    updateComentario(id, alias): Observable<any>{
+      let params = JSON.stringify([id,alias]);
+      let headers = new HttpHeaders().set('Content-type','application/json'); 
+      return this._http.put(this.url+'coment', params, {headers: headers});
+    }
 }

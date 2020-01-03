@@ -13,6 +13,9 @@ import { Establecimiento } from 'src/app/models/establecimiento';
 import { DialogService } from '../../shared/dialog.service';
 import { TokenService } from '../../Services/token.service';
 import { AuthService } from '../../Services/auth.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ComentariosService } from '../../Services/comentarios.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -41,6 +44,10 @@ export class PerfilComponent implements OnInit {
   public idEst;
   public contador;
   public libro;
+  public formularioUsuario;
+  public email;
+  public comentarios;
+  public alias;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -54,27 +61,109 @@ export class PerfilComponent implements OnInit {
     private dialogService: DialogService,
     private auth: AuthService,
     private Token: TokenService,
+    public fb: FormBuilder,
+    private _comentarioService: ComentariosService,
+    private http: HttpClient,
   ) { 
+   
     this.url = Global.url;
     this.fechaHoy = new Date();
     this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
-
+    
+    this.formularioUsuario = this.fb.group({
+      
+      alias: ['',[Validators.required, Validators.maxLength(20)]],
+      email:['',[Validators.required, Validators.email]],
+    });
   }
 
   ngOnInit() {
     this._route.params.subscribe(params=> {
       this.idUsu = sessionStorage.getItem("id");
       this.dni = sessionStorage.getItem("dni");
+      this.email = sessionStorage.getItem("email");
+      this.alias = sessionStorage.getItem("alias");
       console.log(this.idUsu);
       this.getFichaUsuario(this.idUsu);
       this.prestamo();
       this.historial();
       this.solicitud();
+      
       // this.idEst = this.getEstablecimientos();
       // console.log(this.idEst);
       // this.getFichaEstablecimiento(this.idEst);
     })
+
   }
+
+  onSubmit(){
+
+    this.dialogService.openConfirmDialog('¿Deseas actualizar tu información?').afterClosed().subscribe(res =>{
+      if(res){
+        
+        this._usuarioService.updateUsuario(this.idUsu, this.formularioUsuario.value).subscribe(
+          response=>{
+            console.log(response);
+            this.usuarioSuccess();
+            
+          },
+     
+         error => {
+           console.log("estoy en error");
+           this.usuarioError();
+           console.log(<any>error);
+         });
+
+         this._establecimientoService.getEstablecimientos().subscribe(
+          response => {
+            this.establecimiento = response;
+            for(let index = 0; index < this.establecimiento.length; index ++){
+              if(this.establecimiento[index]['dni'] == this.dni){
+                this._establecimientoService.updateEmail(this.establecimiento[index]['id'], this.formularioUsuario.value.email).subscribe(
+                  response => {
+                    this.usuarioSuccess();
+                  }, error => {
+                    console.log(<any>error);
+                    this.usuarioError();
+                  }
+               )
+              }
+            }
+          }, error => {
+            console.log(<any>error);
+            this.usuarioError();
+          }
+         )
+
+         this._comentarioService.getComentarios().subscribe(
+           response => {
+             this.comentarios = response;
+             for(let index=0; index<this.comentarios.length; index++){
+               if(this.comentarios[index]['idUsu']== this.idUsu){
+                this._comentarioService.updateComentario(this.comentarios[index]['id'], this.formularioUsuario.value.alias).subscribe(
+                  response => {
+                   this._router.navigate(['/perfil/'+ this.usuario.id]);
+                   this.usuarioSuccess();
+                  }, error => {
+                   console.log(<any>error);
+                   this.usuarioError();
+                  }
+                )
+               }
+             }
+            
+           }, error => {
+
+           }
+         )
+         
+      }
+    });
+
+    
+  }
+
+
 
   getFichaUsuario(id){
     this._usuarioService.getUsuario(id).subscribe(
@@ -86,35 +175,6 @@ export class PerfilComponent implements OnInit {
       }
     );
   }
-
-  // getEstablecimientos(){
-  //   this._establecimientoService.getEstablecimientos().subscribe(
-  //     response => {
-  //       console.log(response);
-  //       this.establecimientos = response;
-  //       for (let index = 0; index < this.establecimientos.length; index++) {
-  //         if(this.establecimientos[index]["dni"]==this.dni){
-             
-  //         }
-  //       }
-        
-  //     }, error =>{
-  //       console.log(<any>error);
-  //     }
-  //   )
-    
-  // }
-
-  // getFichaEstablecimiento(id){
-  //   this._establecimientoService.getEstablecimiento(id).subscribe(
-  //     response => {
-  //       console.log(<any>response);
-  //       this.establecimiento = response;
-  //     }, error => {
-  //       console.log(<any>error);
-  //     }
-  //   )
-  // }
 
   eliminarUsuario(id){
     this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
@@ -240,6 +300,12 @@ export class PerfilComponent implements OnInit {
     )
   }
 
+  passwordMatchValidator(formularioRegistro) {
+    return formularioRegistro.get('password').value === formularioRegistro.get('passwordRep').value
+       ? null : {'mismatch': true};
+ }
+
+
   volver(id){
     this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
       this._router.navigate(['/perfil/'+id]));
@@ -270,5 +336,13 @@ export class PerfilComponent implements OnInit {
     this.toastr.error('No se puede eliminar el usuario porque aún está en posesión de libros.', 'Error', {timeOut: 3000})
   }
 
+  usuarioSuccess(){
+    this.toastr.success('Usuario modificado con éxito.', 'Correcto', {timeOut: 3000});
+  }
+
+  usuarioError(){
+    this.toastr.error('Error al modificar los datos del usuario.', 'Error', {timeOut: 3000})
+  }
+  
   
 }

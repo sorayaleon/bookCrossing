@@ -1,0 +1,26 @@
+
+.carousel-inner img {
+    width: 100%;
+    height: 20%;
+    opacity: 0.6;
+}
+
+#demo{
+    margin: auto;
+}
+h1, h3, h4{
+    text-align: center;
+}
+
+.estrellas{
+    text-align: center;
+}
+
+.jumbotron{
+    background-color: lightskyblue;
+}
+.carousel-caption{
+    color: whitesmoke;
+  
+  background-color: rgba(0,0,0,.5); /* asignar el color y  transparencia */
+}

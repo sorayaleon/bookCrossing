@@ -44,7 +44,7 @@
             
             <div class="form-group">
                 <label for="descripcion">DESCRIPCION</label>
-                <textarea class="form-control" name="descripcion" formControlName="descripcion" [(ngModel)]="this.libro.descripcion">this.descripcion</textarea>
+                <textarea class="form-control" name="descripcion" formControlName="descripcion" [(ngModel)]="this.libro.sinopsis">this.descripcion</textarea>
                 <span *ngIf="formularioLibro.get('descripcion').errors && formularioLibro.get('descripcion').dirty">Formato incorrecto</span>
             </div>
         </div>

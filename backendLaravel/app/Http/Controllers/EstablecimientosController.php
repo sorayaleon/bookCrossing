@@ -138,4 +138,17 @@ class EstablecimientosController extends Controller
             return $e;
         }
     }
+
+    public function updateEmail(Request $request)
+    {
+        try {
+            $data = json_decode($request->getContent(), true);
+            $establecimiento = Establecimiento::find($data[0]);
+            $establecimiento->email = $data[1];
+            $establecimiento->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }

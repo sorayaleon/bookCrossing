@@ -112,7 +112,7 @@
         </form>
 
         <div *ngIf="comentarioLibro == 0">No hay comentarios</div>
-        <div *ngIf="comentarioLibro != 0">
+        <!-- <div *ngIf="comentarioLibro != 0">
             <div *ngFor="let coment of comentario">
                 <ng-container *ngIf="coment.idL == libro.id && coment.estado == 'activo'">
             <p>{{coment.alias}}</p>
@@ -122,7 +122,26 @@
             </ng-container>
         </ng-container>
         </div>
+        </div> -->
+        <h2>Comentarios</h2>
+        <div *ngFor="let coment of comentario">
+            <ng-container *ngIf="coment.idL == libro.id && coment.estado == 'activo'">
+        <div class="container mt-3">
+            
+            <div class="media border p-3">
+              <img src="{{'http://127.0.0.1:8000/descargas/profile-user.png'}}" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+              <div class="media-body">
+                <h4>{{coment.alias}}</h4>
+                <p>{{coment.comentario}}</p> 
+                <ng-container *ngIf="tipo == 'admin'">
+                    <a class="btn btn-danger btn-sm" (click)="eliminarComentario(coment.id)"><i class="material-icons">delete</i></a>
+                </ng-container>
+              </div>
+            </div>
         </div>
+                </ng-container>
+        </div>
+    
         
         <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
 

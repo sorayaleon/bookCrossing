@@ -66,4 +66,10 @@ export class EstablecimientoService {
     let headers = new HttpHeaders().set('Content-type','application/json'); 
     return this._http.put(this.url+'estados', params, {headers: headers})
   }
+
+  updateEmail(id, email): Observable<any>{
+    let params = JSON.stringify([id,email]);
+    let headers = new HttpHeaders().set('Content-type','application/json'); 
+    return this._http.put(this.url+'email', params, {headers: headers});
+  }
 }

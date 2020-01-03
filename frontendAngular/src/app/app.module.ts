@@ -48,9 +48,8 @@ import { IncidenciaComponent } from './components/incidencia/incidencia.componen
 import { VerIncidenciaComponent } from './components/ver-incidencia/ver-incidencia.component';
 import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 import { GestionUsuariosComponent } from './components/usuarios/gestion-usuarios/gestion-usuarios.component';
-import { UpdateUsuariosComponent } from './components/usuarios/update-usuarios/update-usuarios.component';
-import { CreateUsuariosComponent } from './components/usuarios/create-usuarios/create-usuarios.component';
 import { FichaUsuariosComponent } from './components/usuarios/ficha-usuarios/ficha-usuarios.component';
+import { IndexComponent } from './components/index/index.component';
 
 
 @NgModule({
@@ -89,9 +88,9 @@ import { FichaUsuariosComponent } from './components/usuarios/ficha-usuarios/fic
     VerIncidenciaComponent,
     ConfirmEmailComponent,
     GestionUsuariosComponent,
-    UpdateUsuariosComponent,
-    CreateUsuariosComponent,
     FichaUsuariosComponent,
+    IndexComponent,
+   
    
   ],
   imports: [

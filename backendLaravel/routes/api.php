@@ -43,6 +43,7 @@ Route::resource('usuarios', 'UsersController');
 Route::resource('valoracion', 'ValoracionController');
 Route::put('num', 'UsersController@UpdateNumLibros');
 Route::put('estados', 'EstablecimientosController@updateEstado');
+Route::put('email', 'EstablecimientosController@updateEmail');
 Route::resource('reservas', 'ReservaController');
 Route::resource('historial', 'HistorialReservaController');
 Route::put('estado', 'LibrosController@updateEstadoLibro');
@@ -50,4 +51,5 @@ Route::put('cambio', 'UsersController@updateTipoUsuario');
 Route::put('bloqueo', 'UsersController@updateEstadoUsuario');
 Route::resource('comentarios', 'ComentariosController');
 Route::put('comentario', 'ComentariosController@updateEstadoComentario');
+Route::put('coment', 'ComentariosController@updateComentario');
 

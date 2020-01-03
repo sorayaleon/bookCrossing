@@ -30,9 +30,9 @@
                 <td>{{usu.nombre}}</td>
                 <td>{{usu.apellidos}}</td>
                 <td>{{usu.email}}</td>
-                <td><a class="btn btn-warning btn-sm" [routerLink]="['/updateUsuario', usu.id]"><i class="material-icons">create</i></a></td>
+                <td><a class="btn btn-warning btn-sm" (click)="bloquear(usu.id)"><i class="material-icons md-light">pan_tool</i></a></td>
                 <td><a class="btn btn-danger btn-sm" (click)="deleteUsuario(usu.id, usu.dni, usu.nombre)"><i class="material-icons">delete</i></a></td>
-                <td><a class="btn btn-info btn-sm" [routerLink]="['/fichaEstablecimiento', usu.id]"><i class="material-icons">visibility</i></a></td>
+                <td><a class="btn btn-info btn-sm" [routerLink]="['/fichaUsuario', usu.id]"><i class="material-icons">visibility</i></a></td>
               
               </tr>
             </tbody>

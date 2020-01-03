@@ -73,7 +73,17 @@ class UsersController extends Controller
      */
     public function update(Request $request)
     {
-    
+        try {
+            $data = json_decode($request->getContent(), true);
+            // var_dump($data);
+            $usuario = User::find($data[0]);
+            $usuario->alias = $data[1]['alias'];
+            $usuario->email = $data[1]['email'];
+            $usuario->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
    
 

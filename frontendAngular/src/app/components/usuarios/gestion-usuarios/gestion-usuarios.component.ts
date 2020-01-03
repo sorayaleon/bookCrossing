@@ -38,7 +38,7 @@ export class GestionUsuariosComponent implements OnInit {
     private _prestamoService: PrestamoService,
     
   ) {
-    this.title = "Gestión de establecimientos";
+    this.title = "Gestión de usuarios";
     this.dni = sessionStorage.getItem("dni");
    }
 
@@ -86,11 +86,7 @@ export class GestionUsuariosComponent implements OnInit {
                     this._usuarioService.deleteUsuario(id).subscribe(
                       response => {
                         this.showSuccess();
-                        // this._router.navigate(['/login']);
-                        // this.Token.remove();
-                        // this.auth.changeAuthStatus(false);
-                        // localStorage.clear();
-                        // this._router.navigateByUrl('/login');
+                
                       }, error => {
                         console.log(<any>error);
                         this.showError();
@@ -120,6 +116,32 @@ export class GestionUsuariosComponent implements OnInit {
   })
   }
 
+  bloquear(id){
+    this._usuarioService.getUsuario(id).subscribe(
+      response => {
+        this.usuario = response;
+          if(this.usuario.tipo=='normal'){
+            this._usuarioService.updateEstadoUsuario(id, 'bloqueado').subscribe(
+              response => {
+                this.bloqueadoSuccess();
+              }, error => {
+                this.bloqueadoError();
+                console.log(<any>error)
+              }
+            )
+          }else{
+              this.noPermitido();
+          }
+        }
+      
+      , error => {
+        this.bloqueadoError();
+        console.log(<any>error)
+      }
+    )
+    
+  }
+
   showSuccess(){
     this.toastr.success('El usuario ha sido eliminado con éxito.', 'Correcto', {timeOut: 3000});
   }
@@ -134,6 +156,17 @@ export class GestionUsuariosComponent implements OnInit {
 
   tieneEstablecimiento(){
     this.toastr.error('No se puede eliminar el usuario porque es responsable de un establecimiento.', 'Error', {timeOut: 3000})
+  }
+
+  bloqueadoSuccess(){
+    this.toastr.success('Usuario bloqueado con éxito.', 'Correcto', {timeOut: 3000});
+  }
+
+  bloqueadoError(){
+    this.toastr.error('Error al bloquear al usuario.', 'Error', {timeOut: 3000})
+  }
+  noPermitido(){
+    this.toastr.error('No puedes bloquear al usuario porque es administrador o responsable de establecimiento.', 'Error', {timeOut: 3000})
   }
 
 }
