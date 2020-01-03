@@ -5,9 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
-import {isbnValidate } from 'isbn-validate';
-
- 
 
 @Component({
   selector: 'app-create-libro',
@@ -36,20 +33,20 @@ export class CreateLibroComponent implements OnInit {
     
   ) {
     this.title = "Crear Libro";
-    this.libro = new Libro(0, 0 , 0 , '', '', '', '', '', '', '');
+    this.libro = new Libro(0, 0 , '' , '', '', '', '', '', '', '');
     this.createForm();
-    
+    // /b(?:ISBN(?:: ?| ))?((?:97[89])?d{9}[dx])b/i
 
     this.formularioLibro = this.fb.group({
       portada: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
-      isbn: ['',[Validators.required]],
+      isbn: ['',[Validators.required, Validators.pattern(/^(?:ISBN(?:-1[03])?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9X]$/)]],
       titulo: ['',[Validators.required, Validators.maxLength(50)]],
       autor: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
       sinopsis:['',[Validators.required, Validators.maxLength(1000)]],
       categoria: ['', Validators.required],
       establecimiento: ['', Validators.required],
       codigo: ['', [Validators.required, Validators.maxLength(7), Validators.minLength(7)]],
-    })
+    });
    }
 
   ngOnInit() {
@@ -57,7 +54,7 @@ export class CreateLibroComponent implements OnInit {
       result => {
        this.establecimiento = result;
        console.log(this.establecimiento);
-      
+
        console.log(<any>result);
      },
      error => {
@@ -116,7 +113,6 @@ export class CreateLibroComponent implements OnInit {
   }
 
 //   isbn(formularioRegistro) {
-//     const ISBN = require( 'isbn-validate' );
 //     return ISBN.Validate(formularioRegistro.get('isbn').value) == true
 //        ? null : {'isbn': true};
 //  }

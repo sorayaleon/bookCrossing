@@ -3,7 +3,7 @@ export class Libro{
     constructor(
         public id: number,
         public codigo: number,
-        public isbn: number,
+        public isbn: string,
         public titulo: string,
         public autor: string,
         public sinopsis: string,

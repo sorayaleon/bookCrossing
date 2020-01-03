@@ -16,7 +16,7 @@ class CreateLibrosTable extends Migration
         Schema::create('libros', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('codigo')->unique();
-            $table->integer('isbn');
+            $table->string('isbn');
             $table->string('titulo');
             $table->string('autor');
             $table->string('descripcion');

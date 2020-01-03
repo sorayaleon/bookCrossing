@@ -42,7 +42,7 @@
   <div class="container">
     <div class="jumbotron">
       <h1>¿Qué es Córdoba BookCrossing?</h1>      
-      <p>Es la Biblioteca Mundial. Es la web de una red social inteligente. Es la fiesta de la literatura y un lugar donde los libros cobran una nueva vida. BookCrossing es el acto de dar a un libro una identidad única, de manera que, como el libro pasa de lector a lector, se pueda seguirlo e interconectar a sus lectores. </p>
+      <p>Es la Biblioteca de Córdoa. Es la web de una red social inteligente. Es la fiesta de la literatura y un lugar donde los libros cobran una nueva vida. BookCrossing es el acto de dar a un libro una identidad única, de manera que, como el libro pasa de lector a lector, se pueda seguirlo e interconectar a sus lectores. </p>
     </div>     
   </div>
   <br/><br/><br/>
@@ -60,35 +60,35 @@
             <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
         </div>
       
-      <div *ngIf="estrellas == 1">
+      <div class="estrellas" *ngIf="estrellas == 1">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
     </div>
-    <div *ngIf="estrellas == 2">
+    <div class="estrellas" *ngIf="estrellas == 2">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
     </div>
-    <div *ngIf="estrellas == 3">
+    <div class="estrellas" *ngIf="estrellas == 3">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
     </div>
-    <div *ngIf="estrellas == 4">
+    <div class="estrellas" *ngIf="estrellas == 4">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
     </div>
-    <div *ngIf="estrellas == 5">
+    <div class="estrellas" *ngIf="estrellas == 5">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
         <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
@@ -102,11 +102,101 @@
     </div>
     <div class="col-sm-4"> 
       <img src="{{'http://127.0.0.1:8000/descargas/9788498890372.jpg'}}" class="img-responsive" style="width:100%" alt="Image">
+      
+      <div class="estrellas">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+  
+  <div class="estrellas" *ngIf="estrellas == 1">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+</div>
+<div class="estrellas" *ngIf="estrellas == 2">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+</div>
+<div class="estrellas" *ngIf="estrellas == 3">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+</div>
+<div class="estrellas" *ngIf="estrellas == 4">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+</div>
+<div class="estrellas" *ngIf="estrellas == 5">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+</div>
+
       <h3>El último deseo</h3> 
       <h4>ANDRZEJ SAPKOWSK</h4>  
     </div>
     <div class="col-sm-4">
-        <img src="{{'http://127.0.0.1:8000/descargas/9788498890372.jpg'}}" class="img-responsive" style="width:100%" alt="Image">
+        
+        <div class="estrellas">
+          <img src="{{'http://127.0.0.1:8000/descargas/9788498890372.jpg'}}" class="img-responsive" style="width:100%" alt="Image">
+          <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+          <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+          <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+          <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+          <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+      </div>
+    
+    <div class="estrellas" *ngIf="estrellas == 1">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+  </div>
+  <div class="estrellas" *ngIf="estrellas == 2">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+  </div>
+  <div class="estrellas" *ngIf="estrellas == 3">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+  </div>
+  <div class="estrellas" *ngIf="estrellas == 4">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+  </div>
+  <div class="estrellas" *ngIf="estrellas == 5">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+      <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+  </div>
+        
         <h3>El último deseo</h3> 
         <h4>ANDRZEJ SAPKOWSK</h4>
     </div>

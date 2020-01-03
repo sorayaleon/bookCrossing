@@ -39,8 +39,8 @@ export class SolicitudEstablecimientoComponent implements OnInit {
     this.formularioEstablecimiento = this.fb.group({
       nombreEst: ['', [Validators.required, Validators.maxLength(30)]],
       direccion: ['', [Validators.required, Validators.maxLength(50)]],
-      cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern(/^\d+$/)]],
-      tfno: ['', [Validators.required, Validators.maxLength(9), Validators.minLength(9)]],
+      cp: ['', [Validators.required, Validators.pattern(/^[1][4][0-9][0-9][0-9]$/)]],
+      tfno: ['', [Validators.required, Validators.pattern(/^[9|6]{1}([\d]{2}[-]*){3}[\d]{2}$/)]],
       horarioAp: ['', [Validators.required]],
       horarioC: ['', [Validators.required]],
     })

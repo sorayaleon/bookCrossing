@@ -41,8 +41,8 @@ export class CreateEstablecimientoComponent implements OnInit {
       email:['',[Validators.required, Validators.email]],
       nombreEst: ['', [Validators.required, Validators.maxLength(30)]],
       direccion: ['', [Validators.required, Validators.maxLength(50)]],
-      cp: ['', [Validators.required, Validators.maxLength(5), Validators.minLength(5), Validators.pattern(/^\d+$/)]],
-      tfno: ['', [Validators.required, Validators.maxLength(9), Validators.minLength(9)]],
+      cp: ['', [Validators.required, Validators.pattern(/^[1][4][0-9][0-9][0-9]$/)]],
+      tfno: ['', [Validators.required, Validators.pattern(/^[9|6]{1}([\d]{2}[-]*){3}[\d]{2}$/)]],
       horarioAp: ['', [Validators.required]],
       horarioC: ['', [Validators.required]],
     })
@@ -68,16 +68,6 @@ export class CreateEstablecimientoComponent implements OnInit {
     })
    
   }
-
-  // getFichaUsuario(id, email, dni){
-  //   this._usuarioService.getUsuario(id).subscribe(
-  //     response => {
-  //       this.usuario = response;
-  //     }, error => {
-  //       console.log(<any>error);
-  //     }
-  //   );
-  // }
 
   onSubmit(form){
     console.log(this.formularioEstablecimiento.value);

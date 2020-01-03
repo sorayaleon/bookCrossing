@@ -12,8 +12,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="isbn">ISBN</label>
-                        <input type="number" class="form-control" name="isbn" formControlName="isbn" [(ngModel)]="libro.isbn">
-                        <span *ngIf="formularioLibro.hasError('isbn')">Formato incorrecto</span>
+                        <input type="text" class="form-control" name="isbn" formControlName="isbn" [(ngModel)]="libro.isbn">
+                        <span *ngIf="formularioLibro.controls['isbn'].errors?.pattern">Formato incorrecto</span>
                     </div>    
                     <div class="form-group col-md-6">
                         <label for="categoria">CATEGORIA</label>
@@ -59,7 +59,7 @@
                     </div>  
                     <div class="form-group col-md-6">
                         <label for="codigo">CODIGO</label>
-                        <input type="number" class="form-control" name="codigo" maxlength="7" minlength="7" formControlName="codigo" [(ngModel)]="libro.codigo">
+                        <input type="number" class="form-control" name="codigo" formControlName="codigo" [(ngModel)]="libro.codigo">
                     </div>
                 </div>
             </div>

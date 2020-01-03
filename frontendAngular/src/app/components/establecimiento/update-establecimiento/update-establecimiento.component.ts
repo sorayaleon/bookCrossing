@@ -34,7 +34,7 @@ export class UpdateEstablecimientoComponent implements OnInit {
    
     this.formularioEstablecimiento = this.fb.group({
      
-      tfno: ['', [Validators.required, Validators.maxLength(9), Validators.minLength(9)]],
+      tfno: ['', [Validators.required, Validators.pattern(/^[9|6]{1}([\d]{2}[-]*){3}[\d]{2}$/)]],
       horarioAp: ['', [Validators.required]],
       horarioC: ['', [Validators.required]],
     
