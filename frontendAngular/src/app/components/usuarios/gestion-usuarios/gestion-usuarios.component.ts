@@ -25,6 +25,7 @@ export class GestionUsuariosComponent implements OnInit {
   public tipo;
   public contador = 0;
   public libro;
+  public filtro: any = {email: ''};
 
   constructor(
     private _establecimientoService: EstablecimientoService,

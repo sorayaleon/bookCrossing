@@ -1,6 +1,6 @@
 <div class="container">
     <form class="form-inline my-2 my-lg-0 ">
-        <input class="form-control mr-sm-2" type="search" name="filterIncidencia" placeholder="Search" aria-label="Search" [(ngModel)]="filterIncidencia">
+        <input class="form-control mr-sm-2" type="search" name="filterIncidencia" placeholder="DNI" aria-label="Search" [(ngModel)]="filtro.dni">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
       </form>
     <div>
@@ -16,7 +16,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let incidencia of incidencias  | paginate: {itemsPerPage: 7, currentPage: pageActual} ">
+              <tr *ngFor="let incidencia of incidencias  | paginate: {itemsPerPage: 7, currentPage: pageActual} | filterBy: filtro">
                 <!-- | solicitud:filterSolicitud -->
                 <ng-container *ngIf= "incidencia.incidenciaActiva == 'si'">
                 <td>{{incidencia.dni}}</td>
@@ -32,7 +32,7 @@
     </div>
 
     <form class="form-inline my-2 my-lg-0 ">
-      <input class="form-control mr-sm-2" type="search" name="filterIncidencia" placeholder="Search" aria-label="Search" [(ngModel)]="filterIncidencia">
+      <input class="form-control mr-sm-2" type="search" name="filterIncidencia" placeholder="DNI" aria-label="Search" [(ngModel)]="filtroRet.dni">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </form>
   <div>
@@ -48,7 +48,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let retraso of retrasos | paginate: {itemsPerPage: 7, currentPage: pageActual} ">
+            <tr *ngFor="let retraso of retrasos | paginate: {itemsPerPage: 7, currentPage: pageActual} | filterBy: filtroRet">
               <!-- | solicitud:filterSolicitud -->
               <ng-container *ngIf= "retraso.tipo == 'prestamo' && retraso.fecha < fechaHoy">
               <td>{{retraso.dni}}</td>

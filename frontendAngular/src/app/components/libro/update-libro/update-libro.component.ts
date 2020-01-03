@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../../../shared/dialog.service';
+import { EstablecimientoService } from '../../../Services/establecimiento.service';
 
 @Component({
   selector: 'app-update-libro',
@@ -21,6 +22,7 @@ export class UpdateLibroComponent implements OnInit {
   public updateLibro;
   public formularioLibro: FormGroup;//Creo el objeto de tipo FormGroup
   public categoriaList: string[];
+  public establecimiento: any;
 
   constructor(
     private _libroService: LibroService,
@@ -28,24 +30,37 @@ export class UpdateLibroComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private toastr: ToastrService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private _establecimientoService: EstablecimientoService,
   ) {
     this.title = "Actualizar Libro";
 
     this.formularioLibro = this.fb.group({
-      isbn: '',
-      titulo: ['',[Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
+      isbn: ['',[Validators.required, Validators.pattern(/^(?:ISBN(?:-1[03])?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9X]$/)]],
+      titulo: ['',[Validators.required, Validators.maxLength(50)]],
       autor: ['',[Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
-      descripcion: [Validators.maxLength(200)],
       portada: '',
-      categoria: '',
-      establecimientoInicial: ''
+      sinopsis:['',[Validators.required, Validators.maxLength(1000)]],
+      categoria: ['', Validators.required],
+      establecimiento: ['', Validators.required],
     })
 
 
    }
 
   ngOnInit() {
+    this._establecimientoService.getEstablecimientos().subscribe(
+      result => {
+       this.establecimiento = result;
+       console.log(this.establecimiento);
+
+       console.log(<any>result);
+     },
+     error => {
+       console.log(<any>error);
+     }
+     );
+
     this.categoriaList = ['Arte','Autoayuda', 'Aventuras', 'Bélico', 'Ciencia Ficción', 'Ciencias Exactas', 'Ciencias Naturales', 'Ciencias Sociales', 'Comunicación', 'Drama', 'Fantasía', 'Filosofía', 'Histórico', 'Humor', 'Idiomas', 'Infantil', 'Suspense', 'Terror', 'Policiaco'];
     //Recojo los parámetros que llegan por la url
     this._route.params.subscribe(params=> {

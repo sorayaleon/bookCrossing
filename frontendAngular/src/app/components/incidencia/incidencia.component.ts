@@ -16,6 +16,8 @@ export class IncidenciaComponent implements OnInit {
   pageActual: number = 1;
   filterIncidencia = '';
   public fechaHoy: any;
+  public filtro: any = {dni: ''};
+  public filtroRet: any = {dni:''};
 
   constructor(
     private _historialService: HistorialService,

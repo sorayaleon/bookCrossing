@@ -43,7 +43,6 @@ class ReservaController extends Controller
         $reserva->tipo = $data[0]["tipo"];
         $reserva->dni = $data[0]["dni"];
         $reserva->titulo = $data[0]["titulo"];
-        $reserva->codigo = $data[0]["codigo"];
         $reserva->idL = $data[0]["idL"];
         $reserva->idUsu = $data[0]["idUsu"];
         $reserva->fecha = $data[0]["fecha"];

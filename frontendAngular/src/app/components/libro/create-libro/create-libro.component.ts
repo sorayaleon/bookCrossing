@@ -41,11 +41,10 @@ export class CreateLibroComponent implements OnInit {
       portada: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
       isbn: ['',[Validators.required, Validators.pattern(/^(?:ISBN(?:-1[03])?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9X]$/)]],
       titulo: ['',[Validators.required, Validators.maxLength(50)]],
-      autor: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
+      autor: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i), Validators.maxLength(50)]],
       sinopsis:['',[Validators.required, Validators.maxLength(1000)]],
       categoria: ['', Validators.required],
       establecimiento: ['', Validators.required],
-      codigo: ['', [Validators.required, Validators.maxLength(7), Validators.minLength(7)]],
     });
    }
 

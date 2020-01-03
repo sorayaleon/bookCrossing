@@ -47,7 +47,7 @@ export class DevolucionComponent implements OnInit {
     this.fechaDevolucion = new Date('Y-m-d H:i:s');
 
     this.formularioDevolucion = this.fb.group({
-      incidencia: ['', [Validators.required]]
+      incidencia: ['', [Validators.required, Validators.maxLength(500)]]
     })
 
     this.fechaHoy = new Date();

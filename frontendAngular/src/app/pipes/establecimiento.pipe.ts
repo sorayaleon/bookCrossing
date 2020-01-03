@@ -5,11 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EstablecimientoPipe implements PipeTransform {
 
-  transform(value: any, arg: any): any {
-    if(arg === '' || arg.length < 3) return value;
+  transform(value: any, args: any): any {
+    if(args === '' || args.length < 3) return value;
     const resultEstablecimientos = [];
     for(const establecimiento of value){
-      if(establecimiento.nombreEst.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+      if(establecimiento.nombreEst.toLowerCase().indexOf(args.toLowerCase() ) > -1){
         resultEstablecimientos.push(establecimiento);
       }
     }

@@ -5,6 +5,7 @@ import { PrestamoService } from '../../Services/prestamo.service';
 import { UsuarioService } from '../../Services/usuario.service';
 import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   public prestamo;
   public numLibros;
   public usuario;
+  public filtro: any = { cp: ''};
   
   constructor(
     private _establecimientoService: EstablecimientoService,

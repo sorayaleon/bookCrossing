@@ -31,6 +31,7 @@
     "isbn-validate": "^1.0.3",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
+    "ngx-filter-pipe": "^2.1.2",
     "ngx-pagination": "^5.0.0",
     "ngx-toastr": "^11.2.1",
     "popper.js": "^1.16.0",

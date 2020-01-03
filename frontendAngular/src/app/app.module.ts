@@ -50,6 +50,7 @@ import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.
 import { GestionUsuariosComponent } from './components/usuarios/gestion-usuarios/gestion-usuarios.component';
 import { FichaUsuariosComponent } from './components/usuarios/ficha-usuarios/ficha-usuarios.component';
 import { IndexComponent } from './components/index/index.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 @NgModule({
@@ -105,7 +106,8 @@ import { IndexComponent } from './components/index/index.component';
     ReactiveFormsModule,
     MatIconModule,
     NgxPaginationModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    FilterPipeModule
   ],
   providers: [
     MatDialog,

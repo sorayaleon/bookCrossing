@@ -24,7 +24,8 @@
     <div class="col-md-8 col-sm-6 col-xs-12">
             <label for="incidencia">¿Se ha producido alguna incidencia? Comunícalo aquí:</label>
             <textarea rows="8" cols="80" class="form-control" name="incidencia" formControlName="incidencia" [(ngModel)]="prestamo.incidencia"></textarea> 
-    </div>
+            <span *ngIf="formularioDevolucion.controls['incidencia'].errors?.maxlength">Máximo 500 caracteres</span>
+        </div>
 
     <br/>
 

@@ -26,6 +26,7 @@ export class AceptarPrestamoComponent implements OnInit {
   public reserva: Reserva;
   public status: string;
   public fechaDevolucion: any;
+  public filtro: any = {dni : ''};
 
   constructor(
     private _prestamoService: PrestamoService,

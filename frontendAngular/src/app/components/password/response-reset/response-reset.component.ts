@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../../../Services/global.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-response-reset',
@@ -18,17 +19,25 @@ export class ResponseResetComponent implements OnInit {
     resetToken:null
   }
   public url:string;
+  public formularioReset: FormGroup;
 
   constructor(
     private route:ActivatedRoute,
     private http: HttpClient,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    public fb: FormBuilder,
   ) { 
     route.queryParams.subscribe(params => {
       this.form.resetToken = params['token']
     });
     this.url = Global.url;
+
+    this.formularioReset = this.fb.group({
+      email:['',[Validators.required, Validators.email]],
+      password: ['', [ Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      confirmPassword:['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+    }, {validator: this.passwordMatchValidator});
   }
 
   ngOnInit() {
@@ -51,6 +60,11 @@ export class ResponseResetComponent implements OnInit {
     this.error = error.error.errors;
     this.showError();
   }
+
+  passwordMatchValidator(formularioRegistro) {
+    return formularioRegistro.get('password').value === formularioRegistro.get('confirmPassword').value
+       ? null : {'mismatch': true};
+ }
 
   showSuccess(){
     this.toastr.success('La contraseña se ha cambiado correctamente.', 'Correcto', {timeOut: 3000});

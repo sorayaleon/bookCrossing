@@ -48,6 +48,6 @@ export class RequestResetComponent implements OnInit {
   }
 
   showError(error){
-    this.toastr.error(error, 'Error', {timeOut: 3000})
+    this.toastr.error('El email no existe en la base de datos', 'Error', {timeOut: 3000})
   }
 }

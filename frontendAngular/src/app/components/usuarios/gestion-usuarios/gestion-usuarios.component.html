@@ -8,7 +8,7 @@
     <div class="form-inline justify-content-between">
     <a class="btn btn-success" routerLink="/createUsuario">Nuevo usuario</a><br/>
     <form class="form-inline my-2 my-lg-0 ">
-      <!-- <input class="form-control mr-sm-2" type="search" name="filterUsuario" placeholder="Search" aria-label="Search" [(ngModel)]="filterUsuario"> -->
+      <input class="form-control mr-sm-2" type="search" name="filterUsuario" placeholder="Email" aria-label="Search" [(ngModel)]="filtro.email">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </form>
   </div>
@@ -25,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usu of usuario | paginate: {itemsPerPage: 7, currentPage: pageActual}">
+              <tr *ngFor="let usu of usuario | paginate: {itemsPerPage: 7, currentPage: pageActual} | filterBy: filtro">
                 
                 <td>{{usu.nombre}}</td>
                 <td>{{usu.apellidos}}</td>

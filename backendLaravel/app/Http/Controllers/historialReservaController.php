@@ -43,7 +43,6 @@ class historialReservaController extends Controller
         $historial->tipo = $data[0]["tipo"];
         $historial->dni = $data[0]["dni"];
         $historial->titulo = $data[0]["titulo"];
-        $historial->codigo = $data[0]["codigo"];
         $historial->idL = $data[0]["idL"];
         $historial->idUsu = $data[0]["idUsu"];
         $historial->fecha = $data[0]["fecha"];

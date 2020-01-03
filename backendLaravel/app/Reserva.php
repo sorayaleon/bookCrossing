@@ -8,5 +8,5 @@ class Reserva extends Model
 {
     protected $table = "reservas";
 
-    protected $fillable = ['tipo', 'dni', 'titulo', 'codigo', 'idL', 'idUsu', 'fecha', 'nombreEst'];
+    protected $fillable = ['tipo', 'dni', 'titulo', 'idL', 'idUsu', 'fecha', 'nombreEst'];
 }

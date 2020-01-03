@@ -18,8 +18,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                 <label for="isbn">ISBN</label>
-                <input type="number" name="isbn" class="form-control" formControlName="isbn" [(ngModel)]="this.libro.isbn">
-                <span *ngIf="formularioLibro.get('isbn').errors && formularioLibro.get('isbn').dirty">Formato incorrecto</span>
+                <input type="text" name="isbn" class="form-control" formControlName="isbn" [(ngModel)]="this.libro.isbn">
+                <span *ngIf="formularioLibro.get('isbn').errors?.pattern">Formato incorrecto</span>
             </div>    
             <div class="form-group col-md-6">
                     <label for="categoria">CATEGORIA</label>
@@ -43,9 +43,20 @@
             </div>
             
             <div class="form-group">
-                <label for="descripcion">DESCRIPCION</label>
-                <textarea class="form-control" name="descripcion" formControlName="descripcion" [(ngModel)]="this.libro.sinopsis">this.descripcion</textarea>
-                <span *ngIf="formularioLibro.get('descripcion').errors && formularioLibro.get('descripcion').dirty">Formato incorrecto</span>
+                <label for="sinopsis">SINOPSIS</label>
+                <textarea class="form-control" name="sinopsis" formControlName="sinopsis" [(ngModel)]="this.libro.sinopsis">this.descripcion</textarea>
+                <span *ngIf="formularioLibro.get('sinopsis').errors && formularioLibro.get('sinopsis').dirty">Formato incorrecto</span>
+            </div>
+
+            <div class="form-row">
+                    <label for="establecimiento">ESTABLECIMIENTO INICIAL</label>
+                    <select class="custom-select mr-sm-2" name="establecimiento" formControlName="establecimiento" [(ngModel)]="this.libro.establecimiento">
+                        <option *ngFor = "let local of establecimiento" [value]="local.nombreEst">
+                            <ng-container *ngIf="local.estado == 'activo'">
+                            {{local.nombreEst}}
+                        </ng-container>
+                        </option>
+                    </select>   
             </div>
         </div>
     

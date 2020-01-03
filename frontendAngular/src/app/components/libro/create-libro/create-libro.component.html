@@ -47,7 +47,6 @@
                 
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
                         <label for="establecimiento">ESTABLECIMIENTO INICIAL</label>
                         <select class="custom-select mr-sm-2" name="establecimiento" formControlName="establecimiento" [(ngModel)]="libro.establecimiento">
                             <option *ngFor = "let local of establecimiento" [value]="local.nombreEst">
@@ -56,12 +55,7 @@
                             </ng-container>
                             </option>
                         </select>
-                    </div>  
-                    <div class="form-group col-md-6">
-                        <label for="codigo">CODIGO</label>
-                        <input type="number" class="form-control" name="codigo" formControlName="codigo" [(ngModel)]="libro.codigo">
-                    </div>
-                </div>
+                    </div>   
             </div>
     
             <div class="col-md-4 col-sm-6 col-xs-12">

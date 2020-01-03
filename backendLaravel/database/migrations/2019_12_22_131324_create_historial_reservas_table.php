@@ -18,7 +18,6 @@ class CreateHistorialReservasTable extends Migration
             $table->enum('tipo', ['solicitud','prestamo','devolucion'])->default('solicitud');
             $table->string('dni');
             $table->string('titulo');
-            $table->integer('codigo');
             $table->integer('idL');
             $table->integer('idUsu');
             $table->timestamp('fecha');

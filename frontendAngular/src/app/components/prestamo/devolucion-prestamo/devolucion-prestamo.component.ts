@@ -27,6 +27,7 @@ export class DevolucionPrestamoComponent implements OnInit {
   public fechaHoy: any;
   public usuario;
   public numLibros;
+  public filtro: any = {dni : ''};
 
   constructor(
     private _prestamoService: PrestamoService,
