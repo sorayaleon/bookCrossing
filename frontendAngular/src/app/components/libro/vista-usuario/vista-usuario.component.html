@@ -1,92 +1,89 @@
 <div class="container" *ngIf="libro || establecimiento || usuario">
     
-    <!--TITULO-->
     <div class="text-center">
+        <br/>
         <h1>{{libro.titulo}}</h1>
         <br/><br/>
     </div>
+
     <div class="form-row">
-    <!--PORTADA-->
-    <div class="col-md-4 col-sm-6 col-xs-12" >     
+    <div class="col-md-4 col-sm-6 col-xs-12" >  
+        
         <img src="{{'http://127.0.0.1:8000/descargas/'+libro.portada}}" width="auto" height="450">  
+        
+        <div *ngIf="estrellas == 1">&nbsp;&nbsp;&nbsp;
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        </div>
+        <div *ngIf="estrellas == 2">&nbsp;&nbsp;&nbsp;
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        </div>
+        <div *ngIf="estrellas == 3">&nbsp;&nbsp;&nbsp;
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        </div>
+        <div *ngIf="estrellas == 4">&nbsp;&nbsp;&nbsp;
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        </div>
+        <div *ngIf="estrellas == 5">&nbsp;&nbsp;&nbsp;
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        </div>
     
-        <div *ngIf="estrellas == 1">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-        </div>
-        <div *ngIf="estrellas == 2">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-        </div>
-        <div *ngIf="estrellas == 3">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-        </div>
-        <div *ngIf="estrellas == 4">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
-        </div>
-        <div *ngIf="estrellas == 5">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-            <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
-        </div>
-        
-
-        <!--AUTOR-->
         <div class="form-group">
-            <h2>{{libro.autor}}</h2>
-        </div>
-        
-        <!--CATEGORIA-->
-        <div class="form-group">
-            <h4>{{libro.categoria}}</h4>
-        </div>
-
-        <div class="form-group">
-            <h4>{{libro.isbn}}</h4>
-        </div>
-        <div class="form-group">
-            <h4>{{libro.codigo}}</h4>
-        </div>
+            <h3>{{libro.autor}}</h3>
+        </div> 
+       
     </div>
 
     <div class="col-md-8 col-sm-6 col-xs-12">
         <!--DESCRIPCION-->
         <br/>
-        <p>{{libro.sinopsis}}</p>
+        <h4>Sinopsis: </h4><br/>
+        <p>{{libro.sinopsis}}</p><br/>
+        <h4>Datos del libro: </h4><br/>
         
-        <p>{{libro.establecimiento}}</p>
+        <div class="form-group">
+            <h6>ISBN: {{libro.isbn}}</h6>
+            <h6>Código: {{libro.id}}</h6>
+            <h6>Categoría: {{libro.categoria}}</h6>
+            <h6>Establecimiento: {{libro.establecimiento}}</h6>
+        </div>
     </div>
 </div>
 
 <div class="form-group">
     <div class="text-center">
         <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/home']">Volver</button>&nbsp;  
-        <div *ngIf="usuario.estado == 'activo' && usuario.numLibros&lt;3">
-        <button type="button" class="btn btn-secondary btn-lg" (click)="solicitar(libro.id, libro.estado)">Solicitar</button>
-        </div>
+        <ng-container *ngIf="usuario.estado == 'activo' && usuario.numLibros&lt;3">
+        <button type="button" class="btn btn-warning btn-lg" (click)="solicitar(libro.id, libro.estado)">Solicitar</button>
+        </ng-container>
     </div>
 </div>
     
 <div class="form-group">
     <div class="text-center">
-        <h2>VALORACION Y COMENTARIOS</h2>
-        <p>Valora el libro:</p>
+        <br/>
+        <h3>¿Has leído el libro?</h3>
+        <h2>¡Cuénta qué te ha parecido!</h2>
+       
         <form #comentariosForm="ngForm" [formGroup]="formularioComentarios" (ngSubmit)="onSubmit(); formularioComentarios.reset()">
         <div class="container">
             <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
@@ -96,35 +93,27 @@
                 <input type="radio" id="star2" name="rating" value="2" (change)="getRadioButtonSelectedValue($event)"/><label for="star2" title="2 star"></label>
                 <input type="radio" id="star1" name="rating" value="1" (change)="getRadioButtonSelectedValue($event)"/><label for="star1" title="1 star"></label>
             </div>
-      </div>	
-    
+       
+            <div class="comentar">
             <div class="col-md-8 col-sm-6 col-xs-12">
-                    <label for="comentario">Comenta qué te ha parecido el libro:</label>
-                    <textarea rows="8" cols="80" class="form-control" name="comentario" formControlName="comentario" [(ngModel)]="comentario.comentario"></textarea> 
-            </div>
-        
-        <div class="form-group">
-            <div class="text-center">
-                <br/>
+                <!-- <label for="comentario">Comenta qué te ha parecido el libro:</label> -->
+                <textarea rows="8" cols="80" class="form-control" name="comentario" formControlName="comentario" [(ngModel)]="comentario.comentario"></textarea> 
+                <span *ngIf="formularioComentarios.controls['comentario'].errors?.maxlength">Máximo 250 caracteres</span> 
+           <br/>
                 <input type="submit" class="btn btn-primary btn-lg" value="Enviar" [disabled]="formularioComentarios.invalid">
             </div>
-        </div>
+            </div>
+        </div>       
+        
+        
+        <br/> <br/>
         </form>
-
+    </div>
+    <h2>Comentarios</h2>
         <div *ngIf="comentarioLibro == 0">No hay comentarios</div>
-        <!-- <div *ngIf="comentarioLibro != 0">
-            <div *ngFor="let coment of comentario">
-                <ng-container *ngIf="coment.idL == libro.id && coment.estado == 'activo'">
-            <p>{{coment.alias}}</p>
-            <p>{{coment.comentario}}</p>
-            <ng-container *ngIf="tipo == 'admin'">
-                <a class="btn btn-danger btn-sm" (click)="eliminarComentario(coment.id)"><i class="material-icons">delete</i></a>
-            </ng-container>
-        </ng-container>
-        </div>
-        </div> -->
-        <h2>Comentarios</h2>
-        <div *ngFor="let coment of comentario">
+    
+        <div *ngIf="comentarioLibro != 0"> 
+        <ng-container *ngFor="let coment of arrayComent | paginate: {itemsPerPage:7, currentPage: pageActual}">
             <ng-container *ngIf="coment.idL == libro.id && coment.estado == 'activo'">
         <div class="container mt-3">
             
@@ -139,15 +128,14 @@
               </div>
             </div>
         </div>
+        <br/>
                 </ng-container>
-        </div>
-    
-        
-        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
-
+        </ng-container>
+        <ng-container *ngIf="comentarioLibro>7">
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+    </ng-container> 
     </div>
+    
 </div>
-
-
 
 </div>

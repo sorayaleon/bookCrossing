@@ -27,6 +27,7 @@ export class AceptarPrestamoComponent implements OnInit {
   public status: string;
   public fechaDevolucion: any;
   public filtro: any = {dni : ''};
+  public prestamos = [];
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -54,6 +55,7 @@ export class AceptarPrestamoComponent implements OnInit {
        for (let index = 0; index < this.solicitud.length; index++) {
          if(this.solicitud[index]["tipo"]=="solicitud"){
             this.numInac += 1;
+            this.prestamos.push(this.solicitud[index]);
          }
        }
        console.log(<any>result);

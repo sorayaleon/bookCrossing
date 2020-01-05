@@ -1,5 +1,6 @@
 <div class="mt4 col-8 offset-2">
-    <div class="card">
+  <br/>
+    <div class="card shadow-lg p-3 mb-5 bg-white rounded">
       <div class="card-header">Actualiza los datos de tu establecimiento</div>
       <div class="card-body">
           <form #registroForm="ngForm" [formGroup]="formularioEstablecimiento" (ngSubmit)="onSubmit()">
@@ -37,8 +38,8 @@
 
               <div class="form-group row">
                 <div class="col-sm-10 offset-2">
-                  <button type="submit" class="btn btn-primary" [disabled]="!registroForm.valid">Actualizar</button>
-                
+                  <button type="submit" class="btn btn-warning" [disabled]="!registroForm.valid">Actualizar</button> &nbsp;
+                  <button type="button" class="btn btn-primary" [routerLink]="['/gestionEstablecimientos']">Volver</button>
                 </div>
               </div>
             </form>

@@ -27,6 +27,9 @@ export class GestionEstablecimientosComponent implements OnInit {
   public tipo;
   public libro: Libro;
   public contador = 0;
+  filtro: any = {nombreEst: ''};
+  public array = [];
+  public numEstActivos = 0;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -48,7 +51,12 @@ export class GestionEstablecimientosComponent implements OnInit {
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
-      
+       for (let index = 0; index < this.establecimiento.length; index++) {
+        if(this.establecimiento[index]["estado"]=="activo"){
+           this.numEstActivos += 1;
+           this.array.push(this.establecimiento[index]);
+        }
+      }
      },
      error => {
        console.log(<any>error);

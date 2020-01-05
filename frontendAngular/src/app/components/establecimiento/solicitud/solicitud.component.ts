@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

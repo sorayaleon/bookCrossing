@@ -1,0 +1,11 @@
+h1, h2{
+    color: dodgerblue;
+    
+  }
+
+.container{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+span{
+    color: firebrick;
+}

@@ -1,0 +1,31 @@
+.container{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+th{
+    color: whitesmoke;
+}
+
+h2, h3{
+    color: dodgerblue;
+    
+}
+
+pagination-controls{
+    display: flex;
+    justify-content: center;
+}
+
+#buscador{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.establecimientos{
+    display: flex;
+}
+
+#boton{
+    display: flex;
+    justify-content: flex-end;
+}

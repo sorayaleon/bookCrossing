@@ -46,7 +46,7 @@ export class RegistroComponent implements OnInit {
       dni: ['', [Validators.required]],
       nombre: ['', [Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i), Validators.maxLength(50)]],
       apellidos: ['', [Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i), Validators.maxLength(50)]],
-      alias: ['', [Validators.required, Validators.maxLength(20)]],
+      alias: ['', [Validators.required, Validators.maxLength(20), Validators.pattern(/^[a-zá-ú\d]+$/i)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [ Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       passwordRep: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
@@ -57,14 +57,15 @@ export class RegistroComponent implements OnInit {
   }
 
   onSubmit(){
-
     this.sendEmailValidationLink(this.form).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
 
     return this.http.post(this.url +'registro', this.form).subscribe(
-      data => this.handleResponse(data),
+      data => {
+        this.handleResponse(data);
+      },
       error => this.handleError(error)
     );
    
@@ -77,7 +78,7 @@ export class RegistroComponent implements OnInit {
   handleResponse(data){
     // this.Token.handle(data.access_token);
     this.showSuccess();
-    this.router.navigateByUrl('/login');
+    // this.router.navigateByUrl('/login');
     }
 
   handleError(error){
@@ -122,7 +123,7 @@ export class RegistroComponent implements OnInit {
 }
 
 showError(){
-  this.toastr.error('No se ha podido crear el usuario.', 'Error', {timeOut: 3000})
+  this.toastr.error('No se ha podido crear el usuario. El DNI, email o usuario ya se encuentran registrados en la apliación.', 'Error', {timeOut: 3000})
 }
 
 // validarDni(formularioRegistro){

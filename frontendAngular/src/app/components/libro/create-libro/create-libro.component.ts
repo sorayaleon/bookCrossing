@@ -22,7 +22,7 @@ export class CreateLibroComponent implements OnInit {
   public categoriaList: string[];
   public categoriaEst: string[];
   public establecimiento: any;
-  
+
   
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -52,6 +52,11 @@ export class CreateLibroComponent implements OnInit {
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
+       for(let index=0; index<this.establecimiento.length; index ++){
+         if(this.establecimiento[index]["estado"]== "activo"){
+           this.categoriaEst.push(this.establecimiento[index]);
+         }
+       }
        console.log(this.establecimiento);
 
        console.log(<any>result);

@@ -13,7 +13,7 @@ import { Establecimiento } from '../../../models/establecimiento';
 import { HistorialService } from '../../../Services/historial.service';
 import { ComentariosService } from '../../../Services/comentarios.service';
 import { Comentarios } from '../../../models/comentarios';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from '../../../models/usuario';
 import * as moment from 'moment';
 import { UsuarioService } from '../../../Services/usuario.service';
@@ -59,6 +59,7 @@ export class VistaUsuarioComponent implements OnInit {
   public votos;
   public estrellas;
   public puntos;
+  public arrayComent = [];
 
   getRadioButtonSelectedValue(event: any)
   {
@@ -88,7 +89,7 @@ export class VistaUsuarioComponent implements OnInit {
     this.valoracion = new Valoracion(0, 0, 0, 0);
     console.log(this.fecha);
     this.formularioComentarios = this.fb.group({
-      comentario: [''],
+      comentario: ['', [Validators.required, Validators.maxLength(250)]],
       rating: ['']
     })
 
@@ -151,24 +152,37 @@ export class VistaUsuarioComponent implements OnInit {
     console.log(this.reserva);
     estado = 'solicitado';
 
-    this._libroService.updateEstadoLibro(id, estado).subscribe(
-      response => {
-        console.log(estado);
-        this.showSuccess();
-      }, error => {
-        this.status = 'failed';
-        console.log(<any>error);
-        this.showError();
-      }
-    )
+   
     this._prestamoService.solicitaPrestamo(this.reserva).subscribe(
       response => {
         console.log(response);
         this.status = 'success';
         this.saveReserva = response.reserva;
         this.sumaLibro(this.idUsu);
-        this.showSuccess();
-        this._router.navigate(['/home']);
+        this._libroService.updateEstadoLibro(id, estado).subscribe(
+          response => {
+            console.log(estado);
+            this._historialService.registraHistorial(this.reserva).subscribe(
+              response => {
+                console.log(response);
+                this.status = 'success';
+                this.saveReserva = response.reserva;
+                this.showSuccess();
+                this._router.navigate(['/home']);
+              }, error => {
+                this.status = 'failed';
+                console.log(<any>error);
+                this.showError();
+               
+              }
+            )
+          }, error => {
+            this.status = 'failed';
+            console.log(<any>error);
+            this.showError();
+          }
+        )
+        
       }, error => {
         this.status = 'failed';
         console.log(<any>error);
@@ -176,18 +190,7 @@ export class VistaUsuarioComponent implements OnInit {
       }
     )
 
-    this._historialService.registraHistorial(this.reserva).subscribe(
-      response => {
-        console.log(response);
-        this.status = 'success';
-        this.saveReserva = response.reserva;
-        this.showSuccess();
-      }, error => {
-        this.status = 'failed';
-        console.log(<any>error);
-        this.showError();
-      }
-    )
+    
     
   }
 
@@ -217,8 +220,9 @@ export class VistaUsuarioComponent implements OnInit {
         console.log(response);
         this.comentario = response;
         for (let index = 0; index < this.comentario.length; index++) {
-          if(this.comentario[index]["idL"]==id){
+          if(this.comentario[index]["idL"]==id && this.comentario[index]["estado"]=="activo"){
              this.comentarioLibro += 1;
+             this.arrayComent.push(this.comentario[index]);
           }
         }
 

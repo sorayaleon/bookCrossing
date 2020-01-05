@@ -91,6 +91,6 @@ export class CreateEstablecimientoComponent implements OnInit {
   }
 
   showError(){
-    this.toastr.error('No se ha podido crear el establecimiento.', 'Error', {timeOut: 3000})
+    this.toastr.error('No se ha podido crear el establecimiento', 'Error', {timeOut: 3000})
   }
 }

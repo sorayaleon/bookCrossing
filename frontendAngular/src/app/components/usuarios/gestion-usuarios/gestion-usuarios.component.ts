@@ -26,6 +26,7 @@ export class GestionUsuariosComponent implements OnInit {
   public contador = 0;
   public libro;
   public filtro: any = {email: ''};
+  public usuarios = 0;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -48,6 +49,9 @@ export class GestionUsuariosComponent implements OnInit {
     this._usuarioService.getUsuarios().subscribe(
       result => {
        this.usuario = result;
+       for(let index=0; index<this.usuario.length; index ++){
+         this.usuarios +=1;
+       }
       
      },
      error => {

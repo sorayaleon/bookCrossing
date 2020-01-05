@@ -1,6 +1,6 @@
 <div class="container">
     <form class="form-inline my-2 my-lg-0 ">
-        <input class="form-control mr-sm-2" type="search" name="filterIncidencia" placeholder="DNI" aria-label="Search" [(ngModel)]="filtro.dni">
+        <input class="form-control mr-sm-2" type="search" name="filtro" placeholder="DNI" aria-label="Search" [(ngModel)]="filtro.dni">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
       </form>
     <div>
@@ -16,14 +16,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let incidencia of incidencias  | paginate: {itemsPerPage: 7, currentPage: pageActual} | filterBy: filtro">
-                <!-- | solicitud:filterSolicitud -->
-                <ng-container *ngIf= "incidencia.incidenciaActiva == 'si'">
-                <td>{{incidencia.dni}}</td>
-                <td>{{incidencia.titulo}}</td>
-                <td><a class="btn btn-danger btn-sm" [routerLink]="['/incidencia/'+incidencia.id]">VER</a></td>
-                </ng-container>
-              </tr>
+              <ng-container *ngFor="let incidencia of array | filterBy: filtro | paginate: {itemsPerPage: 7, currentPage: pageActual} ">
+               <tr *ngIf= "incidencia.tipo == 'devolucion' && incidencia.incidenciaActiva == 'si'">
+                 
+                    <td>{{incidencia.dni}}</td>
+                    <td>{{incidencia.titulo}}</td>
+                    <td><a class="btn btn-danger btn-sm" [routerLink]="['/incidencia/'+incidencia.id]">VER</a></td>
+                  </tr>
+                
+              </ng-container>
+            
             </tbody>
         </table>  
         <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
@@ -32,7 +34,7 @@
     </div>
 
     <form class="form-inline my-2 my-lg-0 ">
-      <input class="form-control mr-sm-2" type="search" name="filterIncidencia" placeholder="DNI" aria-label="Search" [(ngModel)]="filtroRet.dni">
+      <input class="form-control mr-sm-2" type="search" name="filtroRet" placeholder="DNI" aria-label="Search" [(ngModel)]="filtroRet.dni">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </form>
   <div>
@@ -48,14 +50,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let retraso of retrasos | paginate: {itemsPerPage: 7, currentPage: pageActual} | filterBy: filtroRet">
-              <!-- | solicitud:filterSolicitud -->
-              <ng-container *ngIf= "retraso.tipo == 'prestamo' && retraso.fecha < fechaHoy">
+            <ng-container *ngFor="let retraso of retrasoEntrega | filterBy: filtroRet | paginate: {itemsPerPage: 7, currentPage: pageActual}">
+              <tr *ngIf= "retraso.tipo == 'prestamo' && retraso.fecha < fechaHoy">
               <td>{{retraso.dni}}</td>
               <td>{{retraso.titulo}}</td>
               <td><a class="btn btn-danger btn-sm" [routerLink]="['/incidencia/'+retraso.id]">VER</a></td>
-              </ng-container>
-            </tr>
+              </tr>
+            </ng-container>
           </tbody>
       </table>  
       <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 

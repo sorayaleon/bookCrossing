@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4682b4;">
   <a class="navbar-brand" href="#"><img src="{{'http://127.0.0.1:8000/descargas/bookcrossing.jpg'}}" width="auto" height="40"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Establecimientos
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
           <li class="nav-item">
           <a class="dropdown-item" routerLink="/gestionSolicitudes" *ngIf="loggedIn && tipo=='admin'">Gestión Solicitudes</a>
         </li>
@@ -38,13 +38,16 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Prestamos
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="nav-link" routerLink="/gestionPrestamos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de Prestamos</a>
-      
-      
-        <a class="nav-link" routerLink="/devolucionPrestamo" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Devolucion</a>
-     
-        <a class="nav-link" routerLink="/incidencia" *ngIf="loggedIn && (tipo=='admin')">Incidencias y Retrasos</a>
+        <div class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
+          <li class="nav-item">
+        <a class="dropdown-item" routerLink="/gestionPrestamos" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Gestión de Prestamos</a>
+      </li>
+        <li class="nav-item">
+        <a class="dropdown-item" routerLink="/devolucionPrestamo" *ngIf="loggedIn && (tipo=='responsable' || tipo=='admin')">Devolucion</a>
+      </li>
+        <li class="nav-item">
+        <a class="dropdown-item" routerLink="/incidencia" *ngIf="loggedIn && (tipo=='admin')">Incidencias y Retrasos</a>
+      </li>
       </div>
       </li>
     

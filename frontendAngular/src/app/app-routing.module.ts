@@ -32,7 +32,7 @@ import { FichaUsuariosComponent } from './components/usuarios/ficha-usuarios/fic
 import { IndexComponent } from './components/index/index.component';
 
 const routes: Routes = [
-  {path: '', component: IndexComponent, canActivate: [AntesInicioSesionService]},
+  {path: '', component: IndexComponent},
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
   {path: 'registro', component: RegistroComponent, canActivate: [AntesInicioSesionService]},
   {path: 'home', component: HomeComponent, canActivate: [SesionIniciadaService]},

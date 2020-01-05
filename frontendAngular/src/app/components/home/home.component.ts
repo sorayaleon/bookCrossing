@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   public numLibros;
   public usuario;
   public filtro: any = { cp: ''};
+  public establecimientoAct = [];
   
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -73,6 +74,7 @@ export class HomeComponent implements OnInit {
        for (let index = 0; index < this.establecimiento.length; index++) {
         if(this.establecimiento[index]["estado"]=="activo" ){
            this.estInac += 1;
+           this.establecimientoAct.push(this.establecimiento[index]);
         }
       }
        console.log(<any>result);

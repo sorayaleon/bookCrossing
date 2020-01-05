@@ -65,7 +65,7 @@ export class UpdateEstablecimientoComponent implements OnInit {
 
   onSubmit(){
     console.log(this.formularioEstablecimiento.value);
-    this.dialogService.openConfirmDialog('¿Deseas actualizar el libro?').afterClosed().subscribe(res =>{
+    this.dialogService.openConfirmDialog('¿Deseas actualizar los datos del establecimiento?').afterClosed().subscribe(res =>{
       if(res){
         this._establecimientoService.updateEstablecimiento(this.establecimiento.id, this.formularioEstablecimiento.value).subscribe(
           response=>{

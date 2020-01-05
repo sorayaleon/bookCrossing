@@ -7,10 +7,10 @@
           </div>
         <!--BOTON AÑADIR LIBROS Y BUSCADOR-->
         <div class="form-inline justify-content-between">
-        <a class="btn btn btn-secondary" routerLink="/createLibro">Nuevo libro</a><br/>
+        <a class="btn btn-success" routerLink="/createLibro">Nuevo libro</a><br/>
         <form class="form-inline my-2 my-lg-0 ">
-          <input class="form-control mr-sm-2" type="search" name="filterLibro" placeholder="Search" aria-label="Search" [(ngModel)]="filterLibro">
-          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Buscar</button>
+          <input class="form-control mr-sm-2" type="search" name="filterLibro" placeholder="Título, autor" aria-label="Search" [(ngModel)]="filterLibro">
+          <button class="btn  btn-info my-2 my-sm-0" type="submit">Buscar</button>
         </form>
       </div>
         <br/>
@@ -29,7 +29,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let ejemplar of libro | paginate: {itemsPerPage: 7, currentPage: pageActual} | libro:filterLibro">
+                  <tr *ngFor="let ejemplar of libro | libro:filterLibro | paginate: {itemsPerPage: 3, currentPage: pageActual}">
                     <td>{{ejemplar.titulo}}</td>
                     <td>{{ejemplar.autor}}</td>
                     <td>{{ejemplar.establecimiento}}</td>

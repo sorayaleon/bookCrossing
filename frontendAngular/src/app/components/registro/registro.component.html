@@ -1,19 +1,18 @@
 <div class="mt4 col-8 offset-2">
-    <div class="card">
+  <br/>
+    <div class="card shadow-lg p-3 mb-5 bg-white rounded">
       <div class="card-header">Regístrate</div>
       <div class="card-body">
           <form #registroForm="ngForm" [formGroup]="formularioRegistro" (ngSubmit)="onSubmit(); formularioRegistro.reset()">
-            <!-- <div class="alert alert-danger" [hidden]="!error">
+            <div class="alert alert-danger" [hidden]="!error">
               {{error}}
-            </div> -->
+            </div>
             <div class="form-group row">
               <label for="inputDni3" class="col-sm-2 col-form-label">DNI</label>
               <div class="col-sm-10">
                 <input type="text" name="dni" class="form-control" id="inputDni3" placeholder="DNI" formControlName="dni"  [(ngModel)]="form.dni" >
-                <div class="alert alert-danger" [hidden]="!error">
-                  <!-- <span *ngIf="formularioRegistro.controls['dni'].errors?.pattern">No se admiten caracteres numéricos</span> -->
-                  <!-- <span *ngIf="formularioRegistro.hasError('validarNif')">Las contraseñas no coinciden</span> -->
-                </div>
+                <!-- <div class="alert alert-danger" [hidden]="!error">
+                </div> -->
               </div>
             </div>
 
@@ -41,6 +40,7 @@
                 <div class="col-sm-10">
                   <input type="text" name="alias" class="form-control" id="inputAlias3" placeholder="Alias" formControlName="alias" [(ngModel)]="form.alias" required>
                   <span *ngIf="formularioRegistro.controls['alias'].errors?.maxlength">La longitud no puede ser mayor de 20 caracteres</span>
+                  <span *ngIf="formularioRegistro.controls['alias'].errors?.pattern">No se admiten espacios</span>
                 </div>
               </div>
 

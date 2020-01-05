@@ -1,7 +1,8 @@
 <div class="container" *ngIf="libro">
         <!--TITULO-->
         <div class="text-center">
-        <h2>{{title}}</h2><br/>
+            <br/>
+        <h2>{{title}}</h2><br/><br/>
     </div>
         <!--MENSAJE-->
         <div class="success" *ngIf="status == 'success'">
@@ -61,15 +62,15 @@
         </div>
     
         <div class="col-md-4 col-sm-6 col-xs-12">
-            <br/> <br/> <br/>
+            
             <div class="form-group">
             <div class="text-center">
                 <label for="portada"></label>
-                <span>
-                    <img src="{{'http://127.0.0.1:8000/descargas/'+libro.portada}}" >
+                <div>
+                    <img src="{{'http://127.0.0.1:8000/descargas/'+libro.portada}}" width="auto" height="450">
                     <h6>Sube la portada del libro</h6>
                     <br/>
-                </span>
+                </div>
                 <input type="file" id="portada" name="portada" placeholder="Subir imagen" (change)="fileChangeEvent($event)">
             </div>
         </div>
@@ -78,8 +79,8 @@
         <br/><br/>
         <div class="form-group">
             <div class="text-center">
-            <input type="submit" class="btn btn-primary btn-lg" value="Actualizar" [disabled]="formularioLibro.invalid">
-            <button type="button" class="btn btn-secondary btn-lg" [routerLink]="['/gestionLibros']">Volver</button>
+            <input type="submit" class="btn btn-warning btn-lg" value="Actualizar" [disabled]="formularioLibro.invalid"> &nbsp;
+            <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionLibros']">Volver</button>
         </div>
     </div>
         </form>

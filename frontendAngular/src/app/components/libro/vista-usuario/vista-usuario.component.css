@@ -16,7 +16,8 @@ body
 .starrating > label:before { 
   content: "\f005"; /* Star */
   margin: 2px;
-  font-size: 8em;
+  /* font-size: 8em; */
+  font-size: 6em;
   font-family: FontAwesome;
   display: inline-block; 
 }
@@ -32,3 +33,34 @@ body
 .starrating > input:hover ~ label
 { color: #ffca08 ;  } /* Set yellow color when star hover */
 
+.container{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1, h2{
+  color: dodgerblue;
+  
+}
+
+.comentar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enviar{
+  /* display: flex;
+  align-items: right;
+  justify-content: flex-end; */
+  /* position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0); */
+}
+
+span{
+  color: firebrick;
+}
+.container{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

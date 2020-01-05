@@ -94,7 +94,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let historial of historiales | paginate: {itemsPerPage: 7, currentPage: pageActual}">
+                                            <tr *ngFor="let historial of historialUsu | paginate: {itemsPerPage: 7, currentPage: pageActual}">
                                                 <ng-container *ngIf= "historial.idUsu == idUsu"> 
                                                 <td>{{historial.titulo}}</td>
                                                 <td>{{historial.tipo}}</td>
@@ -119,7 +119,7 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      <tr *ngFor="let solicitud of solicitudes">
+                                      <tr *ngFor="let solicitud of solicitudUsu">
                                           <ng-container *ngIf= "solicitud.idUsu == idUsu"> 
                                           <td>{{solicitud.titulo}}</td>
                                           <td>{{solicitud.nombreEst}}</td>

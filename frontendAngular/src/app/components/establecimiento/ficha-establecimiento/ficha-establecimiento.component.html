@@ -1,34 +1,61 @@
 <div class="mt4 col-8 offset-2">
-    <div class="card">
+  <br/>
+    <div class="card shadow-lg p-3 mb-5 bg-white rounded">
       <div class="card-header">Ficha establecimiento</div>
       <div class="card-body">
 <div class="container" *ngIf="establecimiento">
 
-        <h2>Nombre:</h2><br/>
-        <h4>{{establecimiento.nombreEst}}</h4>
+        <!-- <h4>Nombre:</h4><br/>
+        <h5>{{establecimiento.nombreEst}}</h5>
         <br/>
-        <h2>Dirección:</h2><br/>
-        <h4>{{establecimiento.direccion}}</h4>
+        <h4>Dirección:</h4><br/>
+        <h5>{{establecimiento.direccion}}</h5>
+        <div class="horario">
+        <br/>
+        <h4>Código Postal:</h4>
+        <h5>{{establecimiento.cp}}</h5>
+        <h4>Teléfono:</h4>
+        <h5>{{establecimiento.tfno}}</h5>
        
-        <br/>
-        <h2>Código Postal:</h2><br/>
-        <p>{{establecimiento.cp}}</p>
-    
-        <br/>
-        <h2>Teléfono:</h2><br/>
-        <h2>{{establecimiento.tfno}}</h2>
-        <br/>
-        <h2>Hora de apertura:</h2><br/>
-        <h2>{{establecimiento.horarioAp}}</h2>
+      </div>
+        <div class="horario">
+        <h4>Hora de apertura:</h4>
+        <h5>{{establecimiento.horarioAp}}</h5>
    
-        <br/>
-        <h2>Hora de cierre:</h2><br/>
-        <h2>{{establecimiento.horarioC}}</h2>
-    
+        <h4>Hora de cierre:</h4>
+        <h5>{{establecimiento.horarioC}}</h5>
+      </div> -->
+      <table>
+        <tr>
+          <td style="font-weight:bold">Nombre:&nbsp;</td>
+          <td>{{establecimiento.nombreEst}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold">Dirección:&nbsp;</td>
+          <td>{{establecimiento.direccion}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold">Código Postal:&nbsp;</td>
+          <td>{{establecimiento.cp}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold">Teléfono:&nbsp;</td>
+          <td>{{establecimiento.tfno}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold">Hora de apertura:&nbsp;</td>
+          <td>{{establecimiento.horarioAp}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight:bold">Hora de cierre:&nbsp;</td>
+          <td>{{establecimiento.horarioC}}</td>
+        </tr>
+      </table>
+      <br/>
 
 <div class="form-group">
     <div class="text-center">
-      <button type="button" class="btn btn-primary btn-lg" (click)="deleteEstablecimiento(establecimiento.id, establecimiento.nombreEst)">Dar de baja</button>&nbsp;
+      <button type="button" class="btn btn-danger btn-lg" (click)="deleteEstablecimiento(establecimiento.id, establecimiento.nombreEst)">Dar de baja</button>&nbsp;
       <ng-container *ngIf="tipo=='admin'">
         <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionEstablecimientos']">Volver</button>&nbsp;  
       </ng-container>  
@@ -38,3 +65,5 @@
     </div> 
   </div>
 </div>
+
+

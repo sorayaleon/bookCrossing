@@ -2,39 +2,78 @@
     
         <!--TITULO-->
         <div class="text-center">
+            <br/>
             <h1>{{libro.titulo}}</h1>
             <br/><br/>
         </div>
+       
         <div class="form-row">
-        <!--PORTADA-->
-        <div class="col-md-4 col-sm-6 col-xs-12" >     
-            <img src="{{'http://127.0.0.1:8000/descargas/'+libro.portada}}" width="auto" height="450">  
+            <div class="col-md-4 col-sm-6 col-xs-12" >  
+                
+                <img src="{{'http://127.0.0.1:8000/descargas/'+libro.portada}}" width="auto" height="450">  
+                
+                <div *ngIf="estrellas == 1">&nbsp;&nbsp;&nbsp;
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                </div>
+                <div *ngIf="estrellas == 2">&nbsp;&nbsp;&nbsp;
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                </div>
+                <div *ngIf="estrellas == 3">&nbsp;&nbsp;&nbsp;
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                </div>
+                <div *ngIf="estrellas == 4">&nbsp;&nbsp;&nbsp;
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+                </div>
+                <div *ngIf="estrellas == 5">&nbsp;&nbsp;&nbsp;
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                    <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+                </div>
+            
+                <div class="form-group">
+                    <h3>{{libro.autor}}</h3>
+                </div> 
+               
+            </div>
         
-            <!--AUTOR-->
-            <div class="form-group">
-                <h2>{{libro.autor}}</h2>
-            </div>
-            <!--CATEGORIA-->
-            <div class="form-group">
-                <h4>{{libro.categoria}}</h4>
-            </div>
-            <!-- CODIGO -->
-            <div class="form-group">
-                <h4>{{libro.id}}</h4>
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <!--DESCRIPCION-->
+                <br/>
+                <h4>Sinopsis: </h4><br/>
+                <p>{{libro.sinopsis}}</p><br/>
+                <h4>Datos del libro: </h4><br/>
+                
+                <div class="form-group">
+                    <h6>ISBN: {{libro.isbn}}</h6>
+                    <h6>Código: {{libro.id}}</h6>
+                    <h6>Categoría: {{libro.categoria}}</h6>
+                    <h6>Establecimiento: {{libro.establecimiento}}</h6>
+                </div>
             </div>
         </div>
-    
-        <div class="col-md-8 col-sm-6 col-xs-12">
-            <!--sinopsis-->
-            <br/>
-            <p>{{libro.sinopsis}}</p>
-        </div>
-    </div>
     
     <div class="form-group">
         <div class="text-center">
             <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionLibros']">Volver</button>&nbsp;  
-            <button type="button" class="btn btn-secondary btn-lg" (click)="deleteLibro(libro.id)">Eliminar</button>
+            <button type="button" class="btn btn-danger btn-lg" (click)="deleteLibro(libro.id)">Eliminar</button>
         </div>
     </div>
         

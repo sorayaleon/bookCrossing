@@ -48,6 +48,9 @@ export class PerfilComponent implements OnInit {
   public email;
   public comentarios;
   public alias;
+  public historialUsu = [];
+  public solicitudUsu = [];
+  public numLibros;
 
   constructor(
     private _usuarioService: UsuarioService,
@@ -253,6 +256,7 @@ export class PerfilComponent implements OnInit {
         for (let index = 0; index < this.prestamos.length; index++) {
           if(this.prestamos[index]["tipo"]=="solicitud" && this.prestamos[index]["idUsu"]==this.idUsu){
              this.numSolicitudes += 1;
+             this.solicitudUsu.push(this.prestamos[index]);
           }
         }
       }, error => {
@@ -268,6 +272,7 @@ export class PerfilComponent implements OnInit {
         for (let index = 0; index < this.historiales.length; index++) {
           if(this.historiales[index]["idUsu"]== this.idUsu){
              this.numHistoriales += 1;
+             this.historialUsu.push(this.historiales[index]);
           }
         }
         console.log(<any>response);
@@ -284,7 +289,7 @@ export class PerfilComponent implements OnInit {
         console.log(<any>response);
         this._router.navigateByUrl('/refresh', {skipLocationChange: true}).then(()=>
           this._router.navigate(['/perfil/'+this.idUsu])); 
-
+          this.restaLibro(this.idUsu);
           this._libroService.updateEstadoLibro(idL, "activo").subscribe(
             response => {
               this.cancelaSuccess();
@@ -299,6 +304,29 @@ export class PerfilComponent implements OnInit {
       }
     )
   }
+
+  restaLibro(id){
+    this._usuarioService.getUsuario(id).subscribe(
+      response => {
+        console.log(<any>response);
+        this.usuario = response;
+        this.numLibros = this.usuario.numLibros;
+  
+        this.numLibros-=1;
+    this._usuarioService.UpdateNumLibros(id, this.numLibros).subscribe(
+      response =>{
+        console.log(<any>response);
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+      }, error => {
+        console.log(<any>error);
+      }
+    )
+    
+  }
+  
 
   passwordMatchValidator(formularioRegistro) {
     return formularioRegistro.get('password').value === formularioRegistro.get('passwordRep').value

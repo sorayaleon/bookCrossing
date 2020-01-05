@@ -17,7 +17,9 @@ export class IncidenciaComponent implements OnInit {
   filterIncidencia = '';
   public fechaHoy: any;
   public filtro: any = {dni: ''};
-  public filtroRet: any = {dni:''};
+  public filtroRet: any = {dni: ''};
+  array = [];
+  retrasoEntrega = [];
 
   constructor(
     private _historialService: HistorialService,
@@ -28,13 +30,15 @@ export class IncidenciaComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this._historialService.getHistorial().subscribe(
       result=> {
         this.incidencias = result;
         console.log(this.incidencias);
         for (let index = 0; index < this.incidencias.length; index++) {
-          if(this.incidencias[index]["incidenciaActiva"]=="si"){
+          if(this.incidencias[index]["incidenciaActiva"]=="si" && this.incidencias[index]["tipo"]=="devolucion"){
              this.numIncidencias += 1;
+             this.array.push(this.incidencias[index]);
           }
         }
         console.log(<any>result);
@@ -50,6 +54,7 @@ export class IncidenciaComponent implements OnInit {
         for (let index = 0; index < this.retrasos.length; index++) {
           if(this.retrasos[index]["tipo"]=="prestamo" && this.retrasos[index]["fecha"]<this.fechaHoy){
              this.numRetrasos += 1;
+             this.retrasoEntrega.push(this.retrasos[index]);
           }
         }
       }, error => {

@@ -2,7 +2,7 @@ th{
     color: whitesmoke;
 }
 
-h2{
+h2, h3{
     color: dodgerblue;
 }
 
@@ -10,4 +10,13 @@ h2{
     display:block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.container{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+pagination-controls{
+    display: flex;
+    justify-content: center;
 }

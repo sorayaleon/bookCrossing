@@ -1,6 +1,7 @@
 <div class="container" >
         <!--TITULO-->
         <div class="text-center">
+            <br/>
             <h2>{{title}}</h2> <br/>
         </div>
     
@@ -49,11 +50,11 @@
                 <div class="form-row">
                         <label for="establecimiento">ESTABLECIMIENTO INICIAL</label>
                         <select class="custom-select mr-sm-2" name="establecimiento" formControlName="establecimiento" [(ngModel)]="libro.establecimiento">
-                            <option *ngFor = "let local of establecimiento" [value]="local.nombreEst">
-                                <ng-container *ngIf="local.estado == 'activo'">
+                            <ng-container *ngFor = "let local of establecimiento">
+                                <option *ngIf="local.estado == 'activo'" [value]="local.nombreEst">
                                 {{local.nombreEst}}
-                            </ng-container>
                             </option>
+                            </ng-container>
                         </select>
                     </div>   
             </div>
@@ -74,8 +75,8 @@
             <br/><br/>
             <div class="form-group">
                 <div class="text-center">
-                    <input type="submit"  class="btn btn-primary btn-lg" value="Crear" [disabled]="formularioLibro.invalid"> &nbsp;  
-                    <button type="button" class="btn btn-secondary btn-lg" [routerLink]="['/gestionLibros']">Volver</button>
+                    <input type="submit"  class="btn btn-warning btn-lg" value="Crear" [disabled]="formularioLibro.invalid"> &nbsp;  
+                    <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionLibros']">Volver</button>
                 </div>
             </div>
             
