@@ -23,8 +23,6 @@ class CreateEstablecimientosTable extends Migration
             $table->integer('tfno');
             $table->time('horarioAp');
             $table->time('horarioC');
-            $table->float('latitud');
-            $table->float('longitud');
             $table->enum('estado', ['activo','inactivo', 'baja'])->default('inactivo');
             $table->timestamps();
         });

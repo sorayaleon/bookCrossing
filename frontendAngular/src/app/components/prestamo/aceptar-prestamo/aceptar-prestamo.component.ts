@@ -8,6 +8,8 @@ import { Libro } from '../../../models/libro';
 import { HistorialService } from '../../../Services/historial.service';
 import { Reserva } from '../../../models/reserva';
 import * as moment from 'moment';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-aceptar-prestamo',
@@ -28,6 +30,7 @@ export class AceptarPrestamoComponent implements OnInit {
   public fechaDevolucion: any;
   public filtro: any = {dni : ''};
   public prestamos = [];
+  public tipoUsu;
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -36,7 +39,10 @@ export class AceptarPrestamoComponent implements OnInit {
     private toastr: ToastrService,
     private dialogService: DialogService,
     private _libroService: LibroService, 
-    private _historialService: HistorialService
+    private _historialService: HistorialService,
+    private auth: AuthService,
+    private Token: TokenService,
+
   ) { 
     this.fechaPrestamo = new Date('Y-m-d H:i:s');
     this.fechaDevolucion = this.calcularFecha();
@@ -47,7 +53,7 @@ export class AceptarPrestamoComponent implements OnInit {
   }
 
   ngOnInit() {
-
+this.tipoUsu = sessionStorage.getItem("tipo");
     this._prestamoService.getSolicitudes().subscribe(
       result => {
        this.solicitud = result;
@@ -68,7 +74,13 @@ export class AceptarPrestamoComponent implements OnInit {
    
   }
 
-
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
 
   confirmSolicitud(id, dni, idL, idUsu, titulo, codigo, nombreEst, estado){
     console.log(id);

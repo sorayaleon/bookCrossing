@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-create-libro',
@@ -22,6 +24,7 @@ export class CreateLibroComponent implements OnInit {
   public categoriaList: string[];
   public categoriaEst: string[];
   public establecimiento: any;
+  public tipoUsu;
 
   
   constructor(
@@ -30,6 +33,8 @@ export class CreateLibroComponent implements OnInit {
     public fb: FormBuilder, //Objeto para la validación de los campos
     private toastr: ToastrService,
     private _router: Router,
+    private auth: AuthService,
+    private Token: TokenService,
     
   ) {
     this.title = "Crear Libro";
@@ -42,13 +47,15 @@ export class CreateLibroComponent implements OnInit {
       isbn: ['',[Validators.required, Validators.pattern(/^(?:ISBN(?:-1[03])?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9X]$/)]],
       titulo: ['',[Validators.required, Validators.maxLength(50)]],
       autor: ['',[Validators.required, Validators.pattern(/^[a-zá-ú\s]+$/i), Validators.maxLength(50)]],
-      sinopsis:['',[Validators.required, Validators.maxLength(1000)]],
+      sinopsis:['',[Validators.required, Validators.maxLength(250)]],
       categoria: ['', Validators.required],
       establecimiento: ['', Validators.required],
     });
    }
 
   ngOnInit() {
+    this.tipoUsu = sessionStorage.getItem("tipo");
+    
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
@@ -84,7 +91,14 @@ export class CreateLibroComponent implements OnInit {
       }
     )
   }
-  
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
+
   createForm(){
     this.formularioLibro = this.fb.group({
       portada: null,

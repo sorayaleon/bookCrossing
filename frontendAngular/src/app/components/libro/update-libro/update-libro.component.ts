@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../../../shared/dialog.service';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-update-libro',
@@ -23,6 +25,7 @@ export class UpdateLibroComponent implements OnInit {
   public formularioLibro: FormGroup;//Creo el objeto de tipo FormGroup
   public categoriaList: string[];
   public establecimiento: any;
+  public tipoUsu;
 
   constructor(
     private _libroService: LibroService,
@@ -32,6 +35,9 @@ export class UpdateLibroComponent implements OnInit {
     private toastr: ToastrService,
     private dialogService: DialogService,
     private _establecimientoService: EstablecimientoService,
+    private auth: AuthService,
+    private Token: TokenService,
+
   ) {
     this.title = "Actualizar Libro";
 
@@ -40,7 +46,7 @@ export class UpdateLibroComponent implements OnInit {
       titulo: ['',[Validators.required, Validators.maxLength(50)]],
       autor: ['',[Validators.pattern(/^[a-zá-ú\s]+$/i),Validators.maxLength(50)]],
       portada: '',
-      sinopsis:['',[Validators.required, Validators.maxLength(1000)]],
+      sinopsis:['',[Validators.required, Validators.maxLength(250)]],
       categoria: ['', Validators.required],
       establecimiento: ['', Validators.required],
     })
@@ -49,6 +55,8 @@ export class UpdateLibroComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.tipoUsu = sessionStorage.getItem("tipo");
+
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
@@ -68,6 +76,14 @@ export class UpdateLibroComponent implements OnInit {
 
       this.getFichaLibro(id);
     })
+  }
+
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
   }
 
   getFichaLibro(id){

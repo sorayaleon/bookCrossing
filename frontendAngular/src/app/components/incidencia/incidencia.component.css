@@ -29,3 +29,7 @@ pagination-controls{
     display: flex;
     justify-content: flex-end;
 }
+
+h4, h5{
+    text-align: center;
+}

@@ -9,7 +9,8 @@ import { UsuarioService } from '../../../Services/usuario.service';
 import { Usuario } from '../../../models/usuario';
 import { LibroService } from '../../../Services/libro.service';
 import { Libro } from '../../../models/libro';
-
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-gestion-establecimientos',
@@ -30,6 +31,7 @@ export class GestionEstablecimientosComponent implements OnInit {
   filtro: any = {nombreEst: ''};
   public array = [];
   public numEstActivos = 0;
+  public tipoUsu;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -39,7 +41,9 @@ export class GestionEstablecimientosComponent implements OnInit {
     private dialogService: DialogService,
     private http: HttpClient,
     private _usuarioService: UsuarioService,
-    private _libroService: LibroService
+    private _libroService: LibroService,
+    private auth: AuthService,
+    private Token: TokenService,
     
   ) {
     this.title = "Gestión de establecimientos";
@@ -47,7 +51,7 @@ export class GestionEstablecimientosComponent implements OnInit {
    }
 
   ngOnInit() {
-   
+    this.tipoUsu = sessionStorage.getItem("tipo");
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
@@ -65,7 +69,14 @@ export class GestionEstablecimientosComponent implements OnInit {
   
   }
 
-
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
+  
   deleteEstablecimiento(id, dni, nombre){
     this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
       if(res){

@@ -1,3 +1,27 @@
+
+<ng-container *ngIf="tipoUsu != 'admin'">
+
+    <div class="container">
+        <br><br><br><br>
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h4>No tienes permiso para acceder a esta zona</h4>
+                <h5> Por favor, idetifícate con un usuario válido</h5>
+                
+      <div class="container">
+            <div class="form-group">
+              <div class="text-center">
+                  <button type="button" class="btn btn-primary btn-lg" (click)="redireccion()">Aceptar</button>&nbsp;  
+            </div>
+          </div>
+              </div> 
+              </div> 
+            </div>     
+            <br><br><br><br>
+      </div>
+      
+</ng-container>
+<ng-container *ngIf="tipoUsu == 'admin'">
 <div class="container" *ngIf="libro">
         <!--TITULO-->
         <div class="text-center">
@@ -47,6 +71,7 @@
                 <label for="sinopsis">SINOPSIS</label>
                 <textarea class="form-control" name="sinopsis" formControlName="sinopsis" [(ngModel)]="this.libro.sinopsis">this.descripcion</textarea>
                 <span *ngIf="formularioLibro.get('sinopsis').errors && formularioLibro.get('sinopsis').dirty">Formato incorrecto</span>
+                <span *ngIf="formularioLibro.controls['sinopsis'].errors?.maxlength">Máximo 250 caracteres</span> 
             </div>
 
             <div class="form-row">
@@ -87,4 +112,4 @@
         <!--FIN DEL FORMULARIO-->
     </div>
     
-    
+</ng-container>

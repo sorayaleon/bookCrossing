@@ -9,6 +9,8 @@ import { UsuarioService } from '../../../Services/usuario.service';
 import { LibroService } from '../../../Services/libro.service';
 import { Libro } from '../../../models/libro';
 import { Usuario } from '../../../models/usuario';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-ficha-establecimiento',
@@ -35,6 +37,8 @@ export class FichaEstablecimientoComponent implements OnInit {
     private toastr: ToastrService,
     private _usuarioService: UsuarioService,
     private _libroService: LibroService,
+    private auth: AuthService,
+    private Token: TokenService,
     
   ) {
     this.url = Global.url;
@@ -64,40 +68,13 @@ export class FichaEstablecimientoComponent implements OnInit {
     );
   }
 
-//   deleteEstablecimiento(id, nombre){
-//     console.log(nombre)
-//     this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
-//       if(res){
-//         this._libroService.getLibros().subscribe(
-//           response => {
-//             this.libro = response;
-//             for(let index=0; index<this.libro.length; index++){
-//               if(this.libro[index]["establecimiento"]== nombre){
-//                 this.contador+=1;
-//               }
-//             }
-//             if(this.contador == 0){
-              
-//             this._establecimientoService.deleteEstablecimiento(id).subscribe(
-//               response => {
-//                 this.showSuccess();
-//                 if(this.tipo == "responsable"){
-//                   this._usuarioService.updateTipoUsuario(this.idUsu, 'normal');
-//                 }
-//                 this._router.navigate(['/home']);
-        
-//               }, error => {
-//                 console.log(<any>error);
-//                 this.showError();
-//               }
-//             )
-//           }
-//           },error => {
-//               this.error();
-//           }
-//     )}
-// });
-//   }
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
 
   deleteEstablecimiento(id, nombre){
     this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{

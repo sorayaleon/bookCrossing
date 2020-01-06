@@ -1,4 +1,4 @@
-  import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EstablecimientoService } from '../../../Services/establecimiento.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -6,7 +6,8 @@ import { DialogService } from '../../../shared/dialog.service';
 import { UsuarioService } from '../../../Services/usuario.service';
 import { HttpClient } from '@angular/common/http';
 import { Global } from '../../../Services/global.service';
-
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class SolicitudComponent implements OnInit {
   public email;
   private baseUrl: string;
   public form;
+  public tipoUsu;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -33,11 +35,15 @@ export class SolicitudComponent implements OnInit {
     private dialogService: DialogService,
     private _usuarioService: UsuarioService,
     private http: HttpClient,
+    private auth: AuthService,
+    private Token: TokenService,
+
   ) { 
     this.baseUrl = Global.url;
   }
 
   ngOnInit() {
+    this.tipoUsu = sessionStorage.getItem("tipo");
     this._establecimientoService.getEstablecimientos().subscribe(
       result => {
        this.establecimiento = result;
@@ -54,6 +60,14 @@ export class SolicitudComponent implements OnInit {
        console.log(<any>error);
      }
   );
+  }
+
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
   }
 
   confirmEstablecimiento(id, estado, dni, email){

@@ -1,3 +1,27 @@
+
+<ng-container *ngIf="tipoUsu != 'admin' && tipoUsu != 'responsable'">
+
+  <div class="container">
+      <br><br><br><br>
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+          <div class="card-body">
+              <h4>No tienes permiso para acceder a esta zona</h4>
+              <h5> Por favor, idetifícate con un usuario válido</h5>
+              
+    <div class="container">
+          <div class="form-group">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-lg" (click)="redireccion()">Aceptar</button>&nbsp;  
+          </div>
+        </div>
+            </div> 
+            </div> 
+          </div>     
+          <br><br><br><br>
+    </div>
+    
+</ng-container>
+<ng-container *ngIf="tipoUsu == 'admin' || tipoUsu == 'responsable'">
 <div class="mt4 col-8 offset-2">
     <br/>
       <div class="card shadow-lg p-3 mb-5 bg-white rounded">
@@ -17,10 +41,10 @@
             <td style="font-weight:bold">Código:</td>
             <td>{{prestamo.idL}}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td style="font-weight:bold">Fecha devolución:</td>
             <td>{{prestamo.fecha}}</td>
-          </tr>
+          </tr> -->
         </table>
         <br/>
   
@@ -37,8 +61,8 @@
         <div class="form-group">
             <div class="text-center">
                 <br/>
-                <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/devolucionPrestamo']">Volver</button>&nbsp;  
-                <input type="submit" class="btn btn-warning btn-lg" value="Realizar devolución" [disabled]="formularioDevolucion.invalid">
+                <button type="button" class="btn-primary btn-lg" [routerLink]="['/devolucionPrestamo']">Volver</button>&nbsp;  
+                <input type="submit" class="btn-warning btn-lg" value="Realizar devolución" [disabled]="formularioDevolucion.invalid">
             </div>
         </div>
         </form>
@@ -46,3 +70,4 @@
           </div> 
         </div>
       </div>
+    </ng-container>

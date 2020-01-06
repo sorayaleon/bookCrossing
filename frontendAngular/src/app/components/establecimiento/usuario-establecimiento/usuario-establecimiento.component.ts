@@ -42,4 +42,8 @@ export class UsuarioEstablecimientoComponent implements OnInit {
     );
   }
 
+  actualizar(){
+    
+  }
+
 }

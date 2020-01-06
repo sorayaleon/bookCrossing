@@ -27,7 +27,9 @@
                     <th scope="col">Título</th>
                     <th scope="col">Autor</th>
                     <th scope="col">Ubicación</th>
+                    <ng-container *ngIf="idUsu != null">
                     <th scope="col"></th>
+                  </ng-container>
                   </tr>
                 </thead>
                 <tbody>
@@ -37,7 +39,9 @@
                     <td>{{ejemplar.titulo}}</td>
                     <td>{{ejemplar.autor}}</td>
                     <td>{{ejemplar.establecimiento}}</td>
+                    <ng-container *ngIf="idUsu != null">
                     <td><a class="btn btn-info btn-sm" [routerLink]="['/vistaLibro', ejemplar.id]"><i class="material-icons">visibility</i></a></td>
+                  </ng-container>
                   </tr>
                   </ng-container>
                 </tbody>
@@ -49,7 +53,9 @@
             <br><br><br/>
             <div class="form-inline justify-content-between">
               <div>
+                <ng-container *ngIf="idUsu != null">
               <button id="boton" type="button" class="btn btn-warning btn-lg btn-outline-dark" routerLink="/serColaborador">Quiero ser establecimiento colaborador</button>
+            </ng-container>
             </div>
             <div>
               <form id="buscador" class="form-inline my-2 my-lg-0 ">
@@ -79,7 +85,9 @@
                         <td>{{local.nombreEst}}</td>
                         <td>{{local.direccion}}</td>
                         <td>{{local.cp}}</td>
+                        <ng-container *ngIf="idUsu != null">
                         <td><a class="btn btn-info btn-sm" [routerLink]="['/vistaEstablecimiento', local.id]"><i class="material-icons">visibility</i></a></td>
+                        </ng-container>
                       </tr>
                       </ng-container>
                       
@@ -88,8 +96,7 @@
                 <ng-container *ngIf="estInac > 7">
                 <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
               </ng-container>
-              </div>  
-                <br><br>
+              </div>  <br><br>
         
     <!--FIN TABLA ESTABLECIMIENTOS-->
   </div>  

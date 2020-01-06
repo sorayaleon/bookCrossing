@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from '../../../Services/usuario.service';
 import { Usuario } from '../../../models/usuario';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-create-establecimiento',
@@ -22,7 +24,8 @@ export class CreateEstablecimientoComponent implements OnInit {
   public status: string;
   public saveEstablecimiento;
   public formularioEstablecimiento: FormGroup;
-  public usuario: Usuario;
+  public usuario: Usuario;  
+  public tipoUsu;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -31,6 +34,8 @@ export class CreateEstablecimientoComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _usuarioService: UsuarioService,
+    private auth: AuthService,
+    private Token: TokenService,
 
   ) {
     this.title = "Registra tu establecimiento";
@@ -53,6 +58,7 @@ export class CreateEstablecimientoComponent implements OnInit {
       this.idUsu = sessionStorage.getItem("id");
       this.email = sessionStorage.getItem("email");
       this.dni = sessionStorage.getItem("dni");
+      this.tipoUsu = sessionStorage.getItem("tipo");
       console.log(this.idUsu);
       console.log(this.email);
       console.log(this.dni);
@@ -84,6 +90,14 @@ export class CreateEstablecimientoComponent implements OnInit {
         this.showError();
       }
     )
+  }
+
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
   }
 
   showSuccess(){

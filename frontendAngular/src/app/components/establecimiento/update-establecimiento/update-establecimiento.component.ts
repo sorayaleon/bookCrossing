@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../../../shared/dialog.service';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-update-establecimiento',
@@ -19,6 +21,8 @@ export class UpdateEstablecimientoComponent implements OnInit {
   public status: string;
   public updateEstablecimiento;
   public formularioEstablecimiento: FormGroup;
+  public tipoUsu;
+  public idUsu;
 
   constructor(
     private _establecimientoService : EstablecimientoService,
@@ -26,7 +30,9 @@ export class UpdateEstablecimientoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private auth: AuthService,
+    private Token: TokenService,
 
   ) { 
     this.title = "Actualizar datos";
@@ -42,6 +48,8 @@ export class UpdateEstablecimientoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tipoUsu = sessionStorage.getItem("tipo");
+    this.idUsu = sessionStorage.getItem("id");
     this.route.params.subscribe(params=> {
       let id = params.id;
 
@@ -71,7 +79,12 @@ export class UpdateEstablecimientoComponent implements OnInit {
           response=>{
             console.log(response);
             this.showSuccess();
-            this.router.navigate(['/gestionEstablecimientos']);
+            if(this.tipoUsu == 'admin'){
+              this.router.navigate(['/gestionEstablecimientos']);
+            } else if(this.tipoUsu == 'responsable'){
+              this.router.navigate(['/fichaEstablecimiento/'+this.establecimiento.id]);
+            }
+            
           },
     
          error => {
@@ -84,6 +97,14 @@ export class UpdateEstablecimientoComponent implements OnInit {
     });
 
     
+  }
+
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 
   showSuccess(){

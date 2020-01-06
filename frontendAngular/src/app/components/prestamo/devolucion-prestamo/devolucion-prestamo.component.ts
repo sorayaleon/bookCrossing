@@ -8,6 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../../Services/usuario.service';
 import * as moment from 'moment';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
+import { EstablecimientoService } from '../../../Services/establecimiento.service';
+import { Establecimiento } from 'src/app/models/establecimiento';
 
 @Component({
   selector: 'app-devolucion-prestamo',
@@ -28,6 +32,10 @@ export class DevolucionPrestamoComponent implements OnInit {
   public usuario;
   public numLibros;
   public filtro: any = {dni : ''};
+  public tipoUsu;
+  public establecimientos;
+  public establecimento: Establecimiento;
+  public dni;
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -37,7 +45,13 @@ export class DevolucionPrestamoComponent implements OnInit {
     private toastr: ToastrService,
     private _router: Router,
     private _usuarioService: UsuarioService,
+    private auth: AuthService,
+    private Token: TokenService,
+    private _establecimientoService: EstablecimientoService,
+
   ) { 
+
+    this.dni = sessionStorage.getItem("dni");
     this.fechaDevolucion = new Date('Y-m-d H:i:s');
 
     this.fechaHoy = new Date();
@@ -45,6 +59,8 @@ export class DevolucionPrestamoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tipoUsu = sessionStorage.getItem("tipo");
+
     this._prestamoService.getSolicitudes().subscribe(
       result => {
        this.solicitud = result;
@@ -60,6 +76,33 @@ export class DevolucionPrestamoComponent implements OnInit {
        console.log(<any>error);
      }
   );
+
+  this.getEstablecimientos();
+  }
+
+getEstablecimientos()
+{
+  this._establecimientoService.getEstablecimientos().subscribe(
+    response => {
+      this.establecimientos = response;
+      for(let index = 0; index<this.establecimientos.length; index++){
+        if(this.dni == this.establecimientos[index]["dni"]){
+          this.establecimento = this.establecimientos[index];
+        }
+      }
+    }, error => {
+      console.log(<any>error)
+    }
+  )
+}  
+
+
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
   }
 
   devolverPrestamo(id, dni, idL, idUsu, titulo, codigo, nombreEst){
@@ -75,7 +118,7 @@ export class DevolucionPrestamoComponent implements OnInit {
             console.log(response);
             this.status = 'success';
             this.savePrestamo = response.reserva;
-            this.showSuccess();
+            // this.showSuccess();
           }, error => {
             this.status = 'failed';
             console.log(<any>error);
@@ -90,7 +133,7 @@ export class DevolucionPrestamoComponent implements OnInit {
             console.log(response);
             this._libroService.updateEstadoLibro(idL, "activo").subscribe(
               response => {
-                this.showSuccess();
+                // this.showSuccess();
               }, error => {
                 this.status = 'failed';
                 console.log(<any>error);
@@ -108,6 +151,14 @@ export class DevolucionPrestamoComponent implements OnInit {
             this.showError();
           }
         )
+
+        this._libroService.updateEstablecimientoLibro(this.prestamo.idL, this.establecimento.nombreEst).subscribe(
+          response => {
+            console.log(response)
+          }, error => {
+            console.log(<any>error)
+          }
+          )
     }
   })
   }

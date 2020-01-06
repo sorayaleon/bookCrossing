@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HistorialService } from '../../Services/historial.service';
 import { PrestamoService } from '../../Services/prestamo.service';
 import * as moment from 'moment';
+import { AuthService } from '../../Services/auth.service';
+import { TokenService } from '../../Services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-incidencia',
@@ -20,17 +23,23 @@ export class IncidenciaComponent implements OnInit {
   public filtroRet: any = {dni: ''};
   array = [];
   retrasoEntrega = [];
+  public tipoUsu;
 
   constructor(
     private _historialService: HistorialService,
     private _prestamoService: PrestamoService,
+    private auth: AuthService,
+    private Token: TokenService,
+    private _router: Router,
+
   ) { 
     this.fechaHoy = new Date();
     this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
   }
 
   ngOnInit() {
-    
+    this.tipoUsu = sessionStorage.getItem("tipo");
+
     this._historialService.getHistorial().subscribe(
       result=> {
         this.incidencias = result;
@@ -62,6 +71,12 @@ export class IncidenciaComponent implements OnInit {
       }
     )
   }
-
+redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
  
 }

@@ -1,3 +1,27 @@
+
+<ng-container *ngIf="tipoUsu != 'admin' && tipoUsu != 'responsable'">
+
+  <div class="container">
+      <br><br><br><br>
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+          <div class="card-body">
+              <h4>No tienes permiso para acceder a esta zona</h4>
+              <h5> Por favor, idetifícate con un usuario válido</h5>
+              
+    <div class="container">
+          <div class="form-group">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-lg" (click)="redireccion()">Aceptar</button>&nbsp;  
+          </div>
+        </div>
+            </div> 
+            </div> 
+          </div>     
+          <br><br><br><br>
+    </div>
+    
+</ng-container>
+<ng-container *ngIf="tipoUsu == 'admin' || tipoUsu == 'responsable'">
 <div class="mt4 col-8 offset-2">
   <br/>
     <div class="card shadow-lg p-3 mb-5 bg-white rounded">
@@ -39,11 +63,16 @@
               <div class="form-group row">
                 <div class="col-sm-10 offset-2">
                   <button type="submit" class="btn btn-warning" [disabled]="!registroForm.valid">Actualizar</button> &nbsp;
+                  <ng-container *ngIf="tipoUsu == 'admin'">
                   <button type="button" class="btn btn-primary" [routerLink]="['/gestionEstablecimientos']">Volver</button>
+                </ng-container>
+                <ng-container *ngIf="tipoUsu == 'responsable'">
+                  <button type="button" class="btn btn-primary" [routerLink]="['/fichaEstablecimiento', establecimiento.id]">Volver</button>
+                </ng-container>
                 </div>
               </div>
             </form>
       </div> 
     </div> 
   </div>
-   
+</ng-container>

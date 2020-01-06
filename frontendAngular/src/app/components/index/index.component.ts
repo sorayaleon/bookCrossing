@@ -60,45 +60,5 @@ export class IndexComponent implements OnInit {
       }
     )
   }
-  // 
 
-  // obtenerValoracionLibro(){
-    
-  //   console.log("estoy en la valoracion")
-  //   this._libroService.getValoracion().subscribe(
-  //     response => {
-  //       this.valoracionLibro = response;
-  //       console.log(<any>response);
-  //       for (let index = 0; index < this.valoracionLibro.length; index++) {
-  
-  //         this._libroService.getLibro(this.valoracionLibro[index]["idLibro"]).subscribe(
-  //           response => {
-  //             this.puntuacionTotal = this.valoracionLibro[index]["puntuacion"];
-  //         this.votos = this.valoracionLibro[index]["votos"];
-  //         this.estrellas = this.calcularEstrellas(this.puntuacionTotal, this.votos);
-  //             this.titulo = response;
-  //               this.libros.push([this.titulo, this.estrellas]);
-      
-  //           }, error => {
-  //             console.log(<any>error);
-  //           }
-            
-  //         )
-          
-  //       }
-  //       console.log(this.libros)
-
-  //       // this.libros.sort(function(a,b){//Convierto el string a minúscula por si el usuario introduce algunos apellidos con mayúsculas y otros con minúsculas.
-  //       //   if(a[1] > b[1])return -1;
-  //       //   if(a[1] < b[1])return 1;
-  //       //   return 0;
-  //       //   });
-  
-  //       //   console.log(this.libros)
-       
-  //     }, error => {
-  //       console.log(<any>error);
-  //     }
-  //   )
-  // }
 }

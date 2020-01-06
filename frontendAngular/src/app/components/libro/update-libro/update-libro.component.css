@@ -2,6 +2,10 @@ h1, h2{
     color: dodgerblue;   
 }
 
+h4, h5{
+    text-align: center;
+}
+
 .container{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -6,6 +6,10 @@ h2, h3{
     color: dodgerblue;
 }
 
+h4, h5{
+    text-align: center;
+}
+
 .paginador{
     display:block;
     margin-left: auto;

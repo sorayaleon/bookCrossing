@@ -54,4 +54,5 @@ Route::resource('comentarios', 'ComentariosController');
 Route::put('comentario', 'ComentariosController@updateEstadoComentario');
 Route::put('coment', 'ComentariosController@updateComentario');
 Route::get('librosEst', 'LibrosController@obtenerEstrellas');
+Route::put('libro', 'LibrosController@updateEstablecimientoLibro');
 

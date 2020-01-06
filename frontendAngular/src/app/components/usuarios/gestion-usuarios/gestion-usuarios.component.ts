@@ -8,6 +8,8 @@ import { DialogService } from '../../../shared/dialog.service';
 import { UsuarioService } from '../../../Services/usuario.service';
 import { LibroService } from '../../../Services/libro.service';
 import { PrestamoService } from '../../../Services/prestamo.service';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-gestion-usuarios',
@@ -27,6 +29,7 @@ export class GestionUsuariosComponent implements OnInit {
   public libro;
   public filtro: any = {email: ''};
   public usuarios = 0;
+  public tipoUsu;
 
   constructor(
     private _establecimientoService: EstablecimientoService,
@@ -38,10 +41,13 @@ export class GestionUsuariosComponent implements OnInit {
     private _usuarioService: UsuarioService,
     private _libroService: LibroService,
     private _prestamoService: PrestamoService,
+    private auth: AuthService,
+    private Token: TokenService,
     
   ) {
     this.title = "Gestión de usuarios";
     this.dni = sessionStorage.getItem("dni");
+    this.tipoUsu = sessionStorage.getItem("tipo");
    }
 
   ngOnInit() {
@@ -61,6 +67,13 @@ export class GestionUsuariosComponent implements OnInit {
   
   }
 
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
 
   deleteUsuario(id, dni, nombre){
     this.dialogService.openConfirmDialog('¿Deseas dar de baja al usuario?').afterClosed().subscribe(res =>{

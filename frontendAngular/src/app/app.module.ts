@@ -51,6 +51,7 @@ import { GestionUsuariosComponent } from './components/usuarios/gestion-usuarios
 import { FichaUsuariosComponent } from './components/usuarios/ficha-usuarios/ficha-usuarios.component';
 import { IndexComponent } from './components/index/index.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { FooterComponent } from './components/template/footer/footer.component';
 
 
 @NgModule({
@@ -91,6 +92,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     GestionUsuariosComponent,
     FichaUsuariosComponent,
     IndexComponent,
+    FooterComponent,
    
    
   ],

@@ -5,6 +5,8 @@ import { HistorialService } from '../../Services/historial.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioService } from '../../Services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../Services/auth.service';
+import { TokenService } from '../../Services/token.service';
 
 @Component({
   selector: 'app-ver-incidencia',
@@ -16,13 +18,19 @@ export class VerIncidenciaComponent implements OnInit {
 public incidencia: Reserva;
 public usuario: Usuario;
 public usuId;
+public tipoUsu;
+
   constructor(
     private _historialService: HistorialService,
     private _usuarioService: UsuarioService,
     private _route: ActivatedRoute,
     private toastr: ToastrService,
     private _router: Router,
-  ) { }
+    private auth: AuthService,
+    private Token: TokenService,
+  ) {
+    this.tipoUsu = sessionStorage.getItem("tipo");
+   }
 
   ngOnInit() {
     this._route.params.subscribe(params=> {
@@ -34,6 +42,14 @@ public usuId;
     })
   }
 
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
+  }
+  
   verHistorial(id){
     this._historialService.verHistorial(id).subscribe(
       response => {

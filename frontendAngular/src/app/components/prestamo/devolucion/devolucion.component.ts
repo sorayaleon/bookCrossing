@@ -11,6 +11,10 @@ import { LibroService } from '../../../Services/libro.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../Services/usuario.service';
 import * as moment from 'moment';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
+import { Establecimiento } from '../../../models/establecimiento';
+import { EstablecimientoService } from '../../../Services/establecimiento.service';
 
 @Component({
   selector: 'app-devolucion',
@@ -31,6 +35,10 @@ export class DevolucionComponent implements OnInit {
   public numPrestamos = 0;
   public numLibros;
   public usuario;
+  public tipoUsu;
+  public establecimiento: Establecimiento;
+  public establecimientos;
+  public dni;
 
   constructor(
     private _prestamoService: PrestamoService,
@@ -38,29 +46,64 @@ export class DevolucionComponent implements OnInit {
     private _route: ActivatedRoute,
     private toastr: ToastrService,
     private dialogService: DialogService,
-    private _libroService: LibroService, 
+    private _libroService: LibroService,
     private _historialService: HistorialService,
     private _usuarioService: UsuarioService,
     public fb: FormBuilder,
+    private auth: AuthService,
+    private Token: TokenService,
+    private _establecimientoService: EstablecimientoService,
+
   ) {
     this.url = Global.url;
     this.fechaDevolucion = new Date('Y-m-d H:i:s');
 
-    this.formularioDevolucion = this.fb.group({
-      incidencia: ['', [Validators.required, Validators.maxLength(500)]]
-    })
-
     this.fechaHoy = new Date();
     this.fechaHoy = moment(this.fechaHoy).format('YYYY-MM-DD');
+
+    this.formularioDevolucion = this.fb.group({
+      incidencia: ['', [Validators.required, Validators.maxLength(250)]]
+    })
+
+    
    }
 
   ngOnInit() {
+    this.tipoUsu = sessionStorage.getItem("tipo");
+    this.dni = sessionStorage.getItem("dni");
+
     this._route.params.subscribe(params=> {
       let id = params.id;
       this.getSolicitud(id);
      console.log(id);
      this.idPrestamo = id;
     })
+
+    this.getEstablecimientos();
+  }
+
+  getEstablecimientos()
+{
+  this._establecimientoService.getEstablecimientos().subscribe(
+    response => {
+      this.establecimientos = response;
+      for(let index = 0; index<this.establecimientos.length; index++){
+        if(this.dni == this.establecimientos[index]["dni"]){
+          this.establecimiento = this.establecimientos[index];
+        }
+      }
+    }, error => {
+      console.log(<any>error)
+    }
+  )
+}  
+
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
   }
 
   getSolicitud(id){
@@ -74,6 +117,13 @@ export class DevolucionComponent implements OnInit {
         
       }
     );
+
+    this._route.params.subscribe(params=> {
+      let id = params.id;
+    
+    })
+
+    
   }
   onSubmit(form){
     console.log(this.formularioDevolucion.value.incidencia);
@@ -81,6 +131,8 @@ export class DevolucionComponent implements OnInit {
     
   
   }
+
+  
 
   devolverPrestamo(incidencia){
     let tipo = "devolucion";
@@ -116,6 +168,8 @@ export class DevolucionComponent implements OnInit {
               // this.showError();
             }
           )
+       
+
           console.log(this.prestamo.idUsu);
           this.controlPenalizados(this.prestamo.idUsu);
           this.showSuccess();
@@ -126,6 +180,14 @@ export class DevolucionComponent implements OnInit {
           this.showError();
         }
       )
+
+      this._libroService.updateEstablecimientoLibro(this.prestamo.idL, this.establecimiento.nombreEst).subscribe(
+        response => {
+          console.log(response)
+        }, error => {
+          console.log(<any>error)
+        }
+        )
   }
 })
 }

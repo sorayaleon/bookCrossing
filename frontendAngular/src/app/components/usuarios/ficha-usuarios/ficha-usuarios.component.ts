@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../models/usuario';
 import { UsuarioService } from '../../../Services/usuario.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../Services/auth.service';
+import { TokenService } from '../../../Services/token.service';
 
 @Component({
   selector: 'app-ficha-usuarios',
@@ -10,11 +12,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FichaUsuariosComponent implements OnInit {
   public usuario: Usuario;
+  public tipoUsu;
 
   constructor(
     private _usuarioService: UsuarioService,
     private _route: ActivatedRoute,
-  ) { }
+    private _router: Router,
+    private auth: AuthService,
+    private Token: TokenService,
+
+  ) { 
+    this.tipoUsu = sessionStorage.getItem("tipo");
+  }
 
   ngOnInit() {
     this._route.params.subscribe(params=> {
@@ -22,6 +31,14 @@ export class FichaUsuariosComponent implements OnInit {
       this.getFichaUsuario(id);
      
     })
+  }
+  
+  redireccion(){
+    this.Token.remove();
+    this.auth.changeAuthStatus(false);
+    localStorage.clear();
+    sessionStorage.clear();
+    this._router.navigateByUrl('/login');
   }
 
   getFichaUsuario(id){

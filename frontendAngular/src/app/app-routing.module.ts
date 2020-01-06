@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: '', component: IndexComponent},
   {path: 'login', component: LoginComponent, canActivate: [AntesInicioSesionService]},
   {path: 'registro', component: RegistroComponent, canActivate: [AntesInicioSesionService]},
-  {path: 'home', component: HomeComponent, canActivate: [SesionIniciadaService]},
+  {path: 'home', component: HomeComponent},
   {path: 'requestPass', component: RequestResetComponent, canActivate: [AntesInicioSesionService]},
   {path: 'responsePass', component: ResponseResetComponent, canActivate: [AntesInicioSesionService]},
   {path: 'responseLogin', component: ConfirmEmailComponent, canActivate: [AntesInicioSesionService]},

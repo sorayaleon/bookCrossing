@@ -8,6 +8,11 @@
 .card-body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+h4, h5{
+    text-align: center;
+}
+
 span{
     color: firebrick;
     font-family: cursive;
