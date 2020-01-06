@@ -90,11 +90,11 @@ export class AceptarPrestamoComponent implements OnInit {
         console.log(response);
         this.status = 'success';
         this.saveReserva = response.reserva;
-        this.showSuccess();
+        // this.showSuccess();
       }, error => {
         this.status = 'failed';
         console.log(<any>error);
-        this.showError();
+        // this.showError();
       }
     )
 
@@ -107,11 +107,11 @@ export class AceptarPrestamoComponent implements OnInit {
         this._libroService.updateEstadoLibro(idL, estado).subscribe(
           response => {
             console.log(estado);
-            this.showSuccess();
+            // this.showSuccess();
           }, error => {
             this.status = 'failed';
             console.log(<any>error);
-            this.showError();
+            // this.showError();
           }
         )
         this.showSuccess();

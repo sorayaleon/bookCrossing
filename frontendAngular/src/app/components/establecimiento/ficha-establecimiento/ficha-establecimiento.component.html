@@ -4,27 +4,6 @@
       <div class="card-header">Ficha establecimiento</div>
       <div class="card-body">
 <div class="container" *ngIf="establecimiento">
-
-        <!-- <h4>Nombre:</h4><br/>
-        <h5>{{establecimiento.nombreEst}}</h5>
-        <br/>
-        <h4>Dirección:</h4><br/>
-        <h5>{{establecimiento.direccion}}</h5>
-        <div class="horario">
-        <br/>
-        <h4>Código Postal:</h4>
-        <h5>{{establecimiento.cp}}</h5>
-        <h4>Teléfono:</h4>
-        <h5>{{establecimiento.tfno}}</h5>
-       
-      </div>
-        <div class="horario">
-        <h4>Hora de apertura:</h4>
-        <h5>{{establecimiento.horarioAp}}</h5>
-   
-        <h4>Hora de cierre:</h4>
-        <h5>{{establecimiento.horarioC}}</h5>
-      </div> -->
       <table>
         <tr>
           <td style="font-weight:bold">Nombre:&nbsp;</td>
@@ -53,17 +32,17 @@
       </table>
       <br/>
 
-<div class="form-group">
-    <div class="text-center">
-      <button type="button" class="btn btn-danger btn-lg" (click)="deleteEstablecimiento(establecimiento.id, establecimiento.nombreEst)">Dar de baja</button>&nbsp;
-      <ng-container *ngIf="tipo=='admin'">
-        <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionEstablecimientos']">Volver</button>&nbsp;  
-      </ng-container>  
+      <div class="form-group">
+        <div class="text-center">
+          <button type="button" class="btn btn-danger btn-lg" (click)="deleteEstablecimiento(establecimiento.id, establecimiento.nombreEst)">Dar de baja</button>&nbsp;
+          <ng-container *ngIf="tipo=='admin'">
+            <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionEstablecimientos']">Volver</button>&nbsp;  
+          </ng-container>  
+          </div>
+    </div>
+        </div> 
+        </div> 
       </div>
-</div>
-    </div> 
-    </div> 
-  </div>
-</div>
+    </div>
 
 

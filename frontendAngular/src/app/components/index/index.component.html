@@ -60,7 +60,7 @@
   </div>
   <br/><br/><br/>
 </div>
-  <h1>LIBROS MEJORES VALORADOS</h1><br/>
+  <!-- <h1>LIBROS MEJORES VALORADOS</h1><br/>
   <div class="row">
      
     <div class="col-sm-4">
@@ -215,3 +215,50 @@
     </div>
   </div>
   
+ -->
+
+  <h1>LIBROS MEJORES VALORADOS</h1><br/>
+  <div class="row">
+     <ng-container *ngFor="let ejemplar of libros">
+    <div class="col-sm-4">
+      <img src="{{'http://127.0.0.1:8000/descargas/'+ejemplar.portada}}" class="img-responsive" style="width:100%" alt="Image">
+      <div class="estrellas" *ngIf="ejemplar.estrellas == 1">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div class="estrellas" *ngIf="ejemplar.estrellas == 2">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div class="estrellas" *ngIf="ejemplar.estrellas == 3">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div class="estrellas" *ngIf="ejemplar.estrellas == 4">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrella.png'}}" width="auto" height="50">
+    </div>
+    <div class="estrellas" *ngIf="ejemplar.estrellas == 5">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+        <img src="{{'http://127.0.0.1:8000/descargas/estrellaRellena.png'}}" width="auto" height="50">
+    </div>
+    <h3>{{ejemplar.titulo}}</h3> 
+    <h4>{{ejemplar.autor}}</h4>
+    </div>
+  </ng-container>
+  </div>

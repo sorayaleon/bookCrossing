@@ -12,7 +12,12 @@
      
         <br/><br/>
             <!--TABLA LIBROS-->
-    <div *ngIf="numInac == 0">No hay libros disponibles</div>
+            <ng-container *ngIf="numInac == 0">
+              <div class="text-center">
+                <br/>No hay libros disponibles
+              </div>
+            </ng-container>
+    
     <div *ngIf= "numInac != 0">
         <h3>Libros disponibles</h3>
         <br/>

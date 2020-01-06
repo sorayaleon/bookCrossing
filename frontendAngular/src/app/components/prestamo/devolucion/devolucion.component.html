@@ -1,41 +1,48 @@
-<div class="container" *ngIf="prestamo">
-    
+<div class="mt4 col-8 offset-2">
+    <br/>
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-header">Préstamo</div>
+        <div class="card-body">
+  <div class="container" *ngIf="prestamo">
     <div class="text-center">
-        <h1>{{prestamo.titulo}}</h1>
+        <h3>{{prestamo.titulo}}</h3>
         <br/><br/>
     </div>
-
-   
-    <div class="col-md-4 col-sm-6 col-xs-12" >     
-       
-        <div class="form-group">
-            <h2>{{prestamo.dni}}</h2>
-        </div>
+        <table>
+          <tr>
+            <td style="font-weight:bold">DNI:</td>
+            <td>{{prestamo.dni}}</td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold">Código:</td>
+            <td>{{prestamo.idL}}</td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold">Fecha devolución:</td>
+            <td>{{prestamo.fecha}}</td>
+          </tr>
+        </table>
+        <br/>
+  
+        <form #devolucionForm="ngForm" [formGroup]="formularioDevolucion" (ngSubmit)="onSubmit(); formularioDevolucion.reset()">
+            <div class="md-form">
+                    <label for="incidencia">¿Se ha producido alguna incidencia? Comunícalo aquí:</label>
+                    <textarea rows="5" class="md-textarea form-control" name="incidencia" formControlName="incidencia" [(ngModel)]="prestamo.incidencia"></textarea> 
+                    <span *ngIf="formularioDevolucion.controls['incidencia'].errors?.maxlength">Máximo 500 caracteres</span>
+                </div>
+        
+            <br/>
+        
         
         <div class="form-group">
-            <h4>{{prestamo.codigo}}</h4>
+            <div class="text-center">
+                <br/>
+                <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/devolucionPrestamo']">Volver</button>&nbsp;  
+                <input type="submit" class="btn btn-warning btn-lg" value="Realizar devolución" [disabled]="formularioDevolucion.invalid">
+            </div>
         </div>
-        <div class="form-group">
-            <h4>{{prestamo.fecha}}</h4>
+        </form>
+          </div> 
+          </div> 
         </div>
-    </div>
-    
-    <form #devolucionForm="ngForm" [formGroup]="formularioDevolucion" (ngSubmit)="onSubmit(); formularioDevolucion.reset()">
-    <div class="col-md-8 col-sm-6 col-xs-12">
-            <label for="incidencia">¿Se ha producido alguna incidencia? Comunícalo aquí:</label>
-            <textarea rows="8" cols="80" class="form-control" name="incidencia" formControlName="incidencia" [(ngModel)]="prestamo.incidencia"></textarea> 
-            <span *ngIf="formularioDevolucion.controls['incidencia'].errors?.maxlength">Máximo 500 caracteres</span>
-        </div>
-
-    <br/>
-
-
-<div class="form-group">
-    <div class="text-center">
-        <br/>
-        <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/devolucionPrestamo']">Volver</button>&nbsp;  
-        <input type="submit" class="btn btn-warning btn-lg" value="Realizar devolución" [disabled]="formularioDevolucion.invalid">
-    </div>
-</div>
-</form>
-</div>
+      </div>

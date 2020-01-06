@@ -1,15 +1,64 @@
-                <h3>DNI:</h3><br/>
-                <h4>{{usuario.dni}}</h4><br/>
-                <h3>Alias:</h3><br/>
-                <h4>{{usuario.alias}}</h4><br/>
-                <h3>Nombre:</h3><br/>
-                <h4>{{usuario.nombre}}</h4><br/>
-                <h3>Apellidos:</h3><br/>
-                <h4>{{usuario.apellidos}}</h4><br/>
-                <h3>Email:</h3><br/>
-                <h4>{{usuario.email}}</h4><br/>
-                <h3>Estado:</h3><br/>
-                <h4>{{usuario.estado}}</h4><br/>
-                <h3>Tipo:</h3><br/>
-                <h4>{{usuario.tipo}}</h4><br/>
-                <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionUsuarios']">Volver</button>
+<div class="mt4 col-8 offset-2">
+    <br/>
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-header">Ficha usuario</div>
+        <div class="card-body">
+  <div class="container">
+       <div id="columna">      
+    <table>
+        <tr>
+          <td style="font-weight:bold">DNI:&nbsp;</td>
+          <td>{{usuario.dni}}&nbsp;&nbsp;</td>
+        </tr>
+        <br/>
+        <tr>
+          <td style="font-weight:bold">Nombre:&nbsp;</td>
+          <td>{{usuario.nombre}}&nbsp;&nbsp;</td>
+        </tr>
+        <br/>
+        <tr>
+          <td style="font-weight:bold">Estado:&nbsp;</td>
+          <td>{{usuario.estado}}&nbsp;</td>
+        </tr>
+        <br/>
+      </table>
+    </div>   
+    <div id="columna">
+        <table>
+        <tr>
+            <td style="font-weight:bold">&nbsp;Alias:&nbsp;</td>
+            <td>{{usuario.alias}}&nbsp;</td>
+          </tr>
+          <br/>
+          <tr>
+            <td style="font-weight:bold">&nbsp;Apellidos:&nbsp;</td>
+            <td>{{usuario.apellidos}}&nbsp;</td>
+          </tr>
+          <br/>
+          <tr>
+            <td style="font-weight:bold">&nbsp;Tipo:&nbsp;</td>
+            <td>{{usuario.tipo}}&nbsp;</td>
+          </tr>
+          <br/>
+        </table>
+    </div>
+<table>
+    <tr>
+        <td style="font-weight:bold">Email:&nbsp;</td>
+        <td>{{usuario.email}}</td>
+      </tr>
+  </table>
+      <br/>
+                  
+        
+<div class="form-group">
+    <div class="text-center">
+      
+        <button type="button" class="btn btn-primary btn-lg" [routerLink]="['/gestionUsuarios']">Volver</button>
+      
+      </div>
+</div>
+    </div>
+</div>
+    </div> 
+  </div>

@@ -33,7 +33,7 @@ export class CreateLibroComponent implements OnInit {
     
   ) {
     this.title = "Crear Libro";
-    this.libro = new Libro(0, 0 , '' , '', '', '', '', '', '', '');
+    this.libro = new Libro(0, 0 , '' , '', '', '', '', '', '', '', 0);
     this.createForm();
     // /b(?:ISBN(?:: ?| ))?((?:97[89])?d{9}[dx])b/i
 

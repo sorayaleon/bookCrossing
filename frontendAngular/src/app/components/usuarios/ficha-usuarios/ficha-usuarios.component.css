@@ -1,0 +1,22 @@
+.card-header{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+    background-color: #2E9AFE;
+    color: whitesmoke;
+}
+
+.card-body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+span{
+    color: firebrick;
+    font-family: cursive;
+}
+
+td{
+    font-size: 20px;
+}
+
+#columna{
+    display: inline-table;
+}

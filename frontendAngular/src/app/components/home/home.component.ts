@@ -6,6 +6,7 @@ import { UsuarioService } from '../../Services/usuario.service';
 import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { Valoracion } from '../../models/valoracion';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +33,14 @@ export class HomeComponent implements OnInit {
   public filtro: any = { cp: ''};
   public establecimientoAct = [];
   
+  public valoracion: Valoracion;
+  public valoracionLibro;
+  public numValoracion = 0;
+  public puntuacionTotal;
+  public votos;
+  public estrellas;
+  public puntos;
+  
   constructor(
     private _establecimientoService: EstablecimientoService,
     private _libroService: LibroService,
@@ -50,7 +59,6 @@ export class HomeComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.idUsu = sessionStorage.getItem("id");
     });
-    
 
     this._libroService.getLibros().subscribe(
       result => {
@@ -167,4 +175,7 @@ controlRetraso(id){
     )
     
   }
+
+  
+
   }

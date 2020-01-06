@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Libro;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\DB;
 
 class LibrosController extends Controller
 {
@@ -48,6 +49,7 @@ class LibrosController extends Controller
         $libro->sinopsis = $data[0]["sinopsis"];
         $libro->categoria = $data[0]["categoria"];
         $libro->establecimiento = $data[0]["establecimiento"];
+        $libro->estrellas = $data[0]["estrellas"];
         $libro->portada= $data[1]["filename"];
         
         $file = UPLOAD_DIR.$data[1]["filename"];
@@ -142,6 +144,40 @@ class LibrosController extends Controller
             $libro->save();
             return json_encode("success");
         } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function updateEstrellaLibro(Request $request)
+    {
+        try {
+           
+            $data = json_decode($request->getContent(), true);
+            $libro = Libro::find($data[0]);
+            $libro->estrellas = $data[1];
+            // var_dump($libro->estrellas);
+            $libro->save();
+            return json_encode("success");
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function obtenerEstrellas(Request $request){
+        try{
+            $libros = Libro::all();
+            $libros = DB::table('libros')->orderBy('estrellas','desc')->limit(3)->get();
+        // var_dump($libros);
+            // $results = DB::select('select nombre, edad from cineastas where nombre = :nombre LIMIT 1', ["nombre" => "Tarantino"]);
+            // var_dump($results);
+            // $users = DB::table('users')
+            //         ->where('votes', '>', 100)
+            //         ->orWhere('name', 'John')
+            //         ->get();
+     
+            $respuesta = Response::json($libros,200);
+            return $respuesta;
+        }catch (\Exception $e) {
             return $e;
         }
     }

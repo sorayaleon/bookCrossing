@@ -29,7 +29,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let ejemplar of libro | libro:filterLibro | paginate: {itemsPerPage: 3, currentPage: pageActual}">
+                  <tr *ngFor="let ejemplar of libro | libro:filterLibro | paginate: {itemsPerPage: 7, currentPage: pageActual}">
                     <td>{{ejemplar.titulo}}</td>
                     <td>{{ejemplar.autor}}</td>
                     <td>{{ejemplar.establecimiento}}</td>
@@ -39,7 +39,9 @@
                   </tr>
                 </tbody>
             </table>  
+            <ng-container *ngIf="items > 7">
             <pagination-controls class="paginador" (pageChange)="pageActual = $event"></pagination-controls> 
+          </ng-container>
           </div>  
             <br><br>
         </div>

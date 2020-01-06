@@ -96,11 +96,11 @@ export class DevolucionComponent implements OnInit {
           console.log(response);
           this.status = 'success';
           this.savePrestamo = response.reserva;
-          this.showSuccess();
+          // this.showSuccess();
         }, error => {
           this.status = 'failed';
           console.log(<any>error);
-          this.showError();
+          // this.showError();
         }
       )
       this.restaLibro(this.prestamo.idUsu);
@@ -109,11 +109,11 @@ export class DevolucionComponent implements OnInit {
           console.log(response);
           this._libroService.updateEstadoLibro(this.prestamo.idL, "activo").subscribe(
             response => {
-              this.showSuccess();
+              // this.showSuccess();
             }, error => {
               this.status = 'failed';
               console.log(<any>error);
-              this.showError();
+              // this.showError();
             }
           )
           console.log(this.prestamo.idUsu);

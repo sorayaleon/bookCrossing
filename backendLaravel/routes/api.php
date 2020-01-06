@@ -47,9 +47,11 @@ Route::put('email', 'EstablecimientosController@updateEmail');
 Route::resource('reservas', 'ReservaController');
 Route::resource('historial', 'HistorialReservaController');
 Route::put('estado', 'LibrosController@updateEstadoLibro');
+Route::put('libro', 'LibrosController@updateEstrellaLibro');
 Route::put('cambio', 'UsersController@updateTipoUsuario');
 Route::put('bloqueo', 'UsersController@updateEstadoUsuario');
 Route::resource('comentarios', 'ComentariosController');
 Route::put('comentario', 'ComentariosController@updateEstadoComentario');
 Route::put('coment', 'ComentariosController@updateComentario');
+Route::get('librosEst', 'LibrosController@obtenerEstrellas');
 

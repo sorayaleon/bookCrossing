@@ -102,77 +102,88 @@ export class PerfilComponent implements OnInit {
   onSubmit(){
 
     this.dialogService.openConfirmDialog('¿Deseas actualizar tu información?').afterClosed().subscribe(res =>{
+      let usuRep;
+      let contRep = 0;
       if(res){
-        
-        this._usuarioService.updateUsuario(this.idUsu, this.formularioUsuario.value).subscribe(
-          response=>{
-            console.log(response);
-            this.usuarioSuccess();
-            
-          },
+
+            this._usuarioService.getUsuarios().subscribe(
+              response => {
+                usuRep = response;
+                for(let index = 0; index < usuRep.length; index++){
+                  if((usuRep[index]["alias"] == this.formularioUsuario.value.alias || usuRep[index]["email"] == this.formularioUsuario.value.email) && usuRep[index]["id"] != this.idUsu){
+                    contRep += 1;
+                  }
+                }
+                if(contRep>0){
+                  this.toastr.error('No se pueden actualizar los datos porque ya se encuentran registrados en la base de datos.', 'Correcto', {timeOut: 3000})
+                }else{
+                  this._usuarioService.updateUsuario(this.idUsu, this.formularioUsuario.value).subscribe(
+                    response=>{
+                      console.log(response);
+                  this._establecimientoService.getEstablecimientos().subscribe(
+                    response => {
+                      this.establecimiento = response;
+                      for(let index = 0; index < this.establecimiento.length; index ++){
+                        if(this.establecimiento[index]['dni'] == this.dni){
+                          this._establecimientoService.updateEmail(this.establecimiento[index]['id'], this.formularioUsuario.value.email).subscribe(
+                            response => {
+                              // this.usuarioSuccess();
+                            }, error => {
+                              console.log(<any>error);
+                              this.usuarioError();
+                            }
+                         )
+                        }
+                      }
+                    }, error => {
+                      console.log(<any>error);
+                      this.usuarioError();
+                    }
+                   )
+          
+                   this._comentarioService.getComentarios().subscribe(
+                     response => {
+                       this.comentarios = response;
+                       for(let index=0; index<this.comentarios.length; index++){
+                         if(this.comentarios[index]['idUsu']== this.idUsu){
+                          this._comentarioService.updateComentario(this.comentarios[index]['id'], this.formularioUsuario.value.alias).subscribe(
+                            response => {
+                             this._router.navigate(['/perfil/'+ this.usuario.id]);
+                            //  this.usuarioSuccess();
+                            }, error => {
+                             console.log(<any>error);
+                             this.usuarioError();
+                            }
+                          )
+                         }
+                       }
+                      
+                     }, error => {
+          
+                     }
+                   )
+                  },
      
-         error => {
-           console.log("estoy en error");
-           this.usuarioError();
-           console.log(<any>error);
-         });
-
-         this._establecimientoService.getEstablecimientos().subscribe(
-          response => {
-            this.establecimiento = response;
-            for(let index = 0; index < this.establecimiento.length; index ++){
-              if(this.establecimiento[index]['dni'] == this.dni){
-                this._establecimientoService.updateEmail(this.establecimiento[index]['id'], this.formularioUsuario.value.email).subscribe(
-                  response => {
-                    this.usuarioSuccess();
-                  }, error => {
-                    console.log(<any>error);
+                  error => {
+                    console.log("estoy en error");
                     this.usuarioError();
-                  }
-               )
+                    console.log(<any>error);
+                  });
+                  this.usuarioSuccess();
+                }
               }
-            }
-          }, error => {
-            console.log(<any>error);
-            this.usuarioError();
-          }
-         )
-
-         this._comentarioService.getComentarios().subscribe(
-           response => {
-             this.comentarios = response;
-             for(let index=0; index<this.comentarios.length; index++){
-               if(this.comentarios[index]['idUsu']== this.idUsu){
-                this._comentarioService.updateComentario(this.comentarios[index]['id'], this.formularioUsuario.value.alias).subscribe(
-                  response => {
-                   this._router.navigate(['/perfil/'+ this.usuario.id]);
-                   this.usuarioSuccess();
-                  }, error => {
-                   console.log(<any>error);
-                   this.usuarioError();
-                  }
-                )
-               }
-             }
-            
-           }, error => {
-
-           }
-         )
-         
+            ) 
       }
     });
 
     
   }
 
-
-
   getFichaUsuario(id){
     this._usuarioService.getUsuario(id).subscribe(
       response => {
         this.usuario = response;
-        this.numPrestamos = this.usuario.numLibros;
+        // this.numPrestamos = this.usuario.numLibros;
       }, error => {
         console.log(<any>error);
       }
@@ -180,7 +191,7 @@ export class PerfilComponent implements OnInit {
   }
 
   eliminarUsuario(id){
-    this.dialogService.openConfirmDialog('¿Deseas borrar el establecimiento?').afterClosed().subscribe(res =>{
+    this.dialogService.openConfirmDialog('¿Deseas darte de baja de la aplicación?').afterClosed().subscribe(res =>{
       if(res){
         this.contador = 0;
         this.idUsu = parseInt(this.idUsu);
@@ -233,18 +244,25 @@ export class PerfilComponent implements OnInit {
   }})}
 
   prestamo(){
+    this.numPrestamos = 0;
     this._prestamoService.getSolicitudes().subscribe(
       response => {
         this.prestamos = response;
         console.log(<any>response);
+        console.log(this.fechaHoy)
         for (let index = 0; index < this.prestamos.length; index++) {
-          if(this.prestamos[index]["tipo"]=="prestamo" && this.prestamos[index]["idUsu"]==this.idUsu && this.prestamos[index]["fecha"] < this.fechaHoy){
+          if(this.prestamos[index]["tipo"]=="prestamo" && this.prestamos[index]["idUsu"]==this.idUsu && this.prestamos[index]["fecha"] > this.fechaHoy){
              this.numPrestamos += 1;
+             
           }
+          console.log(this.numPrestamos)
+          console.log(this.prestamos[index]["fecha"])
         }
+        
       }, error => {
         console.log(<any>error);
       }
+      
     )
   }
 
@@ -253,8 +271,8 @@ export class PerfilComponent implements OnInit {
       response => {
         this.solicitudes = response;
         console.log(<any>response);
-        for (let index = 0; index < this.prestamos.length; index++) {
-          if(this.prestamos[index]["tipo"]=="solicitud" && this.prestamos[index]["idUsu"]==this.idUsu){
+        for (let index = 0; index < this.solicitudes.length; index++) {
+          if(this.solicitudes[index]["tipo"]=="solicitud" && this.solicitudes[index]["idUsu"]==this.idUsu){
              this.numSolicitudes += 1;
              this.solicitudUsu.push(this.prestamos[index]);
           }

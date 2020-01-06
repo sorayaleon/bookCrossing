@@ -1,18 +1,31 @@
-<div class="container">
-    <form class="form-inline my-2 my-lg-0 ">
+<div class="container"><br/>
+    <form id="buscador" class="form-inline my-2 my-lg-0 ">
         <input class="form-control mr-sm-2" type="search" name="filtro" placeholder="DNI" aria-label="Search" [(ngModel)]="filtro.dni">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        <button class="btn btn-info my-2 my-sm-0" type="submit">Buscar</button>
       </form>
     <div>
     <br/>
-    <div *ngIf= "numIncidencias == 0">No hay incidencias pendientes</div>
-  <div *ngIf= "numIncidencias != 0">
     <h3>Incidencias </h3>
-          <table class="table table-striped table-dark">
-            <thead>
+    <div class="text-center" *ngIf= "numIncidencias == 0">
+      <table class="table">
+        <thead class="bg-primary">
+          <tr>
+            <th scope="col">DNI</th>
+            <th scope="col">Título</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+     <h5>No hay incidencias pendientes</h5> 
+    </table> 
+    </div>
+  <div *ngIf= "numIncidencias != 0">
+    
+          <table class="table">
+            <thead class="bg-primary">
               <tr>
                 <th scope="col">DNI</th>
                 <th scope="col">Título</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -21,48 +34,69 @@
                  
                     <td>{{incidencia.dni}}</td>
                     <td>{{incidencia.titulo}}</td>
-                    <td><a class="btn btn-danger btn-sm" [routerLink]="['/incidencia/'+incidencia.id]">VER</a></td>
+                    <td><a class="btn btn-info btn-sm" [routerLink]="['/incidencia/'+incidencia.id]"><i class="material-icons">visibility</i></a></td>
                   </tr>
                 
               </ng-container>
             
             </tbody>
         </table>  
+        <ng-container *ngIf="numIncidencias>7">
         <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
+      </ng-container>
       </div>  
         <br><br>
     </div>
-
-    <form class="form-inline my-2 my-lg-0 ">
+    <br/> <br/>
+    <form id="buscador" class="form-inline my-2 my-lg-0 ">
       <input class="form-control mr-sm-2" type="search" name="filtroRet" placeholder="DNI" aria-label="Search" [(ngModel)]="filtroRet.dni">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      <button class="btn btn-info my-2 my-sm-0" type="submit">Buscar</button>
     </form>
   <div>
   <br/>
-  <div *ngIf= "numRetrasos == 0">No hay Retrasos</div>
-<div *ngIf= "numRetrasos != 0">
-  <h3>Incidencias </h3>
-        <table class="table table-striped table-dark">
-          <thead>
+  <h3>Retrasos </h3>
+  <div class="text-center" *ngIf= "numRetrasos == 0">
+    <table class="table">
+      <thead class="bg-primary">
+        <tr>
+          <th scope="col">DNI</th>
+          <th scope="col">Título</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+    <h5>No hay Retrasos</h5>
+  </table>
+  </div>
+          <div *ngIf= "numRetrasos != 0">
+  
+        <table class="table">
+          <thead class="bg-primary">
             <tr>
               <th scope="col">DNI</th>
               <th scope="col">Título</th>
+              <th scope="col"></th>
             </tr>
           </thead>
+          
           <tbody>
+           
             <ng-container *ngFor="let retraso of retrasoEntrega | filterBy: filtroRet | paginate: {itemsPerPage: 7, currentPage: pageActual}">
               <tr *ngIf= "retraso.tipo == 'prestamo' && retraso.fecha < fechaHoy">
               <td>{{retraso.dni}}</td>
               <td>{{retraso.titulo}}</td>
-              <td><a class="btn btn-danger btn-sm" [routerLink]="['/incidencia/'+retraso.id]">VER</a></td>
+              <td><a class="btn btn-danger btn-sm" [routerLink]="['/incidencia/'+retraso.id]"><i class="material-icons">visibility</i></a></td>
               </tr>
             </ng-container>
+          
           </tbody>
+      
       </table>  
-      <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
-    </div>  
+      <ng-container *ngIf="numRetrasos>7">
+      <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+     </ng-container>
+    </div>  </div>
       <br><br>
-  </div>
+  
 </div>
   
   

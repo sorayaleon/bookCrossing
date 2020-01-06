@@ -67,4 +67,14 @@ export class LibroService {
   getValoracion(){
     return this._http.get(this.url + 'valoracion');
   }
+
+  updateEstrellaLibro(id, estrellas){
+    let params = JSON.stringify([id,estrellas]);
+    let headers = new HttpHeaders().set('Content-type','application/json'); 
+    return this._http.put(this.url+'libro', params, {headers: headers})
+  }
+
+  obtenerEstrellas(): Observable<any>{
+    return this._http.get(this.url + 'librosEst');
+  }
 }

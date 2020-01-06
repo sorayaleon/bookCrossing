@@ -30,7 +30,7 @@ public usuId;
       console.log(id)
       this.verHistorial(id);
       
-      this.getUsuario(id);
+      
     })
   }
 
@@ -38,26 +38,22 @@ public usuId;
     this._historialService.verHistorial(id).subscribe(
       response => {
         this.incidencia = response;
-        console.log(this.incidencia)
-        this.getUsuario(this.incidencia.idUsu);
-
+        console.log(this.incidencia.idUsu)
+        
+        this._usuarioService.getUsuario(this.incidencia.idUsu).subscribe(
+          res => {
+            this.usuario = res;
+            console.log(res)
+          }, error => {
+            console.log(<any>error);
+          }
+          )
       }, error => {
         console.log(<any>error);
       }
     )
   }
 
-
-  getUsuario(id){
-    this._usuarioService.getUsuario(id).subscribe(
-    response => {
-      this.usuario = response;
-      console.log(this.usuario)
-    }, error => {
-      console.log(<any>error);
-    }
-    )
-  }
 
   resolver(id){
     this._historialService.cambiarEstadoIncidencia(id, 'no').subscribe(

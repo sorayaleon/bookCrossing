@@ -1,4 +1,6 @@
+<br/>
 <div class="row" *ngIf="usuario">
+  
         <div class="col-3">
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Mis datos</a>
@@ -9,36 +11,88 @@
         <div class="col-9">
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" *ngIf="usuario">
-                <h3>DNI:</h3><br/>
-                <h4>{{usuario.dni}}</h4><br/>
-                <h3>Alias:</h3><br/>
-                <h4>{{usuario.alias}}</h4><br/>
-                <h3>Nombre:</h3><br/>
-                <h4>{{usuario.nombre}}</h4><br/>
-                <h3>Apellidos:</h3><br/>
-                <h4>{{usuario.apellidos}}</h4><br/>
-                <h3>Email:</h3><br/>
-                <h4>{{usuario.email}}</h4><br/>
-
-                <br/>
                 
-                <form #registroForm="ngForm" [formGroup]="formularioUsuario" (ngSubmit)="onSubmit()"> 
+              <section id="tabs" class="project-tab">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav>
+                                <div class="nav nav-tabs nav-fill" id="nav-tab1" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#nav-home1" role="tab" aria-controls="nav-home" aria-selected="true">Ficha</a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab1" data-toggle="tab" href="#nav-profile1" role="tab" aria-controls="nav-profile" aria-selected="false">Actualizar datos</a>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home1" role="tabpanel" aria-labelledby="nav-home-tab">
+                                  <br/>
+                                  <div >
+                                    <table class="datos">
+                                      <tr>
+                                        <td style="font-weight:bold">DNI:&nbsp;</td>
+                                        <td>{{usuario.dni}}</td>
+                                      </tr>
+                                    </table>
+                                    <br/>
+                                    <table class="datos">
+                                      <tr>
+                                        <td style="font-weight:bold">Alias:&nbsp;</td>
+                                        <td>{{usuario.alias}}</td>
+                                      </tr>
+                                    </table>
+                                    <br/>
+                                    <table class="datos">
+                                      <tr>
+                                        <td style="font-weight:bold">Nombre:&nbsp;</td>
+                                        <td>{{usuario.nombre}}</td>
+                                      </tr>
+                                    </table>
+                                    <br/>
+                                    <table class="datos">
+                                      <tr>
+                                        <td style="font-weight:bold">Apellidos:&nbsp;</td>
+                                        <td>{{usuario.apellidos}}</td>
+                                      </tr>
+                                    </table>
+                                    <br/>
+                                    <table class="datos">
+                                      <tr>
+                                        <td style="font-weight:bold">Email:&nbsp;</td>
+                                        <td>{{usuario.email}}</td>
+                                      </tr>
+                                    </table>
+                                    <br/>
+                                  </div>
+                                  
+                                </div>
+                                <div class="tab-pane fade" id="nav-profile1" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                  <br/>
                 
-                  <h2>Actualiza tus datos</h2>
+                                  <form #registroForm="ngForm" [formGroup]="formularioUsuario" (ngSubmit)="onSubmit()"> 
+                                  
+                                    <h3>Actualiza tus datos</h3>
+                                    
+                                    <div class="form-group">
+                                      <label id="perfil" for="alias">Alias</label>
+                                      <input type="text" name="alias" class="form-control" formControlName="alias" [(ngModel)]="this.usuario.alias">
+                                      <span *ngIf="formularioUsuario.controls['alias'].errors?.maxlength">La longitud no puede ser mayor de 20 caracteres</span>
+                                    </div>
                   
-                  <div class="form-group">
-                    <label for="alias">Alias</label>
-                    <input type="text" name="alias" class="form-control" formControlName="alias" [(ngModel)]="this.usuario.alias">
-                    <span *ngIf="formularioUsuario.controls['alias'].errors?.maxlength">La longitud no puede ser mayor de 20 caracteres</span>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control" formControlName="email" [(ngModel)]="this.usuario.email">
-                    <span *ngIf="formularioUsuario.controls['email'].errors?.email">Formato de email no válido</span>
-                  </div>
-                  <input type="submit" class="btn btn-primary btn-lg" value="Actualizar" [disabled]="formularioUsuario.invalid">
-                </form>
+                                    <div id="perfil" class="form-group">
+                                      <label for="email">Email</label>
+                                      <input type="email" name="email" class="form-control" formControlName="email" [(ngModel)]="this.usuario.email">
+                                      <span *ngIf="formularioUsuario.controls['email'].errors?.email">Formato de email no válido</span>
+                                    </div>
+                                    <div class="text-center">
+                                    <input type="submit" class="btn-warning btn-lg" value="Actualizar" [disabled]="formularioUsuario.invalid">
+                                    </div>
+                                  </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+              
               </div>
 
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -55,11 +109,12 @@
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                  <br>
                                   <div *ngIf= "numPrestamos == 0">No has sacado ningún libro</div>
                                   <div *ngIf= "numPrestamos != 0">
                                   <table class="table" cellspacing="0">
-                                        <thead>
-                                            <tr>
+                                        <thead style="background-color: dodgerblue;">
+                                            <tr style="color: whitesmoke;">
                                                 <th>Título</th>
                                                 <th>Establecimiento</th>
                                                 <th>Fecha devolución</th>
@@ -67,8 +122,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let libro of prestamos">
-                                              <ng-container *ngIf= "libro.tipo == 'prestamo' && libro.idUsu == idUsu">  
+                                            <ng-container *ngFor="let libro of prestamos">
+                                              <tr *ngIf= "libro.tipo == 'prestamo' && libro.idUsu == idUsu">  
                                                 
                                               <td>{{libro.titulo}}</td>
                                               <td>{{libro.nombreEst}}</td>
@@ -76,17 +131,19 @@
                                               <ng-container *ngIf= "libro.fecha &lt; fechaHoy">
                                                 <td>Retrasado</td>
                                               </ng-container>
-                                            </ng-container>
                                             </tr>
+                                            </ng-container>
+                                           
                                         </tbody>
                                     </table>
                                   </div>
                                    
                                 </div>
                                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                  <br/>
                                     <table class="table" cellspacing="0">
-                                        <thead>
-                                            <tr>
+                                        <thead style="background-color: dodgerblue;">
+                                            <tr style="color: whitesmoke;">
                                                 <th>Título</th>
                                                 <th>Tipo</th>
                                                 <th>Establecimiento</th>
@@ -94,7 +151,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let historial of historialUsu | paginate: {itemsPerPage: 7, currentPage: pageActual}">
+                                            <tr *ngFor="let historial of historialUsu | paginate: {itemsPerPage: 4, currentPage: pageActual}">
                                                 <ng-container *ngIf= "historial.idUsu == idUsu"> 
                                                 <td>{{historial.titulo}}</td>
                                                 <td>{{historial.tipo}}</td>
@@ -104,14 +161,17 @@
                                               </tr>
                                         </tbody>
                                     </table>
+                                    <ng-container *ngIf="numHistoriales>4">
                                     <pagination-controls (pageChange)="pageActual = $event"></pagination-controls> 
+                                  </ng-container>
                                 </div>
                                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                  <br/>
                                   <div *ngIf= "numSolicitudes == 0">No solicitado ningún libro</div>
                                   <div *ngIf= "numSolicitudes != 0"> 
                                   <table class="table" cellspacing="0">
-                                    <thead>
-                                      <tr>
+                                    <thead style="background-color: dodgerblue;">
+                                      <tr style="color: whitesmoke;">
                                           <th>Título</th>
                                           <th>Establecimiento</th>
                                           <th>Fecha</th>
@@ -140,10 +200,19 @@
 
 
             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                <h2>¿Deseas darte de baja de la aplicación?</h2>
-                <input type="submit"  class="btn btn-primary btn-lg" value="Sí" (click)="eliminarUsuario(usuario.id)"> &nbsp;  
-                <input type="submit"  class="btn btn-primary btn-lg" value="No" (click)="volver(usuario.id)"> &nbsp;  
+              <br/>
+              <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="card-header">¿Deseas darte de baja de la aplicación?</div>
+                <div class="card-body">
+             
+              <div class="text-center">
+                <input type="submit"  class="btn-warning btn-lg" value="Sí" (click)="eliminarUsuario(usuario.id)"> &nbsp;  
+                <input type="submit"  class="btn-danger btn-lg" value="No" (click)="volver(usuario.id)"> &nbsp;  
+              </div>
+                
+              </div> 
             </div>
+              </div>
            
           </div>
         </div>

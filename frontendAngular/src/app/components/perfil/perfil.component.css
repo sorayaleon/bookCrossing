@@ -37,3 +37,28 @@
     color: #333;
     font-weight: 600;
 }
+.container{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.datos td{
+    font-size: 20px;
+}
+h3{
+    color: dodgerblue;
+    text-align: center;
+}
+
+#perfil{
+    font-size: 18px;
+    font-weight: bolder;
+}
+.card-header{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+    background-color: #2E9AFE;
+    color: whitesmoke;
+}
+
+.card-body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

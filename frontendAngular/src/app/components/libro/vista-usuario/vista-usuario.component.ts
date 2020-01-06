@@ -304,17 +304,42 @@ export class VistaUsuarioComponent implements OnInit {
       response => {
         console.log(<any>response);
         this.valoracionLibro = response;
-        this.votos+=1;
-        this.puntuacionTotal+= parseInt(this.puntos);
-        console.log(this.puntuacionTotal)
-        console.log(this.votos)
+        
         for (let index = 0; index < this.valoracionLibro.length; index++) {
-          if(this.valoracionLibro[index]["idL"]==idL){
-             this.numValoracion += 1;
+          console.log(idL)
+          
+          if(this.valoracionLibro[index]["idLibro"]==idL){
+            this.votos = parseInt(this.valoracionLibro[index]["votos"])+1;
+            console.log(this.votos)
+            this.puntuacionTotal = parseInt(this.valoracionLibro[index]["puntuacion"])+parseInt(this.puntos);
+            console.log(this.puntuacionTotal)
+            this.numValoracion += 1;
+            console.log(this.numValoracion)
+            //CAmbio
+            console.log("estoy en el if")
+            // this.puntuacionTotal += this.valoracionLibro[index]["puntuacion"];
+            // this.votos += this.valoracionLibro[index]["votos"];
+            this.estrellas = this.calcularEstrellas(this.puntuacionTotal, this.votos);
+            console.log(this.estrellas)
+            this._libroService.updateEstrellaLibro(idL, this.estrellas).subscribe(
+              response => {
+                console.log(response);
+              }, error => {
+                console.log(<any>error);
+              }
+            )
+            //fin cambio
+             
           }
+          
+           
+          
         }
         console.log(this.numValoracion)
         if(this.numValoracion > 0){
+          console.log(idL)
+          console.log(this.puntuacionTotal)
+          console.log(this.votos)
             this._libroService.updateValorarLibro(idL, this.puntuacionTotal, this.votos).subscribe(
               response => {
                 console.log(<any>response);
@@ -327,6 +352,16 @@ export class VistaUsuarioComponent implements OnInit {
           this._libroService.valorarLibro(this.valoracion).subscribe(
             response => {
               console.log(<any>response);
+              this.puntuacionTotal = parseInt(this.puntos);
+              this.votos = 1;
+              this.estrellas = this.calcularEstrellas(this.puntuacionTotal, this.votos);
+              this._libroService.updateEstrellaLibro(idL, this.estrellas).subscribe(
+                response => {
+                  console.log(response);
+                }, error => {
+                  console.log(<any>error);
+                }
+              )
             }, error => {
               console.log(<any>error);
             }

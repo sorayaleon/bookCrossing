@@ -16,6 +16,7 @@ export class GestionLibrosComponent implements OnInit {
   public libro: any;
   pageActual: number = 1;
   filterLibro = '';
+  public items = 0;
 
   constructor(
     private _libroService: LibroService,
@@ -31,6 +32,9 @@ export class GestionLibrosComponent implements OnInit {
     this._libroService.getLibros().subscribe(
       result => {
        this.libro = result;
+       for(let index = 0; index<this.libro.length; index++){
+          this.items +=1;
+       }
        console.log(<any>result);
      },
      error => {
